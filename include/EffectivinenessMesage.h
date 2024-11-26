@@ -1,5 +1,5 @@
 #pragma once
-#include <MOVES/Move_Class.h>
+#include <MOVES/Move.h>
 #include <Definer.h>
 
 int EffectiveMessage(int Type1,int Type2, int TypeAttack){

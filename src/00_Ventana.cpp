@@ -1,9 +1,48 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include <string>
+using namespace std;
+
+class Pokemon
+{
+private:
+    string path;
+
+public:
+    Pokemon(){
+
+    }
+
+    void CargarImagen(string pathImagen)
+    {
+        // Cargar la imagen de Tyranitar
+        sf::Texture tyranitarTexture;
+        if (!tyranitarTexture.loadFromFile(pathImagen))
+        {
+            throw new exception();
+        }
+        sf::Sprite tyranitarSprite(tyranitarTexture);
+        tyranitarSprite.setScale(1.5f, 1.5f);
+        tyranitarSprite.setPosition(300, 80); // Misma posición que su Pokébola
+        bool tyranitarVisible = false;        // Control de visibilidad
+    }
+};
 
 int main()
 {
+    Pokemon ejemplo;
+    ejemplo.CargarImagen("./assets/images/248.png");
+
+    Pokemon srnorlax;
+    srnorlax.CargarImagen("aqui la ruta");
+
+
+
+
+
+
+
     sf::Music music;
     if (!music.openFromFile("./assets/music/batalla01.ogg")) {
         return -1; // Error al cargar la música
@@ -46,15 +85,7 @@ int main()
     snorlaxSprite.setPosition(80, 220); // Misma posición que su Pokébola
     bool snorlaxVisible = false; // Control de visibilidad
 
-    // Cargar la imagen de Tyranitar
-    sf::Texture tyranitarTexture;
-    if (!tyranitarTexture.loadFromFile("./assets/images/248.png")) {
-        return -1;
-    }
-    sf::Sprite tyranitarSprite(tyranitarTexture);
-    tyranitarSprite.setScale(1.5f, 1.5f);
-    tyranitarSprite.setPosition(300,80); // Misma posición que su Pokébola
-    bool tyranitarVisible = false; // Control de visibilidad
+
 
     // Reloj para controlar el tiempo
     sf::Clock clock;

@@ -1,8 +1,8 @@
-#pragma once
 #include <iostream>
 #include <cstdlib>
 #include <string>
 #include <cmath>
+#include <list>
 using namespace std;
 #define NORMAL 1
 #define FIRE 2

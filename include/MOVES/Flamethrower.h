@@ -1,5 +1,5 @@
 #pragma once
-#include "Move_Class.h"
+#include "Move.h"
 
 class Flamethrower: public Move{
 	public:

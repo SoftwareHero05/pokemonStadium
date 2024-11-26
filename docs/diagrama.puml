@@ -1,0 +1,16 @@
+@startuml diagrama
+
+package POKEMONS{
+    class Pokemon
+}
+
+
+package MOVES{
+    class Move
+    class Attack
+    class Boost
+    class AirSlash
+}
+
+
+@enduml
