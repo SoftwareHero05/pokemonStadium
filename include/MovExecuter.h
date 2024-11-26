@@ -1,16 +1,14 @@
-#include <Definer_Pokemon.h>
-#include <MOVES/CalmMind_Move.h>
-#include <MOVES/DragonDance_Move.h>
-#include <MOVES/Synthesis_Move.h>
-#include <MOVES/NastyPlot_Move.h>
+#include <MOVES/Move.h>
+
+
 
 int MovExecuter(int idMov, Pokemon *User, Pokemon *Enemy) {
     int DamageDone = 0;
-    cout<<User->nombre<<" utilizo ";
+    cout<<User->getNombre()<<" utilizo ";
     // Inicializamos para garantizar que siempre tenga un valor.
     switch (idMov) {
         case 1: {
-            cout<<"AuraSphere"<<endl;
+            Move
             AuraSphere *MovAura = new AuraSphere();
             DamageDone = ceil(MovAura->ExecuteMove(Enemy->SDef, User->SAtk, Enemy->Type1, Enemy->Type2, User->Type1, User->Type2));
             delete MovAura;

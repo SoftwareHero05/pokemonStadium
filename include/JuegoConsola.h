@@ -1,11 +1,11 @@
 #include <Definer.h>
 #include <Jugador.h>
+#include <MovExecuter.h>
 
 class JuegoConsola
 {
 private:
-    Jugador jugadores[2];
-    Jugador judorActual;
+    Jugador jugador1, jugador2;
     list<Pokemon> pokemons;
 
 public:
@@ -19,7 +19,7 @@ public:
     }
 
     void AlternarJugador(){
-        this->judorActual = jugadores[2];
+       
     }
 
     void PrintPokemonNames()
@@ -40,9 +40,9 @@ public:
         cin >> opcion;
     }
 
-    void AsignarPokemon(Jugador *jugador, Pokemon pokemon, int posicion)
+    void AsignarPokemon(Jugador &jugador,Pokemon pokemon)
     {
-        jugador->AsignarPokemon(posicion, pokemon);
+        jugador.AsignarPokemon(pokemon);
     }
 
     int changePokemon(Pokemon *team[], int actual)

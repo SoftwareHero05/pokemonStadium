@@ -4,6 +4,7 @@ class Jugador
 {
 private:
     list<Pokemon> equipo;
+    int NumberOfPokemons = 6;
 
 public:
     Jugador() {}
@@ -14,7 +15,7 @@ public:
         this->equipo = equipo;
     }
 
-    void AsignarPokemon(int casilla, Pokemon pokemon){
-        // equipo.emplace(pokemon);
+    void AsignarPokemon(Pokemon pokemon){
+        equipo.emplace_back(pokemon);
     }
 };

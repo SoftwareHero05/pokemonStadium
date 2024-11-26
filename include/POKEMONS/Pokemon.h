@@ -56,4 +56,41 @@ public:
 	{
 		this->moves.emplace_back(move);
 	}
+	
+
+	int GetAtk(){
+		return this->Atk;
+	}
+	int GetDef(){
+		return this->Def;
+	}
+	int GetSAtk(){
+		return this->SAtk;
+	}
+	int GetSDef(){
+		return this->SDef;
+	}
+	int GetSpeed(){
+		return this->Speed;
+	}
+
+	void boostAtk(){
+	this->Atk += this->BAtk;
+	}
+	void boostDef(){
+	this->Def += this->BDef;
+	}
+	void boostSAtk(){
+	this->SAtk += this->BSAtk;
+	}
+	void boostSDef(){
+	this->SDef += this->BSDef;
+	}
+	void boostSpeed(){
+	this->Speed += this->BSpeed;
+	}
+	void heal50Percent(){
+		this->Hp+=this->BHp;
+		if(this->Hp > this->BHp) this->Hp = this->BHp;
+	}
 };

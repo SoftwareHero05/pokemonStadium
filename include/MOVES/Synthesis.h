@@ -1,9 +1,12 @@
 #pragma once
-#include <POKEMONS/Pk_Class.h>
-// ID = 19
-void Synthesis(Pokemon &User)
-{
-    User->Hp = User->Hp + (User->BHp * .5);
-    if (User->Hp > User->BHp)
-        User->Hp = User->BHp;
-}
+#include <POKEMONS/Pokemon.h>
+class Synthesis: public Move{
+	public:
+	Synthesis():Move(0,GRASS,false){
+		id = 23;
+		nombre = "DragonDance";
+	}
+    void ExecuteMove(Pokemon &User){
+        User.heal50Percent();
+    }
+};

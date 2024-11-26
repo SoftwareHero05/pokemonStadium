@@ -9,17 +9,30 @@ protected:
 	int id;
 	string nombre;
 	int potencia;
-	int precision;
-	int prioridad;
+	int type;
+	bool category;//1 = Fisico //2 = Especial // 3 = Boost
 
 public:
-	Move(int potencia_, int precision_, int prioridad_) {
-		potencia = potencia_;
-		precision = precision_;
-		prioridad = prioridad_;
+	Move(int potencia, int type, bool category) {
+		this->potencia = potencia;
+		this->type = type;
+		this->category = category;
+		
 	}
-
-	string GetMoveName(){
+	string GetMoveName(int Tipo){
 		return this->nombre;
 	}
+
+	 virtual float ExecuteMove(int UserType1,int UserType2,int EnemyType1,int EnemyType2, Pokemon User, Pokemon Enemy){
+		float damageDone;
+		int potencia = this->potencia;
+		if(UserType1 == this->type || UserType2 == this->type) potencia *= 1.5;
+
+		if(this->category == true) damageDone = User.GetAtk() + potencia - Enemy.GetDef();
+		else damageDone = User.GetSAtk() + potencia - Enemy.GetSDef();
+		damageDone *= EffectiveMessage(EnemyType1,EnemyType2,this->type);
+		return damageDone;
+
+	}
+
 };

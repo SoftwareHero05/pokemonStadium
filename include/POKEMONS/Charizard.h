@@ -13,7 +13,6 @@ public:
         nombre = "Charizard";
         Type1 = FIRE;
         Type2 = FLYING;
-
         this->AddMove(Flamethrower());
         this->AddMove(AirSlash());
         this->AddMove(DragonPulse());
