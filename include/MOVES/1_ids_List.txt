@@ -1,0 +1,23 @@
+1 AuraSphere
+2 IronHead
+3 DragonPulse
+4 FlameThrower
+5 AirSlash
+6 DragonClaw
+7 Earthquake
+8 Crunch
+9 CalmMind
+10 DragonDance
+11 MoonBlast
+12 Psychic
+13 ShadowBall
+14 FlashCanon
+15 IceBeam
+16 Surf
+17 Energyball
+18 SludgeBomb
+19 Synthesis
+20 Earth Power
+21 StoneEdge
+22 ThunderBolt
+23 NastyPlot

@@ -1,0 +1,10 @@
+#pragma once
+#include <POKEMONS/Pk_Class.h>
+#include <POKEMONS/Lucario_Pk.h>
+#include <POKEMONS/Charizard_Pk.h>
+#include <POKEMONS/Garchomp_Pk.h>
+#include <POKEMONS/Gardevoir_Pk.h>
+#include <POKEMONS/Suicune_Pk.h>
+#include <POKEMONS/Venusaur_Pk.h>
+#include <POKEMONS/Tyranitar.h>
+#include <POKEMONS/Gengar_Pk.h>

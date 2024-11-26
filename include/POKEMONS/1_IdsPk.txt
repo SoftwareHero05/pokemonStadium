@@ -1,0 +1,8 @@
+1 Lucario
+2 Charizard
+3 Garchomp
+4 Gardevoir
+5 Suicune
+6 Venusaur
+7 Tyranitar
+8 Gengar
