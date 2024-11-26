@@ -22,31 +22,20 @@ protected:
 	list<Move> moves;
 
 public:
-	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed,
-	int id, string nombre,int Type1,int Type2)
-	{
-		Pokemon(Hp, Atk, Def, SAtk, SDef, Speed, list<Move>(),id,nombre,Type1,Type2);
-	}
+//constructor con movimientos
 	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed, list<Move> moves,
-	int iD,string nombre, int Type1,int Type2)
-	{	
-		this->Atk = Atk;
-		this->Def = Def;
-		this->SAtk = SAtk;
-		this->SDef = SDef;
-		this->Speed = Speed;
-		this->BAtk = Atk;
-		this->BDef = Def;
-		this->BSAtk = SAtk;
-		this->BSDef = SDef;
-		this->BSpeed = Speed;
-		this->BHp = Hp;
-		this->moves = moves;
-		this->iD = iD;
-		this->nombre = nombre;
-		this->Type1 = Type1;
-		this->Type2 = Type2;
+	int iD,string nombre, int Type1,int Type2) : Hp{Hp},Atk{Atk},Def{Def},SAtk{SAtk},SDef{SDef},
+	Speed{Speed},BAtk{Atk},BDef{Def},BSAtk{SAtk},BSDef{SDef},BSpeed{Speed},BHp{Hp},moves{moves},
+	iD{iD},nombre{nombre},Type1{Type1},Type2{Type2}
+	{}
+//constructor sin movimientos
+Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed,
+	int id, string nombre,int Type1,int Type2) : Pokemon(Hp,Atk,Def,SAtk,SDef,Speed,list<Move>(),id,nombre,Type1,Type2)
+	{
+		cout<<"xd"<<endl;
 	}
+//constructor vacio
+	Pokemon(){}
 	// Destructor virtual para hacer que la clase sea polimórfica
 	virtual ~Pokemon() {}
 
