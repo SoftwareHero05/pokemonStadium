@@ -1,6 +1,14 @@
 #pragma once
 #include <Definer.h>
 #include <MOVES/Move.h>
+#include <POKEMONS/Lucario.h>
+#include <POKEMONS/Charizard.h>
+#include <POKEMONS/Garchomp.h>
+#include <POKEMONS/Gardevoir.h>
+#include <POKEMONS/Suicune.h>
+#include <POKEMONS/Venusaur.h>
+#include <POKEMONS/Tyranitar.h>
+#include <POKEMONS/Gengar.h>
 
 class Pokemon
 {

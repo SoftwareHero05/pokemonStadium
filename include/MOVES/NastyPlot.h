@@ -1,5 +1,6 @@
 #pragma once
 #include <POKEMONS/Pokemon.h>
+#include "Move.h"
 class NastyPlot: public Move{
 	public:
 	NastyPlot():Move(0,DARK,false){
