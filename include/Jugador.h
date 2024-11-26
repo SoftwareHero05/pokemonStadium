@@ -7,9 +7,7 @@ private:
     int PlayerNumber;
 
 public:
-    Jugador(int PlayerNumber) {
-        this->PlayerNumber=PlayerNumber;
-        equipo.emplace_back(Lucario()); 
+    Jugador() {
     }
     ~Jugador() {}  
 

@@ -3,8 +3,6 @@
 
 class DragonPulse: public Move{
 	public:
-	DragonPulse():Move(85,DRAGON,true){
-		id = 3;
-		nombre = "DragonPulse";
+	DragonPulse():Move(85,DRAGON,true,3,"DragonPulse"){
 	}
 };

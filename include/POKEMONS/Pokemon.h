@@ -1,6 +1,7 @@
 #pragma once
 #include <Definer.h>
 #include <MOVES/Move.h>
+/*
 #include <POKEMONS/Lucario.h>
 #include <POKEMONS/Charizard.h>
 #include <POKEMONS/Garchomp.h>
@@ -9,6 +10,7 @@
 #include <POKEMONS/Venusaur.h>
 #include <POKEMONS/Tyranitar.h>
 #include <POKEMONS/Gengar.h>
+*/
 
 class Pokemon
 {
@@ -20,13 +22,14 @@ protected:
 	list<Move> moves;
 
 public:
-	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed)
+	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed,
+	int id, string nombre,int Type1,int Type2)
 	{
-		Pokemon(Hp, Atk, Def, SAtk, SDef, Speed, list<Move>());
+		Pokemon(Hp, Atk, Def, SAtk, SDef, Speed, list<Move>(),id,nombre,Type1,Type2);
 	}
-	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed, list<Move> moves)
-	{
-		this->Hp = Hp;
+	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed, list<Move> moves,
+	int iD,string nombre, int Type1,int Type2)
+	{	
 		this->Atk = Atk;
 		this->Def = Def;
 		this->SAtk = SAtk;
@@ -39,6 +42,10 @@ public:
 		this->BSpeed = Speed;
 		this->BHp = Hp;
 		this->moves = moves;
+		this->iD = iD;
+		this->nombre = nombre;
+		this->Type1 = Type1;
+		this->Type2 = Type2;
 	}
 	// Destructor virtual para hacer que la clase sea polimórfica
 	virtual ~Pokemon() {}
@@ -81,6 +88,12 @@ public:
 	int GetSpeed(){
 		return this->Speed;
 	}
+	int getType1(){
+		return this->Type1;
+	}
+	int getType2(){
+		return this->Type2;
+	}
 
 	void boostAtk(){
 	this->Atk += this->BAtk;
@@ -102,3 +115,4 @@ public:
 		if(this->Hp > this->BHp) this->Hp = this->BHp;
 	}
 };
+	

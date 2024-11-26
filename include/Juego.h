@@ -6,8 +6,7 @@ class Juego{
     private:
     Jugador jugador1;
     Jugador jugador2;
-
-    Jugador *jugadorActual = new Jugador(1);
+    Jugador jugadorActual;
      list<Pokemon> pokemons = {Lucario(),Charizard(),Garchomp(),Gardevoir(),
         Suicune(),Venusaur()};
     public:
@@ -48,8 +47,7 @@ class Juego{
     }
 
     void AlternarJugador(int jugador){
-      if(jugador==1) jugadorActual = jugador1;
-      else jugadorActual = jugador2;
+      
     }
 
     list <Pokemon>& getTeam(){

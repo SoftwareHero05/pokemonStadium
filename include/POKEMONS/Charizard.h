@@ -6,13 +6,10 @@
 
 class Charizard : public Pokemon
 {
+
 public:
-    Charizard() : Pokemon(78, 84, 78, 109, 85, 100)
+    Charizard() : Pokemon(78, 84, 78, 109, 85, 100,2,"Charizard",FIRE,FLYING)
     {
-        iD = 2;
-        nombre = "Charizard";
-        Type1 = FIRE;
-        Type2 = FLYING;
         this->AddMove(Flamethrower());
         this->AddMove(AirSlash());
         this->AddMove(DragonPulse());

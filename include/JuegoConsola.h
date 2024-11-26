@@ -1,6 +1,5 @@
 #include <Definer.h>
 #include <Jugador.h>
-#include <MovExecuter.h>
 #include <Juego.h>
 
 class JuegoConsola
@@ -20,6 +19,7 @@ public:
 
     void Iniciar(){
         cout<<"Inicio del juego"<<endl;
+        this->ChooseTeam(1);
         
     }
 
@@ -41,7 +41,12 @@ public:
         cin >> opcion;
         this->juego.addPokemon(opcion);
         equipoActual = juego.getTeam();
+        for (auto& pokemon : equipoActual) { 
+            cout<<pokemon.getNombre()<<endl;
+            }
         }
+        system("pause");
+        
 
     }
 

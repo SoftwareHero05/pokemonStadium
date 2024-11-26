@@ -3,8 +3,6 @@
 
 class Crunch: public Move{
 	public:
-	Crunch():Move(80,DARK,true){
-		id = 8;
-		nombre = "Crunch";
+	Crunch():Move(80,DARK,true,8,"Crunch"){
 	}
 };

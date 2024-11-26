@@ -1,13 +1,12 @@
 #pragma once
-#include <POKEMONS/Pokemon.h>
+#include <Move.h>
+
 class DragonDance: public Move{
 	public:
-	DragonDance():Move(0,DRAGON,false){
-		id = 10;
-		nombre = "DragonDance";
-	}
+	DragonDance():Move (0,DRAGON,false,10,"DragonDance"){
+	} /*
     void ExecuteMove(Pokemon &User){
         User.boostAtk();
         User.boostSpeed();
-    }
+    }*/
 };

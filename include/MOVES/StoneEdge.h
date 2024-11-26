@@ -3,8 +3,6 @@
 
 class StoneEdge: public Move{
 	public:
-	StoneEdge():Move(90,ROCK,true){
-		id = 21;
-		nombre = "StoneEdge";
+	StoneEdge():Move(90,ROCK,true,21,"StoneEdge"){
 	}
 };

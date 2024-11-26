@@ -4,8 +4,7 @@
 
 class DragonClaw: public Move{
 	public:
-	DragonClaw():Move(80,DRAGON,true){
-		id = 6;
-		nombre = "DragonClaw";
+	DragonClaw():Move(80,DRAGON,true,6,"DragonClaw"){
+		
 	}
 };

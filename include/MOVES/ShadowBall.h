@@ -3,8 +3,6 @@
 
 class ShadowBall: public Move{
 	public:
-	ShadowBall():Move(80,GHOST,false){
-		id = 13;
-		nombre = "ShadowBall";
+	ShadowBall():Move(80,GHOST,false,13,"ShadowBall"){
 	}
 };

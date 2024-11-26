@@ -3,8 +3,6 @@
 
 class FlashCannon: public Move{
 	public:
-	FlashCannon():Move(90,STEEL,false){
-		id = 14;
-		nombre = "FlashCannon";
+	FlashCannon():Move(90,STEEL,false,14,"FlashCannon"){
 	}
 };

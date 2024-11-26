@@ -3,8 +3,5 @@
 
 class MoonBlast: public Move{
 	public:
-	MoonBlast():Move(95,FAIRY,false){
-		id = 11;
-		nombre = "MoonBlast";
-	}
+	MoonBlast():Move(95,FAIRY,false,11,"MoonBlast") {}
 };

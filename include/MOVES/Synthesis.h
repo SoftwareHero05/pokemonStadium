@@ -1,12 +1,10 @@
 #pragma once
-#include <POKEMONS/Pokemon.h>
+#include "Move.h"
 class Synthesis: public Move{
 	public:
-	Synthesis():Move(0,GRASS,false){
-		id = 23;
-		nombre = "DragonDance";
+	Synthesis():Move(0,GRASS,false,23,"Synthesis"){
 	}
-    void ExecuteMove(Pokemon &User){
+    /*void ExecuteMove(Pokemon &User){
         User.heal50Percent();
-    }
+    }*/
 };

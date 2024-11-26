@@ -3,8 +3,6 @@
 
 class EnergyBall: public Move{
 	public:
-	EnergyBall():Move(90,GRASS,false){
-		id = 17;
-		nombre = "EnergyBall";
+	EnergyBall():Move(90,GRASS,false,17,"EnergyBall"){
 	}
 };

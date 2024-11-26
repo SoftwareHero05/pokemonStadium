@@ -3,8 +3,6 @@
 
 class SludgeBomb: public Move{
 	public:
-	SludgeBomb():Move(90,POISON,false){
-		id = 18;
-		nombre = "SludgeBomb";
+	SludgeBomb():Move(90,POISON,false,18,"SludgeBomb"){
 	}
 };

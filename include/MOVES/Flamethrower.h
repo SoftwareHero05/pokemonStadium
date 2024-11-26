@@ -3,8 +3,6 @@
 
 class Flamethrower: public Move{
 	public:
-	Flamethrower():Move(90,FIRE,false){
-		id = 4;
-		nombre = "Flamehrower";
+	Flamethrower():Move(90,FIRE,false,4,"Flamethrower"){
 	}
 };

@@ -3,8 +3,6 @@
 
 class IceBeam: public Move{
 	public:
-	IceBeam():Move(90,ICE,false){
-		id = 15;
-		nombre = "IceBeam";
+	IceBeam():Move(90,ICE,false,15,"IceBeam"){
 	}
 };

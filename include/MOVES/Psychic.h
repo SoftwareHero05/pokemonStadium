@@ -3,8 +3,6 @@
 
 class Psychic: public Move{
 	public:
-	Psychic():Move(90,PSYCHIC,false){
-		id = 12;
-		nombre = "Psychic";
+	Psychic():Move(90,PSYCHIC,false,12,"Psychich"){
 	}
 };

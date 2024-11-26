@@ -3,8 +3,6 @@
 
 class EarthPower: public Move{
 	public:
-	EarthPower():Move(90,GROUND,false){
-		id = 20;
-		nombre = "EarthPower";
+	EarthPower():Move(90,GROUND,false,20,"EarthPower"){
 	}
 };
