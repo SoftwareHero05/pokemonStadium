@@ -6,11 +6,7 @@
 
 class Venusaur : public Pokemon{
 	public:
- 	Venusaur():Pokemon(80, 82, 83, 100, 100, 80){
- 		iD = 6;
- 		nombre = "Venusaur";
- 		Type1 = GRASS;
-        Type2 = POISON;
+ 	Venusaur():Pokemon(80, 82, 83, 100, 100, 80,6,"Venasaur",GRASS,POISON){
         this->AddMove(EnergyBall());
         this->AddMove(SludgeBomb());
         this->AddMove(EarthPower());

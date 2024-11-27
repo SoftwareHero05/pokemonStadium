@@ -7,11 +7,7 @@
 
 class Garchomp : public Pokemon{
 	public:
- 	Garchomp():Pokemon(108, 130, 95, 80, 85, 102){
- 		iD = 3;
- 		nombre = "Garchomp";
- 		Type1 = DRAGON;
-        Type2 = GROUND;
+ 	Garchomp():Pokemon(108, 130, 95, 80, 85, 102,3,"Garchomp",DRAGON,GROUND){
 		this->AddMove(Earthquake());
 		this->AddMove(DragonClaw());
 		this->AddMove(Crunch());

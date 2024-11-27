@@ -6,11 +6,7 @@
 
 class Lucario : public Pokemon{
 	public:
- 	Lucario():Pokemon(70, 110, 70, 120, 70, 95){ //+5Speed +5SAtk
- 		iD = 1;
- 		nombre = "Lucario";
- 		Type1 = FIGHTING;
-        Type2 = STEEL;
+ 	Lucario():Pokemon(70, 110, 70, 120, 70, 95,1,"Lucario",FIGHTING,STEEL){ //+5Speed +5SAtk
         this->AddMove(AuraSphere());
         this->AddMove(FlashCannon());
         this->AddMove(DragonPulse());
