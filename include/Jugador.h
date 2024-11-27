@@ -1,3 +1,4 @@
+#pragma once
 #include <POKEMONS/Pokemon.h>
 class Jugador
 {
