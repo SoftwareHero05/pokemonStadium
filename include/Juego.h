@@ -44,7 +44,7 @@ class Juego{
         bool notChosen = true;
         Pokemon pokemon = CreatePokemon(opcion);
         notChosen = this->jugadorActual.PokemonAlreadyInTeam(pokemon.getNombre());
-		if(notChosen == false) this->AsignarPokemonToPlayer(pokemon);
+        if(notChosen == false) this->AsignarPokemonToPlayer(pokemon);
 		
     return notChosen;
     }
@@ -67,5 +67,9 @@ class Juego{
         return this->pokemons;
     }
 
+    list <Pokemon>& getTeamSpefic(int jugador){
+         if(jugador == 1) return this->jugador1.getTeam();
+         else return this->jugador2.getTeam();
+    }
 
 };

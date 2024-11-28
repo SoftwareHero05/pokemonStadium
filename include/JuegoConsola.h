@@ -38,24 +38,26 @@ public:
     void ChooseTeam(int jugador)
     {
         bool IsAsignado;
-        int opcion = 1;
+        int opcion;
         this->juego.AlternarJugador(jugador);
         for(int i=0;i<6;i) {
         cout << "Forma tu equipo Player : " << jugador << endl;
         cout << "Elige el miembro numero: " << i + 1 << endl;
         this->PrintPokemonNames();
         cin>>opcion;
-        system("pause");
-        system("cls");
         IsAsignado = this->juego.addPokemonToPlayer(opcion);
-        if(IsAsignado == false) i++;
-        else cout<<"Pokemon ya escogido escoga otro"<<endl;
+        if(IsAsignado == false) {i++;}
+        else {cout<<"Pokemon ya escogido escoga otro"<<endl;}
         system("pause");
         system("cls");
         }
+        this->juego.applyChangesToPlayer(jugador);
+        equipoActual = juego.getTeam();
         for (auto& pokemon : equipoActual) { 
             cout<<pokemon.getNombre()<<endl;
             }
+        system("pause");
+        system("cls");
 
     }
 

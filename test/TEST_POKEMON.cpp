@@ -12,7 +12,7 @@ TEST(TEST_POKEMON, CrearPokemon){
 TEST(TEST_POKEMON, TestCharizar){
     // Prueba para verificar la creacion de charizard
     Charizard charizad;
-    EXPECT_EQ(charizad.GetAtk() , 5);
+    EXPECT_EQ(charizad.GetAtk() , 5  );
     EXPECT_EQ(charizad.GetDef() , 7);
     EXPECT_EQ(charizad.getType1(), 2);
     EXPECT_EQ(charizad.getNombre(), "Charizard");
