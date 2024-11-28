@@ -74,24 +74,24 @@ private:
  /////..... clase ataque.....//////
  class Ataque {
 public:
-    Ataque(const std::string& texturePath, float startX, float startY)
+    Ataque(const std::string& texturePath, float startX, float startY, float scaleX = 1.0f, float scaleY = 1.0f)
         : active(false) {
         if (!texture.loadFromFile(texturePath)) {
             throw std::runtime_error("Failed to load texture: " + texturePath);
         }
         sprite.setTexture(texture);
         sprite.setPosition(startX, startY);
+        sprite.setScale(scaleX, scaleY);  // Escala del ataque
     }
-
-    void lanzar(float startX, float startY, float targetX, float targetY) {
-    float offsetX = 399; // Centro de la imagen del ataque en X
-    float offsetY = 398; // Centro de la imagen del ataque en Y
-    sprite.setPosition(startX - offsetX, startY - offsetY); // Ajustar posición inicial
-    objetivoX = targetX - offsetX;  // Ajustar posición objetivo
-    objetivoY = targetY - offsetY;  // Ajustar posición objetivo
-    active = true;
-    
-    } 
+        void lanzar(float startX, float startY, float targetX, float targetY) {
+        float offsetX = (sprite.getLocalBounds().width / 2) * sprite.getScale().x;  // Ajusta por escala
+        float offsetY = (sprite.getLocalBounds().height / 2) * sprite.getScale().y; // Ajusta por escala
+        sprite.setPosition(startX - offsetX, startY + 20 - offsetY); 
+        //sprite.setRotation(180.0f);
+        objetivoX = targetX - offsetX;
+        objetivoY = targetY - offsetY;
+        active = true;
+    }
     void actualizar(float velocidad) {
         if (!active) return;
 
@@ -100,7 +100,7 @@ public:
         float dy = objetivoY - pos.y;
         float distancia = std::sqrt(dx * dx + dy * dy);  // Corregido: usar std::sqrt
 
-        if (distancia < 1.0f) {
+        if (distancia < 0.5f) {
             active = false;  // Ataque alcanzó el objetivo
         } else {
             sprite.move(velocidad * (dx / distancia), velocidad * (dy / distancia));
@@ -145,7 +145,7 @@ int main() {
 
         Pokemon gardevoir("./assets/images/282.png", 1.5f, 1.5f, 75, 200);
         Pokemon garchomp("./assets/images/445.png", 1.5f, 1.5f, 300, 70);
-        Ataque ataque("./assets/images/00011.png", 75, 200); // Imagen del ataque
+        Ataque ataque("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); // Imagen del ataque
         
         bool gardevoirVisible = false;
         bool garchompVisible = false;
@@ -162,13 +162,13 @@ int main() {
                 }
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
                     if (!ataque.estaActivo()) { // Lanza el ataque solo si no está activo
-                        ataque.lanzar(75, 200, 300, 70); // Desde Gardevoir a Garchomp
+                        ataque.lanzar(230, 200, 400, 110); // Desde Gardevoir a Garchomp
                     }
                 }
                   
             }
             
-            ataque.actualizar(1.0f);
+            ataque.actualizar(0.2f);
             
             float elapsedTime = clock.getElapsedTime().asSeconds();
             if (elapsedTime > 3.0f) {

@@ -90,7 +90,7 @@ int main()
     sf::IntRect dragoniteRect(0 * spriteWidth, 3 * spriteHeight, spriteWidth, spriteHeight);
     sf::Sprite dragoniteSprite(dragoniteTexture);
     dragoniteSprite.setTextureRect(dragoniteRect);
-    dragoniteSprite.setScale(2.0f, 2.0f); // Escalar a doble tamaño
+    dragoniteSprite.setScale(5.0f, 5.0f); // Escalar a doble tamaño
     dragoniteSprite.setPosition(80, 220); // Posición en la ventana
     bool dragoniteVisible = false; // Control de visibilidad
 
