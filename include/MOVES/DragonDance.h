@@ -1,7 +1,12 @@
 #pragma once
-#include <POKEMONS/Pk_Class.h>
-//ID = 10
-void DragonDance(Pokemon *User) {
- User->Atk = User->Atk + (User->BAtk * .5);
- User->Speed= User->Speed + (User->BSpeed * .5);
-}
+#include <Move.h>
+
+class DragonDance: public Move{
+	public:
+	DragonDance():Move (0,DRAGON,false,10,"DragonDance"){
+	} /*
+    void ExecuteMove(Pokemon &User){
+        User.boostAtk();
+        User.boostSpeed();
+    }*/
+};

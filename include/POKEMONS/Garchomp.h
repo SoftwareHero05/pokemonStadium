@@ -1,27 +1,17 @@
 #pragma once
-#include "Pk_Class.h"
-#include <MOVES/Earthquake_Move.h>
-#include <MOVES/DragonClaw_Move.h>
-#include <MOVES/Crunch_Move.h>
+#include "Pokemon.h"
+#include <MOVES/Earthquake.h>
+#include <MOVES/DragonClaw.h>
+#include <MOVES/Crunch.h>
 
 
 class Garchomp : public Pokemon{
 	public:
-	Earthquake *earthquakeMov;
-    DragonClaw *dragonClawMov;
-    Crunch *crunchMov;
- 	Garchomp():Pokemon(108, 130, 95, 80, 85, 102){
- 		iD = 3;
- 		nombre = "Garchomp";
- 		Type1 = DRAGON;
-        Type2 = GROUND;
-		earthquakeMov = new Earthquake();
-		dragonClawMov = new DragonClaw();
-		crunchMov = new Crunch();
+ 	Garchomp():Pokemon(108, 130, 95, 80, 85, 102,3,"Garchomp",DRAGON,GROUND){
+		this->AddMove(Earthquake());
+		this->AddMove(DragonClaw());
+		this->AddMove(Crunch());
 	 }
 	 ~Garchomp() {
-        delete earthquakeMov;
-        delete dragonClawMov;
-        delete crunchMov;
     }
 };

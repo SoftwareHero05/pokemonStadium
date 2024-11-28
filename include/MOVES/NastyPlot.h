@@ -1,6 +1,12 @@
 #pragma once
-#include <POKEMONS/Pk_Class.h>
-//ID = 23
-void NastyPlot(Pokemon *User) {
- User->SAtk = User->SAtk + User->BSAtk;
-}
+#include "Move.h"
+class NastyPlot: public Move{
+	public:
+	NastyPlot():Move(0,DARK,false,23,"DragonDance"){
+	}
+	/*
+    void ExecuteMove(Pokemon &User){
+        User.boostSAtk();
+        User.boostSAtk();
+		*/
+};

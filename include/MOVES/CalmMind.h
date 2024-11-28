@@ -1,7 +1,12 @@
 #pragma once
-#include <POKEMONS/Pk_Class.h>
-//ID = 9
-void CalmMind(Pokemon *User) {
- User->SAtk = User->SAtk + (User->BSAtk * .5);
- User->SDef = User->SDef + (User->BSDef * .5);
-}
+#include <POKEMONS/Pokemon.h>
+#include "Move.h"
+class CalmMind: public Move{
+	public:
+	CalmMind():Move(0,PSYCHIC,false,9,"CalmMind"){
+	}
+    void ExecuteMove(Pokemon &User){
+        User.boostSAtk();
+        User.boostSDef();
+    }
+};

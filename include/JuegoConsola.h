@@ -1,12 +1,15 @@
 #include <Definer.h>
 #include <Jugador.h>
+#include <Juego.h>
 
 class JuegoConsola
 {
 private:
-    Jugador jugadores[2];
-    Jugador judorActual;
-    list<Pokemon> pokemons;
+   list<Pokemon> pokemons = {Lucario(),Charizard(),Garchomp(),Gardevoir(),
+        Suicune(),Venusaur()};
+    list <Pokemon> equipoActual;
+    Juego juego;
+    
 
 public:
     JuegoConsola()
@@ -16,10 +19,8 @@ public:
 
     void Iniciar(){
         cout<<"Inicio del juego"<<endl;
-    }
-
-    void AlternarJugador(){
-        this->judorActual = jugadores[2];
+        this->ChooseTeam(1);
+        
     }
 
     void PrintPokemonNames()
@@ -32,17 +33,26 @@ public:
 
     void ChooseTeam(int jugador)
     {
-        int i;
+        for(int i=0;i<6;i++) {
         cout << "Forma tu equipo Player : " << jugador << endl;
         cout << "Elige el miembro numero: " << i + 1 << endl;
         this->PrintPokemonNames();
         int opcion;
         cin >> opcion;
+        this->juego.addPokemon(opcion);
+        equipoActual = juego.getTeam();
+        for (auto& pokemon : equipoActual) { 
+            cout<<pokemon.getNombre()<<endl;
+            }
+        }
+        system("pause");
+        
+
     }
 
-    void AsignarPokemon(Jugador *jugador, Pokemon pokemon, int posicion)
+    void AsignarPokemon(Jugador &jugador,Pokemon pokemon)
     {
-        jugador->AsignarPokemon(posicion, pokemon);
+       
     }
 
     int changePokemon(Pokemon *team[], int actual)

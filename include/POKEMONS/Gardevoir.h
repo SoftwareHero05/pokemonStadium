@@ -1,26 +1,17 @@
 #pragma once
-#include "Pk_Class.h"
-#include <MOVES/Psychic_Move.h>
-#include <MOVES/MoonBlast_Mov.h>
-#include <MOVES/ShadowBall_Move.h>
+#include "Pokemon.h"
+#include <MOVES/Psychic.h>
+#include <MOVES/MoonBlast.h>
+#include <MOVES/ShadowBall.h>
 
 class Gardevoir : public Pokemon{
 	public:
-	Psychic *psychicMov;
-    MoonBlast *moonBlastMov;
-    ShadowBall *shadowBallMov;
- 	Gardevoir():Pokemon(73, 65, 65, 125, 115, 85){ //+5Speed +5Hp
- 		iD = 4;
- 		nombre = "Gardevoir";
- 		Type1 = PSYCHIC;
-        Type2 = FAIRY;
-        psychicMov = new Psychic();
-        moonBlastMov = new MoonBlast();
-        shadowBallMov = new ShadowBall();
+ 	Gardevoir():Pokemon(73, 65, 65, 125, 115, 85,4,"Gardevoir",PSYCHIC,FAIRY){ //+5Speed +5Hp
+        this->AddMove(ShadowBall());
+        this->AddMove(MoonBlast());
+        this->AddMove(Psychic());
 	 }
 	 ~Gardevoir() {
-        delete psychicMov;
-        delete  moonBlastMov;
-        delete  shadowBallMov;
+    
     }
 };
