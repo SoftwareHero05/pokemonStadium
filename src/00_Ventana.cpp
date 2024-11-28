@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 // Clase para manejar sprites genéricos
 class Pokemon {
@@ -70,6 +71,61 @@ private:
     sf::Music music;
 };
 
+ /////..... clase ataque.....//////
+ class Ataque {
+public:
+    Ataque(const std::string& texturePath, float startX, float startY)
+        : active(false) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Failed to load texture: " + texturePath);
+        }
+        sprite.setTexture(texture);
+        sprite.setPosition(startX, startY);
+    }
+
+    void lanzar(float startX, float startY, float targetX, float targetY) {
+    float offsetX = 399; // Centro de la imagen del ataque en X
+    float offsetY = 398; // Centro de la imagen del ataque en Y
+    sprite.setPosition(startX - offsetX, startY - offsetY); // Ajustar posición inicial
+    objetivoX = targetX - offsetX;  // Ajustar posición objetivo
+    objetivoY = targetY - offsetY;  // Ajustar posición objetivo
+    active = true;
+    
+    } 
+    void actualizar(float velocidad) {
+        if (!active) return;
+
+        sf::Vector2f pos = sprite.getPosition();
+        float dx = objetivoX - pos.x;
+        float dy = objetivoY - pos.y;
+        float distancia = std::sqrt(dx * dx + dy * dy);  // Corregido: usar std::sqrt
+
+        if (distancia < 1.0f) {
+            active = false;  // Ataque alcanzó el objetivo
+        } else {
+            sprite.move(velocidad * (dx / distancia), velocidad * (dy / distancia));
+        }
+    }
+
+    void draw(sf::RenderWindow& window) const {
+        if (active) {
+            window.draw(sprite);
+        }
+    }
+
+    bool estaActivo() const {
+        return active;
+    }
+
+private:
+    sf::Texture texture;
+    sf::Sprite sprite;
+    bool active;
+    float objetivoX, objetivoY;
+};
+
+
+
 int main() {
     try {
         sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
@@ -89,7 +145,8 @@ int main() {
 
         Pokemon gardevoir("./assets/images/282.png", 1.5f, 1.5f, 75, 200);
         Pokemon garchomp("./assets/images/445.png", 1.5f, 1.5f, 300, 70);
-
+        Ataque ataque("./assets/images/00011.png", 75, 200); // Imagen del ataque
+        
         bool gardevoirVisible = false;
         bool garchompVisible = false;
 
@@ -103,8 +160,16 @@ int main() {
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 }
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
+                    if (!ataque.estaActivo()) { // Lanza el ataque solo si no está activo
+                        ataque.lanzar(75, 200, 300, 70); // Desde Gardevoir a Garchomp
+                    }
+                }
+                  
             }
-
+            
+            ataque.actualizar(1.0f);
+            
             float elapsedTime = clock.getElapsedTime().asSeconds();
             if (elapsedTime > 3.0f) {
                 gardevoirVisible = true;
@@ -152,7 +217,7 @@ int main() {
             } else {
                 garchomp.draw(window);
             }
-
+            ataque.draw(window);
             window.display();
         }
     } catch (const std::exception& e) {
