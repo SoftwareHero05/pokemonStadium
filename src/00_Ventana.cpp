@@ -4,7 +4,25 @@
 #include <iostream>
 #include <cmath>
 
-// Clase para manejar sprites genéricos
+
+class BackGround {
+public:
+    BackGround(const std::string& texturePath) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Failed to load texture: " + texturePath);
+        }
+        sprite.setTexture(texture);
+    }
+
+    void draw(sf::RenderWindow& window) const {
+        window.draw(sprite);
+    }
+
+private:
+    sf::Texture texture;
+    sf::Sprite sprite;
+};
+
 class Pokemon {
 public:
     Pokemon(const std::string& texturePath, float scaleX = 1.0f, float scaleY = 1.0f, float posX = 0.0f, float posY = 0.0f)
@@ -132,7 +150,7 @@ int main() {
         MusicManager music("./assets/music/batalla01.ogg");
         music.play();
 
-        Pokemon background("./assets/images/Bosque tarde - Zeo.png");
+        BackGround background("./assets/images/Bosque tarde - Zeo.png");
         Pokemon pokeball1("./assets/images/pokeball.png", 0.5f, 0.5f, 80, 220);
         Pokemon pokeball2("./assets/images/pokeball.png", 0.5f, 0.5f, 300, 80);
 
@@ -146,6 +164,7 @@ int main() {
         Pokemon gardevoir("./assets/images/282.png", 1.5f, 1.5f, 75, 200);
         Pokemon garchomp("./assets/images/445.png", 1.5f, 1.5f, 300, 70);
         Ataque ataque("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); // Imagen del ataque
+        Ataque ataqueGarchomp("./assets/images/00011.png", 300, 70, 0.2f, 0.2f); // Imagen del ataque de Garchomp
         
         bool gardevoirVisible = false;
         bool garchompVisible = false;
@@ -165,11 +184,17 @@ int main() {
                         ataque.lanzar(230, 200, 400, 110); // Desde Gardevoir a Garchomp
                     }
                 }
-                  
+
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+                    if (!ataqueGarchomp.estaActivo()) { // Lanza el ataque solo si no está activo
+                        ataqueGarchomp.lanzar(400, 80, 85, 320); // Desde Garchomp a Gardevoir
+                    }
+                } 
+
             }
-            
             ataque.actualizar(0.2f);
-            
+            ataqueGarchomp.actualizar(0.2f);
+
             float elapsedTime = clock.getElapsedTime().asSeconds();
             if (elapsedTime > 3.0f) {
                 gardevoirVisible = true;
@@ -218,6 +243,7 @@ int main() {
                 garchomp.draw(window);
             }
             ataque.draw(window);
+            ataqueGarchomp.draw(window);
             window.display();
         }
     } catch (const std::exception& e) {

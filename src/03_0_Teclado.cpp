@@ -1,162 +1,254 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include <iostream>
+#include <cmath>
 
-int main()
-{
 
-    // Cargar la imagen de las Pokébolas
-    sf::Texture pokeballTexture;
-    if (!pokeballTexture.loadFromFile("./assets/images/pokeball.png")) {
-        return -1;
+class BackGround {
+public:
+    BackGround(const std::string& texturePath) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Failed to load texture: " + texturePath);
+        }
+        sprite.setTexture(texture);
     }
 
-    // Configurar las Pokébolas
-    sf::Sprite pokeballSprite1(pokeballTexture);
-    pokeballSprite1.setScale(0.5f, 0.5f);
-    pokeballSprite1.setPosition(80, 220); // Posición para Snorlax
+    void draw(sf::RenderWindow& window) const {
+        window.draw(sprite);
+    }
 
-    sf::Sprite pokeballSprite2(pokeballTexture);
-    pokeballSprite2.setScale(0.5f, 0.5f);
-    pokeballSprite2.setPosition(300, 80); // Posición para Tyranitar
+private:
+    sf::Texture texture;
+    sf::Sprite sprite;
+};
 
+class Pokemon {
+public:
+    Pokemon(const std::string& texturePath, float scaleX = 1.0f, float scaleY = 1.0f, float posX = 0.0f, float posY = 0.0f)
+        : visible(true) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Failed to load texture: " + texturePath);
+        }
+        sprite.setTexture(texture);
+        sprite.setScale(scaleX, scaleY);
+        sprite.setPosition(posX, posY);
+    }
 
+    void setPosition(float x, float y) {
+        sprite.setPosition(x, y);
+    }
+
+    void setScale(float scaleX, float scaleY) {
+        sprite.setScale(scaleX, scaleY);
+    }
+
+    void setTextureRect(const sf::IntRect& rect) {
+        sprite.setTextureRect(rect);
+    }
+
+    void setVisibility(bool visibility) {
+        visible = visibility;
+    }
+
+    void setColor(const sf::Color& color) {
+        sprite.setColor(color);
+    }
+
+    sf::Uint8 getAlpha() const {
+        return sprite.getColor().a;
+    }
+
+    void draw(sf::RenderWindow& window) const {
+        if (visible) {
+            window.draw(sprite);
+        }
+    }
+
+private:
+    sf::Texture texture;
+    sf::Sprite sprite;
+    bool visible;
+};
+
+// Clase para manejar música
+class MusicManager {
+public:
+    MusicManager(const std::string& musicPath) {
+        if (!music.openFromFile(musicPath)) {
+            throw std::runtime_error("Failed to load music: " + musicPath);
+        }
+        music.setLoop(true);
+    }
+
+    void play() {
+        music.play();
+    }
+
+private:
     sf::Music music;
-    if (!music.openFromFile("./assets/music/batalla01.ogg")) {
-        // Error al cargar el archivo de música
-        return -1;
+};
+
+ /////..... clase ataque.....//////
+ class Ataque {
+public:
+    Ataque(const std::string& texturePath, float startX, float startY, float scaleX = 1.0f, float scaleY = 1.0f)
+        : active(false) {
+        if (!texture.loadFromFile(texturePath)) {
+            throw std::runtime_error("Failed to load texture: " + texturePath);
+        }
+        sprite.setTexture(texture);
+        sprite.setPosition(startX, startY);
+        sprite.setScale(scaleX, scaleY);  // Escala del ataque
+    }
+        void lanzar(float startX, float startY, float targetX, float targetY) {
+        float offsetX = (sprite.getLocalBounds().width / 2) * sprite.getScale().x;  // Ajusta por escala
+        float offsetY = (sprite.getLocalBounds().height / 2) * sprite.getScale().y; // Ajusta por escala
+        sprite.setPosition(startX - offsetX, startY + 20 - offsetY); 
+        //sprite.setRotation(180.0f);
+        objetivoX = targetX - offsetX;
+        objetivoY = targetY - offsetY;
+        active = true;
+    }
+    void actualizar(float velocidad) {
+        if (!active) return;
+
+        sf::Vector2f pos = sprite.getPosition();
+        float dx = objetivoX - pos.x;
+        float dy = objetivoY - pos.y;
+        float distancia = std::sqrt(dx * dx + dy * dy);  // Corregido: usar std::sqrt
+
+        if (distancia < 0.5f) {
+            active = false;  // Ataque alcanzó el objetivo
+        } else {
+            sprite.move(velocidad * (dx / distancia), velocidad * (dy / distancia));
+        }
     }
 
-    music.setLoop(true); // Hace que la música se repita
-    music.play();        // Reproducir la música
-
-    // Crear una ventana
-    sf::RenderWindow window(sf::VideoMode(512, 384), "SFML Image");
-
-    // Cargar la imagen de fondo desde un archivo
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("./assets/images/Bosque tarde - Zeo.png")) {
-        return -1;
+    void draw(sf::RenderWindow& window) const {
+        if (active) {
+            window.draw(sprite);
+        }
     }
 
-    sf::Sprite backgroundSprite(backgroundTexture);
-
-    // --- ENTRENADORES ---
-    sf::Texture entrenadoresTexture;
-    if (!entrenadoresTexture.loadFromFile("./assets/images/entrenadores.png")) {
-        return -1;
+    bool estaActivo() const {
+        return active;
     }
 
-    int entrenadoresWidth = entrenadoresTexture.getSize().x / 2;
-    int entrenadoresHeight = entrenadoresTexture.getSize().y;
+private:
+    sf::Texture texture;
+    sf::Sprite sprite;
+    bool active;
+    float objetivoX, objetivoY;
+};
 
-    sf::IntRect entrenador1Rect(0 * entrenadoresWidth, 0 * entrenadoresHeight, entrenadoresWidth, entrenadoresHeight); // Primer sprite
-    sf::Sprite entrenador1Sprite(entrenadoresTexture);
-    entrenador1Sprite.setTextureRect(entrenador1Rect);
-    entrenador1Sprite.setScale(1.0f, 1.0f);
-    entrenador1Sprite.setPosition(.2, 70);
 
-    sf::IntRect entrenador2Rect(1 * entrenadoresWidth, 0 * entrenadoresHeight, entrenadoresWidth, entrenadoresHeight); // Segundo sprite
-    sf::Sprite entrenador2Sprite(entrenadoresTexture);
-    entrenador2Sprite.setTextureRect(entrenador2Rect);
-    entrenador2Sprite.setScale(1.0f, 1.0f);
-    entrenador2Sprite.setPosition(315, 200);
 
-    // Cargar la imagen de Venusaur
-    sf::Texture venusaurTexture;
-    if (!venusaurTexture.loadFromFile("./assets/images/003.png")) {
-        return -1;
-    }
+int main() {
+    try {
+        sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
+        MusicManager music("./assets/music/batalla01.ogg");
+        music.play();
 
-    // Configurar el sprite de Venusaur
-    sf::Sprite venusaurSprite(venusaurTexture);
-    venusaurSprite.setScale(1.5f, 1.5f); // Escalar el sprite
-    venusaurSprite.setPosition(75, 200); // Posicionar a Venusaur en la ventana
-    bool venusaurVisible = false; // Control de visibilidad
+        BackGround background("./assets/images/Bosque tarde - Zeo.png");
+        Pokemon pokeball1("./assets/images/pokeball.png", 0.5f, 0.5f, 80, 220);
+        Pokemon pokeball2("./assets/images/pokeball.png", 0.5f, 0.5f, 300, 80);
 
-    // SUICUNE //
-    sf::Texture suicuneTexture;
-    if (!suicuneTexture.loadFromFile("./assets/images/245.png")) {
-        return -1;
-    }
+        // Cargar entrenadores con recortes
+        Pokemon entrenador1("./assets/images/entrenadores.png", 1.0f, 1.0f, 0.2f, 70);
+        entrenador1.setTextureRect(sf::IntRect(0, 0, 195, 130)); // Primer entrenador (x, y, width, height)
 
-    sf::IntRect suicuneRect(0, 0, suicuneTexture.getSize().x, suicuneTexture.getSize().y);
-    sf::Sprite suicuneSprite(suicuneTexture);
-    suicuneSprite.setTextureRect(suicuneRect);
-    suicuneSprite.setScale(1.5f, 1.5f); // Escalar
-    suicuneSprite.setPosition(300, 70); // Posicionar
-    bool suicuneVisible = false; // Control de visibilidad
+        Pokemon entrenador2("./assets/images/entrenadores.png", 1.0f, 1.0f, 315, 200);
+        entrenador2.setTextureRect(sf::IntRect(195, 0, 196, 130)); // Segundo entrenador
 
-    sf::Clock clock;
-    float duration = 4.0f;
-    sf::Clock fadeClock; // Reloj para el fade-out
-    bool fadingOut = false; // Indicador para saber si los entrenadores están desapareciendo
+        Pokemon venusaur("./assets/images/003.png", 1.5f, 1.5f, 75, 200);
+        Pokemon garchomp("./assets/images/245.png", 1.5f, 1.5f, 300, 70);
+        Ataque ataqueVenusaur("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); // Imagen del ataque
+        Ataque ataqueSuicune("./assets/images/00011.png", 300, 70, 0.2f, 0.2f); // Imagen del ataque de Garchomp
+        
+        bool venusaurVisible = false;
+        bool suicuneVisible = false;
 
-    // Bucle principal
-    while (window.isOpen()) {
-        // Procesar eventos
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
+        sf::Clock clock;
+        sf::Clock fadeClock;
+        bool fadingOut = false;
+
+        while (window.isOpen()) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
+                    if (!ataqueVenusaur.estaActivo()) { // Lanza el ataque solo si no está activo
+                        ataqueVenusaur.lanzar(230, 200, 400, 110); // Desde Gardevoir a Garchomp
+                    }
+                }
+
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+                    if (!ataqueSuicune.estaActivo()) { // Lanza el ataque solo si no está activo
+                        ataqueSuicune.lanzar(400, 80, 85, 320); // Desde Garchomp a Gardevoir
+                    }
+                } 
+
             }
-        }
+            ataqueVenusaur.actualizar(0.2f);
+            ataqueSuicune.actualizar(0.2f);
 
-        float elapsedTime = clock.getElapsedTime().asSeconds();
-        if (elapsedTime > 2.0f) { // Después de 2 segundos
-            venusaurVisible = true;
-        }
-        if (elapsedTime > 3.0f) { // Después de 3 segundos
-            suicuneVisible = true;
-        }
+            float elapsedTime = clock.getElapsedTime().asSeconds();
+            if (elapsedTime > 3.0f) {
+                venusaurVisible = true;
+            }
+            if (elapsedTime > 4.0f) {
+                suicuneVisible = true;
+            }
 
-        // Limpiar la ventana
-        window.clear();
+            if (clock.getElapsedTime().asSeconds() >= 2.0f && !fadingOut) {
+                fadingOut = true;
+                fadeClock.restart();
+            }
 
-        // Dibujar el fondo
-        window.draw(backgroundSprite);
+            if (fadingOut) {
+                float fadeTime = 1.0f;
+                float elapsedFade = fadeClock.getElapsedTime().asSeconds();
+                if (elapsedFade < fadeTime) {
+                    sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
+                    entrenador1.setColor(sf::Color(255, 255, 255, alpha));
+                    entrenador2.setColor(sf::Color(255, 255, 255, alpha));
+                } else {
+                    entrenador1.setColor(sf::Color(255, 255, 255, 0));
+                    entrenador2.setColor(sf::Color(255, 255, 255, 0));
+                    entrenador1.setVisibility(false);
+                    entrenador2.setVisibility(false);
+                }
+            }
 
-        // Actualización del efecto de desvanecimiento
-        if (clock.getElapsedTime().asSeconds() >= duration && !fadingOut) {
-            fadingOut = true; // Inicia el desvanecimiento
-            fadeClock.restart(); // Reinicia el reloj del fade-out
-        }
+            window.clear();
+            background.draw(window);
 
-        if (fadingOut) {
-            float fadeTime = 2.0f; // Duración del efecto de fade-out (en segundos)
-            float elapsedFade = fadeClock.getElapsedTime().asSeconds();
-            if (elapsedFade < fadeTime) {
-                // Calcula la nueva opacidad (255 a 0)
-                sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
-                entrenador1Sprite.setColor(sf::Color(255, 255, 255, alpha));
-                entrenador2Sprite.setColor(sf::Color(255, 255, 255, alpha));
+            if (entrenador1.getAlpha() > 0 || entrenador2.getAlpha() > 0) {
+                if (entrenador1.getAlpha() > 0) entrenador1.draw(window);
+                if (entrenador2.getAlpha() > 0) entrenador2.draw(window);
+            }
+
+            if (!venusaurVisible) {
+                pokeball1.draw(window);
             } else {
-                // Una vez completado el fade-out, haz completamente invisibles los entrenadores
-                entrenador1Sprite.setColor(sf::Color(255, 255, 255, 0));
-                entrenador2Sprite.setColor(sf::Color(255, 255, 255, 0));
+                venusaur.draw(window);
             }
-        }
 
-        // Dibujar a los entrenadores (solo si no son completamente transparentes)
-        if (entrenador1Sprite.getColor().a > 0 || entrenador2Sprite.getColor().a > 0) {
-            window.draw(entrenador1Sprite);
-            window.draw(entrenador2Sprite);
+            if (!suicuneVisible) {
+                pokeball2.draw(window);
+            } else {
+                garchomp.draw(window);
+            }
+            ataqueVenusaur.draw(window);
+            ataqueSuicune.draw(window);
+            window.display();
         }
-
-      if (!venusaurVisible) {
-            window.draw(pokeballSprite1); // Pokébola de Snorlax
-        } else {
-            window.draw(venusaurSprite); // Snorlax
-        }
-
-        if (!suicuneVisible) {
-            window.draw(pokeballSprite2); // Pokébola de Tyranitar
-        } else {
-            window.draw(suicuneSprite); // Tyranitar
-        }
-
-        // Mostrar la ventana
-        window.display();
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return -1;
     }
 
     return 0;
