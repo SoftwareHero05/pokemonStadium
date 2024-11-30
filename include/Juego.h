@@ -1,5 +1,4 @@
 #include <Definer.h>
-#include <POKEMONS/Pokemon.h>
 #include "Jugador.h"
 
 class Juego{
@@ -7,11 +6,19 @@ class Juego{
     Jugador jugador1;
     Jugador jugador2;
     Jugador jugadorActual;
-     list<Pokemon> pokemons = {Lucario(),Charizard(),Garchomp(),Gardevoir(),
-        Suicune(),Venusaur()};
+     list<Pokemon> pokemons;
     public:
     Juego()
     {
+        this->pokemons.emplace_back(Lucario());
+        this->pokemons.emplace_back(Charizard());
+        this->pokemons.emplace_back(Garchomp());
+        this->pokemons.emplace_back(Gardevoir());
+        this->pokemons.emplace_back(Suicune());
+        this->pokemons.emplace_back(Venusaur());
+        this->pokemons.emplace_back(Tyranitar());
+        this->pokemons.emplace_back(Gengar());
+        
     }
     ~Juego() {}
 
@@ -24,35 +31,45 @@ class Juego{
         case 4: return Gardevoir();
         case 5: return Suicune();
         case 6: return Venusaur();
+        case 7: return Gengar();
+        case 8: return Tyranitar();
+        default : return Lucario();
         }
     }
-    void AsignarPokemonToPlayer(int opcion) {
-    jugadorActual.AsignarPokemon(CreatePokemon(opcion));
+    void AsignarPokemonToPlayer(Pokemon opcion) {
+    this->jugadorActual.AsignarPokemon((opcion));
     }
-    bool VerifyChosenPokemon(int opcion){
-        bool notChosen;
+
+    bool addPokemonToPlayer(int opcion){
+        bool notChosen = true;
         Pokemon pokemon = CreatePokemon(opcion);
-        notChosen = jugadorActual.PokemonAlreadyInTeam(pokemon.getNombre());
-		if(notChosen == true) this->AsignarPokemonToPlayer(opcion);
+        notChosen = this->jugadorActual.PokemonAlreadyInTeam(pokemon.getNombre());
+        if(notChosen == false) this->AsignarPokemonToPlayer(pokemon);
 		
     return notChosen;
     }
 
-    void addPokemon(int opcion){
-        bool j = false;
-        while (j == false){
-            j = VerifyChosenPokemon(opcion);
-        }
-    AsignarPokemonToPlayer(opcion);
+    void AlternarJugador(int jugador){
+      if(jugador == 1) this->jugadorActual = this->jugador1;
+      else this->jugadorActual = jugador2;
     }
 
-    void AlternarJugador(int jugador){
-      
+    void applyChangesToPlayer(int jugador){
+        if(jugador == 1) this->jugador1 = this->jugadorActual;
+      else this->jugador2 = this->jugadorActual;
     }
 
     list <Pokemon>& getTeam(){
         return jugadorActual.getTeam();
     }
 
+    list <Pokemon>& getAllPokemons(){
+        return this->pokemons;
+    }
+
+    list <Pokemon>& getTeamSpefic(int jugador){
+         if(jugador == 1) return this->jugador1.getTeam();
+         else return this->jugador2.getTeam();
+    }
 
 };

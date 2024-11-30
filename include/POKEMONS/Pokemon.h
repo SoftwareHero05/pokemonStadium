@@ -22,9 +22,7 @@ public:
 	// constructor sin movimientos
 	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed,
 			int id, string nombre, int Type1, int Type2) : Pokemon(Hp, Atk, Def, SAtk, SDef, Speed, list<Move>(), id, nombre, Type1, Type2)
-	{
-		cout << "xd" << endl;
-	}
+	{}
 	// constructor vacio
 	Pokemon() {}
 	// Destructor virtual para hacer que la clase sea polimórfica
@@ -83,27 +81,27 @@ public:
 
 	void boostAtk()
 	{
-		this->Atk += this->BAtk;
+		this->Atk = this->Atk + (this->BAtk * .5);
 	}
 	void boostDef()
 	{
-		this->Def += this->BDef;
+		this->Def = this->Def + (this->BDef * .5);
 	}
 	void boostSAtk()
 	{
-		this->SAtk += this->BSAtk;
+		this->SAtk = this->SAtk + (this->BSAtk * .5);
 	}
 	void boostSDef()
 	{
-		this->SDef += this->BSDef;
+		this->SDef = this->SDef + (this->BSDef * .5);
 	}
 	void boostSpeed()
 	{
-		this->Speed += this->BSpeed;
+		this->Speed = this->Speed + (this->BSpeed * .5);
 	}
 	void heal50Percent()
 	{
-		this->Hp += this->BHp;
+		this->Hp += (this->BHp * 5);
 		if (this->Hp > this->BHp)
 			this->Hp = this->BHp;
 	}

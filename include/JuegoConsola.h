@@ -1,17 +1,18 @@
 #include <Definer.h>
 #include <Jugador.h>
 #include <Juego.h>
-
+#include <POKEMONS/Charizard.h>
+#include <POKEMONS/Garchomp.h>
 class JuegoConsola
 {
 private:
-   list<Pokemon> pokemons = {Lucario(),Charizard(),Garchomp(),Gardevoir(),
-        Suicune(),Venusaur()};
+   list<Pokemon> pokemons;
     list <Pokemon> equipoActual;
     Juego juego;
     
 
 public:
+  
     JuegoConsola()
     {
     }
@@ -19,41 +20,47 @@ public:
 
     void Iniciar(){
         cout<<"Inicio del juego"<<endl;
-        this->ChooseTeam(1);
         
     }
 
     void PrintPokemonNames()
-    {
-        for (auto &&pokemon : pokemons)
+    {   
+        int i = 0; 
+        this->pokemons = juego.getAllPokemons();
+        for (auto &&pokemon : this->pokemons)
         {
-            cout << pokemon.getNombre();
+            cout<<i+1<<":";
+            cout << pokemon.getNombre()<<endl;
+            i++;
         }
     }
 
     void ChooseTeam(int jugador)
     {
-        for(int i=0;i<6;i++) {
+        bool IsAsignado;
+        int opcion;
+        this->juego.AlternarJugador(jugador);
+        for(int i=0;i<6;i) {
         cout << "Forma tu equipo Player : " << jugador << endl;
         cout << "Elige el miembro numero: " << i + 1 << endl;
         this->PrintPokemonNames();
-        int opcion;
-        cin >> opcion;
-        this->juego.addPokemon(opcion);
+        cin>>opcion;
+        IsAsignado = this->juego.addPokemonToPlayer(opcion);
+        if(IsAsignado == false) {i++;}
+        else {cout<<"Pokemon ya escogido escoga otro"<<endl;}
+        system("pause");
+        system("cls");
+        }
+        this->juego.applyChangesToPlayer(jugador);
         equipoActual = juego.getTeam();
         for (auto& pokemon : equipoActual) { 
             cout<<pokemon.getNombre()<<endl;
             }
-        }
         system("pause");
-        
+        system("cls");
 
     }
 
-    void AsignarPokemon(Jugador &jugador,Pokemon pokemon)
-    {
-       
-    }
 
     int changePokemon(Pokemon *team[], int actual)
     {

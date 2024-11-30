@@ -17,5 +17,6 @@ int main(int argc, char const *argv[])
     cout<<poke.getNombre()<<endl;
     cout<<poke.getType1()<<endl;
     cout<<poke.getType2()<<endl;
+    
     return 0;
 }
