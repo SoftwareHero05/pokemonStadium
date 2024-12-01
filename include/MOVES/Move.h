@@ -13,6 +13,7 @@ protected:
 	bool category;//1 = Fisico //2 = Especial // 3 = Boost
 
 public:
+	Move() {}
 	Move(int potencia, int type, bool category,int id,string nombre) {
 		this->potencia = potencia;
 		this->type = type;
@@ -24,14 +25,16 @@ public:
 		return this->nombre;
 	}
 
-	 /*virtual float ExecuteMove(int UserType1,int UserType2,int EnemyType1,int EnemyType2, int UserAtk, Pokemon Enemy){
-		float damageDone;
+	  	int ExecuteMove(int UserType1,int UserType2,int EnemyType1,int EnemyType2, int UserAtk, int UserSAtk,int EnemyDef,int EnemySDef)
+		{
+		int damageDone;
 		int potencia = this->potencia;
-		if(User.getType1() == this->type || User.getType1()  == this->type) potencia *= 1.5;
-		if(this->category == true) damageDone = User.GetAtk() + potencia - Enemy.GetDef();
-		else damageDone = User.GetSAtk() + potencia - Enemy.GetSDef();
+		if(UserType1 == this->type || UserType2  == this->type) potencia *= 1.5;
+		if(this->category == true) damageDone = UserAtk + potencia - EnemyDef;
+		else damageDone = UserSAtk + potencia - EnemySDef;
 		damageDone *= EffectiveMessage(EnemyType1,EnemyType2,this->type);
-		return damageDone;}
-		*/
+		return damageDone;
+		}
+		
 
 }; 

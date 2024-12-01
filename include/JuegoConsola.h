@@ -6,10 +6,11 @@
 class JuegoConsola
 {
 private:
-   list<Pokemon> pokemons;
+    list<Pokemon> pokemons;
     list <Pokemon> equipoActual;
+    list <Move> moveSetActual;
     Juego juego;
-    
+   int desicion,DPlayer1,DPlayer2;
 
 public:
   
@@ -18,8 +19,15 @@ public:
     }
     ~JuegoConsola() {}
 
-    void Iniciar(){
+    void MainFuction(){
         cout<<"Inicio del juego"<<endl;
+        this->ChooseTeam(1);
+        this->ChooseTeam(2);
+        this->juego.InicioCombate();
+        while(true) {
+        DPlayer1 = this->PlayerTurn(1,2);
+        DPlayer2 = this->PlayerTurn(2,1);
+        }
         
     }
 
@@ -61,6 +69,33 @@ public:
 
     }
 
+    int PlayerTurn(int User, int Enemy){
+        this->juego.AlternarJugador(User);
+        cout<<"Pokemon Actual: "<<this->juego.getNombrePokemonActual()<<endl;
+        this->juego.AlternarJugador(Enemy);
+        cout<<"Pokemon Enemigo: "<<this->juego.getNombrePokemonActual()<<endl;
+        cout<<"1-Atacar"<<endl;
+        cout<<"Otro numbero-Cambiar de pokemon"<<endl;
+        cin>>this->desicion;
+        system("pause");
+        system("cls");
+        return this->desicion;
+    
+    }
+    void ExecuteDesicion(int desicion,int User,int Enemy){
+
+    }
+    
+
+    void ShowMoveSet(){
+       moveSetActual = juego.getMoveset();
+        for (auto& moveset : moveSetActual) { 
+            cout<<moveset.GetMoveName()<<endl;
+            }
+
+        
+    }
+  
 
     int changePokemon(Pokemon *team[], int actual)
     {

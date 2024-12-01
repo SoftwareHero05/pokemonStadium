@@ -16,6 +16,9 @@ private:
     list<Pokemon> equipo;
     int NumberOfPokemons = 0;
     int PlayerNumber;
+    Pokemon pokemonActual;
+    Pokemon EnemyPokemon;
+    bool Is;
 
 public:
     Jugador() {
@@ -33,7 +36,11 @@ public:
         this->NumberOfPokemons++;
     }
 
-     Pokemon SearchPokemon(string nombre) {
+    void AsignarEnemy(Pokemon Enemy){
+        this->EnemyPokemon = Enemy;
+    }
+
+    Pokemon SearchPokemon(string nombre) {
     for (auto& pokemon : this->equipo) { 
          if (pokemon.getNombre() == nombre) { 
                 return pokemon;
@@ -41,7 +48,7 @@ public:
         }
     }
 
-   bool PokemonAlreadyInTeam(string nombre) {
+   bool IsPokemonInTeam(string nombre) {
     for (auto& pokemon : this->equipo) { 
          if (pokemon.getNombre() == nombre) { 
                 return true;
@@ -49,6 +56,27 @@ public:
         }
         return false;
     }
-    
+
+    Pokemon GetPokemonInCombat(){
+        return this->pokemonActual;
+    }
+
+    void AsignarPokemonInCombat(Pokemon pokemon){
+        this->pokemonActual = pokemon;
+    }
+
+    Pokemon GetPokemonLeader(){
+        return this->equipo.front();
+    }
+
+    int ExecuteMoveChosen(string nombre){
+        this->Is = this->pokemonActual.IsMoveInMoveSet(nombre);
+        if(this->Is == true) return this->pokemonActual.ExecuteMoveChosen(nombre,this->EnemyPokemon);
+        else return 0;
+    }    
+
+    list <Move> getMoveSet(){
+        return this->pokemonActual.GetMoveSet();
+    }
 };
     

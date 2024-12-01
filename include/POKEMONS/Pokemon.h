@@ -10,6 +10,7 @@ protected:
 	int Hp, Atk, Def, SAtk, SDef, Speed, Type1, Type2;
 	int BAtk, BDef, BSAtk, BSDef, BSpeed, BHp;
 	list<Move> moves;
+	Move chosen;
 
 public:
 	// constructor con movimientos
@@ -40,6 +41,7 @@ public:
 		this->Speed = this->BSpeed;
 	}
 
+
 	list<Move> GetMoveSet()
 	{
 		return this->moves;
@@ -49,6 +51,32 @@ public:
 	{
 		this->moves.emplace_back(move);
 	}
+
+	Move SearchMove(string nombre) {
+    for (auto& move : this->moves) { 
+         if (move.GetMoveName() == nombre) { 
+                return move;
+            }
+        }
+    }
+
+	bool IsMoveInMoveSet(string nombre) {
+    for (auto& move : this->moves) { 
+         if (move.GetMoveName() == nombre) { 
+                return true;
+            }
+        }
+        return false;
+    }
+
+	int ExecuteMoveChosen(string nombre,Pokemon Enemy){
+	this->chosen = this->SearchMove(nombre);
+		return chosen.ExecuteMove(this->getType1(),this->getType2(),
+		Enemy.getType1(),Enemy.getType2(),this->GetAtk(),this->GetSAtk(),
+		Enemy.GetDef(),Enemy.GetSDef());
+	}
+
+
 
 	int GetAtk()
 	{

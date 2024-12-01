@@ -6,7 +6,8 @@ class Juego{
     Jugador jugador1;
     Jugador jugador2;
     Jugador jugadorActual;
-     list<Pokemon> pokemons;
+    list<Pokemon> pokemons;
+    Pokemon pokemon;
     public:
     Juego()
     {
@@ -31,8 +32,8 @@ class Juego{
         case 4: return Gardevoir();
         case 5: return Suicune();
         case 6: return Venusaur();
-        case 7: return Gengar();
-        case 8: return Tyranitar();
+        case 7: return Tyranitar();
+        case 8: return Gengar();
         default : return Lucario();
         }
     }
@@ -43,7 +44,7 @@ class Juego{
     bool addPokemonToPlayer(int opcion){
         bool notChosen = true;
         Pokemon pokemon = CreatePokemon(opcion);
-        notChosen = this->jugadorActual.PokemonAlreadyInTeam(pokemon.getNombre());
+        notChosen = this->jugadorActual.IsPokemonInTeam(pokemon.getNombre());
         if(notChosen == false) this->AsignarPokemonToPlayer(pokemon);
 		
     return notChosen;
@@ -59,6 +60,11 @@ class Juego{
       else this->jugador2 = this->jugadorActual;
     }
 
+    void AsignarEnemyToPlayer(int jugador){
+        if(jugador == 1) this->jugador1.AsignarEnemy(jugador2.GetPokemonInCombat());
+        else this->jugador2.AsignarEnemy(jugador1.GetPokemonInCombat());
+    }
+
     list <Pokemon>& getTeam(){
         return jugadorActual.getTeam();
     }
@@ -72,4 +78,41 @@ class Juego{
          else return this->jugador2.getTeam();
     }
 
+    Pokemon GetPokemonLeaderOfPlayer(){
+        return jugadorActual.GetPokemonLeader();
+    }
+
+      Pokemon GetPokemonInCombatOfPlayer(){
+        return jugadorActual.GetPokemonInCombat();
+    }
+
+    void InicioCombate(){
+        this->jugador1.AsignarPokemonInCombat(this->jugador1.GetPokemonLeader());
+        this->jugador2.AsignarPokemonInCombat(this->jugador2.GetPokemonLeader());
+        this->AsignarEnemyToPlayer(1);
+        this->AsignarEnemyToPlayer(2);
+    }
+
+    Jugador getJugador(){
+        return this->jugadorActual;
+    }
+
+    Jugador getJugadorSpecific(int jugador){
+        if(jugador == 1) return this->jugador1;
+        else return this->jugador2;
+    }
+
+    string getNombrePokemonActual(){
+        this->pokemon = jugadorActual.GetPokemonInCombat();
+        return this->pokemon.getNombre();
+    }
+    
+    int ExecuteMoveChosen(string nombre){
+        return this->jugadorActual.ExecuteMoveChosen(nombre);
+    }
+
+     list <Move> getMoveset(){
+        return this->jugadorActual.getMoveSet();
+    }
+    
 };
