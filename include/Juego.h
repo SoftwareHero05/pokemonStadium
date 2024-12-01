@@ -7,6 +7,8 @@ class Juego{
     Jugador jugador2;
     Jugador jugadorActual;
     list<Pokemon> pokemons;
+    list <Move> moveSetActual;
+    list <string> moveSetActualNames;
     Pokemon pokemon;
     public:
     Juego()
@@ -113,6 +115,19 @@ class Juego{
 
      list <Move> getMoveset(){
         return this->jugadorActual.getMoveSet();
+    }
+
+    string convertNumberToStringMove(int number){
+        this->moveSetActualNames.clear();
+        this->moveSetActual.clear();
+        this->moveSetActual = this->getMoveset();  
+        for (auto &&move : this->moveSetActual)
+        {
+            moveSetActualNames.push_back(move.GetMoveName());   
+        }
+        auto it = this->moveSetActualNames.begin();
+        advance(it, number - 1);
+        return *it;
     }
     
 };

@@ -18,7 +18,7 @@ private:
     int PlayerNumber;
     Pokemon pokemonActual;
     Pokemon EnemyPokemon;
-    bool Is;
+    bool IsMove,IsAtacking;
 
 public:
     Jugador() {
@@ -70,8 +70,8 @@ public:
     }
 
     int ExecuteMoveChosen(string nombre){
-        this->Is = this->pokemonActual.IsMoveInMoveSet(nombre);
-        if(this->Is == true) return this->pokemonActual.ExecuteMoveChosen(nombre,this->EnemyPokemon);
+        this->IsMove = this->pokemonActual.IsMoveInMoveSet(nombre);
+        if(this->IsMove == true) return this->pokemonActual.ExecuteMoveChosen(nombre,this->EnemyPokemon);
         else return 0;
     }    
 

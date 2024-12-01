@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 {
     JuegoConsola juego;
     juego.MainFuction();
-    system("pause");
+    
     /*
     juego.PrintPokemonNames();
      system("cls");

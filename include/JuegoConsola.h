@@ -10,7 +10,7 @@ private:
     list <Pokemon> equipoActual;
     list <Move> moveSetActual;
     Juego juego;
-   int desicion,DPlayer1,DPlayer2;
+    int DPlayer1,DPlayer2;
 
 public:
   
@@ -27,6 +27,8 @@ public:
         while(true) {
         DPlayer1 = this->PlayerTurn(1,2);
         DPlayer2 = this->PlayerTurn(2,1);
+        this->ExecuteDesicion(this->DPlayer1,1,2);
+        this->ExecuteDesicion(this->DPlayer2,2,1);
         }
         
     }
@@ -70,30 +72,43 @@ public:
     }
 
     int PlayerTurn(int User, int Enemy){
+        int desicion;
         this->juego.AlternarJugador(User);
         cout<<"Pokemon Actual: "<<this->juego.getNombrePokemonActual()<<endl;
         this->juego.AlternarJugador(Enemy);
         cout<<"Pokemon Enemigo: "<<this->juego.getNombrePokemonActual()<<endl;
         cout<<"1-Atacar"<<endl;
         cout<<"Otro numbero-Cambiar de pokemon"<<endl;
-        cin>>this->desicion;
+        cin>>desicion;
         system("pause");
         system("cls");
-        return this->desicion;
+        return desicion;
     
     }
     void ExecuteDesicion(int desicion,int User,int Enemy){
+        int moveChosen;
+        if(desicion == 1){
+            this->juego.AlternarJugador(User);
+            this->ShowMoveSet();
+            cin>>moveChosen;
+            cout<<juego.convertNumberToStringMove(moveChosen)<<endl;
 
+        }
+        else{
+
+        }
+        system("pause");
+        system("cls");
     }
     
-
     void ShowMoveSet(){
        moveSetActual = juego.getMoveset();
+       int i = 0;
         for (auto& moveset : moveSetActual) { 
+            cout<<i+1<<":";
             cout<<moveset.GetMoveName()<<endl;
-            }
-
-        
+            i++;
+        }
     }
   
 
