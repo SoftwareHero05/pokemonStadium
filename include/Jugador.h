@@ -46,6 +46,7 @@ public:
                 return pokemon;
             }
         }
+        return Lucario();
     }
 
    bool IsPokemonInTeam(string nombre) {
@@ -59,6 +60,10 @@ public:
 
     Pokemon GetPokemonInCombat(){
         return this->pokemonActual;
+    }
+
+   string GetPokemonInCombatName(){
+        return this->pokemonActual.getNombre();
     }
 
     void AsignarPokemonInCombat(Pokemon pokemon){

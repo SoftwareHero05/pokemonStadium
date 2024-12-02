@@ -11,6 +11,7 @@ private:
     list <Move> moveSetActual;
     Juego juego;
     int DPlayer1,DPlayer2;
+    string OP1,OP2,pokemonName;
 
 public:
   
@@ -24,11 +25,18 @@ public:
         this->ChooseTeam(1);
         this->ChooseTeam(2);
         this->juego.InicioCombate();
+
         while(true) {
+        this->juego.BeginTurn();
         DPlayer1 = this->PlayerTurn(1,2);
         DPlayer2 = this->PlayerTurn(2,1);
-        this->ExecuteDesicion(this->DPlayer1,1,2);
-        this->ExecuteDesicion(this->DPlayer2,2,1);
+        this->OP1 = this->PrepareDesicion(this->DPlayer1,1,2);
+        system("pause");
+        system("cls");
+        this->OP2 = this->PrepareDesicion(this->DPlayer2,2,1);
+        system("pause");
+        system("cls");
+        this->BattleExecuter();
         }
         
     }
@@ -62,10 +70,7 @@ public:
         system("cls");
         }
         this->juego.applyChangesToPlayer(jugador);
-        equipoActual = juego.getTeam();
-        for (auto& pokemon : equipoActual) { 
-            cout<<pokemon.getNombre()<<endl;
-            }
+        this->ShowEquipo();
         system("pause");
         system("cls");
 
@@ -85,21 +90,50 @@ public:
         return desicion;
     
     }
-    void ExecuteDesicion(int desicion,int User,int Enemy){
-        int moveChosen;
-        if(desicion == 1){
-            this->juego.AlternarJugador(User);
-            this->ShowMoveSet();
-            cin>>moveChosen;
-            cout<<juego.convertNumberToStringMove(moveChosen)<<endl;
 
+    void BattleExecuter(){
+        
+        if(this->DPlayer1 != 1) {
+        this->ExecuteChange(1,OP1);
+        this->juego.applyChangesToPlayer(1);
+        }
+        if(this->DPlayer2 != 1) {
+        this->ExecuteChange(2,OP2);
+        this->juego.applyChangesToPlayer(2);
+        }
+    }
+
+    string PrepareDesicion(int desicion,int User,int Enemy){
+        int chosen ;
+        this->juego.AlternarJugador(User);
+        this->pokemonName = this->juego.getNombrePokemonActual();
+        if(desicion == 1){
+            do{
+            this->ShowMoveSet();
+            cin>>chosen;
+            }while(chosen < 1 || chosen > 3);
+            return juego.convertNumberToStringMove(chosen);   
         }
         else{
-
+            do{
+            this->ShowEquipo();
+            cin>>chosen;
+            pokemonName = juego.convertNumberToStringPokemon(chosen);
+            if(pokemonName == this->juego.getNombrePokemonActual()) cout<<"Pokemon en combate, escoga otro"<<endl;
+            }while(pokemonName == this->juego.getNombrePokemonActual());
+            return pokemonName;
         }
-        system("pause");
-        system("cls");
     }
+
+    bool ExecuteChange(int User,string nombre) {
+        this->juego.AlternarJugador(User);
+        if (this->juego.ChangePokemon(nombre) == true ) return true;
+        else {
+            cout<<"Pokemon ya en combate eliga otro"<<endl;
+            return false;
+        }
+    }
+    
     
     void ShowMoveSet(){
        moveSetActual = juego.getMoveset();
@@ -110,34 +144,16 @@ public:
             i++;
         }
     }
-  
 
-    int changePokemon(Pokemon *team[], int actual)
-    {
-        // int choise;
-        // while (true)
-        // {
-        //     system("cls");
-        //     cout << "Seleccione un pokemon para salir a combatir" << endl;
-        //     cout << "1: " << team[0]->nombre << "--- Hp: " << team[0]->Hp << endl;
-        //     cout << "2: " << team[1]->nombre << "--- Hp: " << team[1]->Hp << endl;
-        //     cout << "3: " << team[2]->nombre << "--- Hp: " << team[2]->Hp << endl;
-        //     cout << "4: " << team[3]->nombre << "--- Hp: " << team[3]->Hp << endl;
-        //     cout << "5: " << team[4]->nombre << "--- Hp: " << team[4]->Hp << endl;
-        //     cout << "6: " << team[5]->nombre << "--- Hp: " << team[5]->Hp << endl;
-        //     cin >> choise;
-        //     if (team[choise - 1]->Hp < 1)
-        //     {
-        //         cout << "Este pokemon ya no puede combatir" << endl;
-        //         cout << "Seleccione otro porfavor" << endl;
-        //     }
-        //     else if ((choise - 1) == actual)
-        //         cout << "Este pokemon ya esta combatiendo" << endl;
-        //     else
-        //         return choise;
-        //     system("pause");
-        //     system("cls");
-        // }
-        return 0;
+     void ShowEquipo(){
+       int i = 0;
+        equipoActual = juego.getTeam();
+        for (auto& pokemon : equipoActual) {
+             cout<<i+1<<":"; 
+            cout<<pokemon.getNombre()<<endl;
+             i++;
+            }
     }
+  
+    
 };

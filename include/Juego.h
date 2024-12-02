@@ -10,6 +10,8 @@ class Juego{
     list <Move> moveSetActual;
     list <string> moveSetActualNames;
     Pokemon pokemon;
+    list <Pokemon> equipoActual;
+    list <string> equipoActualNames;
     public:
     Juego()
     {
@@ -81,16 +83,19 @@ class Juego{
     }
 
     Pokemon GetPokemonLeaderOfPlayer(){
-        return jugadorActual.GetPokemonLeader();
+        return this->jugadorActual.GetPokemonLeader();
     }
 
       Pokemon GetPokemonInCombatOfPlayer(){
-        return jugadorActual.GetPokemonInCombat();
+        return this->jugadorActual.GetPokemonInCombat();
     }
 
     void InicioCombate(){
         this->jugador1.AsignarPokemonInCombat(this->jugador1.GetPokemonLeader());
         this->jugador2.AsignarPokemonInCombat(this->jugador2.GetPokemonLeader());
+    }
+
+    void BeginTurn(){
         this->AsignarEnemyToPlayer(1);
         this->AsignarEnemyToPlayer(2);
     }
@@ -105,8 +110,7 @@ class Juego{
     }
 
     string getNombrePokemonActual(){
-        this->pokemon = jugadorActual.GetPokemonInCombat();
-        return this->pokemon.getNombre();
+        return this->jugadorActual.GetPokemonInCombatName();
     }
     
     int ExecuteMoveChosen(string nombre){
@@ -123,11 +127,33 @@ class Juego{
         this->moveSetActual = this->getMoveset();  
         for (auto &&move : this->moveSetActual)
         {
-            moveSetActualNames.push_back(move.GetMoveName());   
+            this->moveSetActualNames.push_back(move.GetMoveName());   
         }
         auto it = this->moveSetActualNames.begin();
         advance(it, number - 1);
         return *it;
     }
+
+    string convertNumberToStringPokemon(int number){
+        this->equipoActualNames.clear();
+        this->equipoActual.clear();
+        this->equipoActual = jugadorActual.getTeam();
+        for (auto &&equipo : this->equipoActual)
+        {
+            this->equipoActualNames.push_back(equipo.getNombre());   
+        }
+        auto it = this->equipoActualNames.begin();
+        advance(it, number - 1);
+        return *it;
+    }
+
+    bool ChangePokemon(string nombre){
+        if(this->jugadorActual.GetPokemonInCombatName() == nombre) return false;
+        else{
+            this->jugadorActual.AsignarPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
+            return true;
+        }
+    }
+
     
 };
