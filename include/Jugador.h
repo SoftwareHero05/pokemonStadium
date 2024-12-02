@@ -49,6 +49,14 @@ public:
         return Lucario();
     }
 
+    void applyDamageToSpecifiPokemon(string nombre,int damage) {
+    for (auto& pokemon : this->equipo) { 
+         if (pokemon.getNombre() == nombre) { 
+                pokemon.ApplyDamageToPokemon(damage);
+            }
+        }
+    }
+
    bool IsPokemonInTeam(string nombre) {
     for (auto& pokemon : this->equipo) { 
          if (pokemon.getNombre() == nombre) { 
@@ -90,9 +98,20 @@ public:
 
     void ApplyDamageToPokemon(int damage){
         this->pokemonActual.ApplyDamageToPokemon(damage);
+        this->applyDamageToSpecifiPokemon(this->pokemonActual.getNombre(),damage);
+        
     }
     int getHp(){
         return this->pokemonActual.GetHP();
+    }
+    int getSpecificHp(string nombre){
+        return this->SearchPokemon(nombre).GetHP();
+    }
+    void decreaseQuantityPokemon(){
+        this->NumberOfPokemons--;
+    }
+    int getQuantityPokemon(){
+        return this->NumberOfPokemons;
     }
 };
     

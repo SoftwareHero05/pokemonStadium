@@ -33,10 +33,6 @@ public:
 		if(this->category == true) damageDone = UserAtk + potencia - EnemyDef;
 		else damageDone = UserSAtk + potencia - EnemySDef;
 		damageDone *= EffectiveMessage(EnemyType1,EnemyType2,this->type);
-		 cout<<"---------"<<endl;
-		cout<<EffectiveMessage(EnemyType1,EnemyType2,this->type)<<endl;
-		cout<<damageDone<<endl;
-		 cout<<"---------"<<endl;
 		damageDone /= 5;
 		return damageDone;
 		}

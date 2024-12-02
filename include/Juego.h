@@ -151,12 +151,8 @@ class Juego{
         return *it;
     }
 
-    bool ChangePokemon(string nombre){
-        if(this->jugadorActual.GetPokemonInCombatName() == nombre) return false;
-        else{
+    void ChangePokemon(string nombre){
             this->jugadorActual.AsignarPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
-            return true;
-        }
     }
 
     int getPokemonSpeed(int jugador){
@@ -170,6 +166,17 @@ class Juego{
 
     int getHpOfPokemon(){
         return this->jugadorActual.getHp();
+    }
+
+    int getHpOfSpecificPokemon(string nombre){
+        return this->jugadorActual.getSpecificHp(nombre);
+    }
+
+    void decreaseQuantityPokemon(){
+        this->jugadorActual.decreaseQuantityPokemon();
+    }
+    int getQuantityPokemon(){
+        return this->jugadorActual.getQuantityPokemon();
     }
 
     

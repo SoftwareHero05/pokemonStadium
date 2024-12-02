@@ -30,10 +30,10 @@ public:
         this->juego.BeginTurn();
         DPlayer1 = this->PlayerTurn(1,2);
         DPlayer2 = this->PlayerTurn(2,1);
-        this->OP1 = this->PrepareDesicion(this->DPlayer1,1,2);
+        this->OP1 = this->PrepareDesicion(this->DPlayer1,1);
         system("pause");
         system("cls");
-        this->OP2 = this->PrepareDesicion(this->DPlayer2,2,1);
+        this->OP2 = this->PrepareDesicion(this->DPlayer2,2);
         system("pause");
         system("cls");
         this->BattleExecuter();
@@ -79,9 +79,11 @@ public:
     int PlayerTurn(int User, int Enemy){
         int desicion;
         this->juego.AlternarJugador(User);
-        cout<<"Pokemon Actual: "<<this->juego.getNombrePokemonActual()<<endl;
+        cout<<"Pokemon Actual: ";
+        this->PrintPokemon(User);
         this->juego.AlternarJugador(Enemy);
-        cout<<"Pokemon Enemigo: "<<this->juego.getNombrePokemonActual()<<endl;
+        cout<<"Pokemon Enemigo: ";
+        this->PrintPokemon(Enemy);
         cout<<"1-Atacar"<<endl;
         cout<<"Otro numbero-Cambiar de pokemon"<<endl;
         cin>>desicion;
@@ -100,7 +102,7 @@ public:
         this->ExecuteChange(2,OP2);
         this->juego.applyChangesToPlayer(2);
         }
-
+        this->juego.BeginTurn(); 
         if(this->juego.getPokemonSpeed(1) >= this->juego.getPokemonSpeed(2))
         {
         this->fasterPlayer = 1;
@@ -115,14 +117,15 @@ public:
         this->OpSlower = this->OP1;
         }
         this->ExecuteMove(fasterPlayer,slowerPlayer,OPfaster);
-        this->PrintPokemon(slowerPlayer);
-        this->ExecuteMove(slowerPlayer,fasterPlayer,OpSlower);
-        this->PrintPokemon(fasterPlayer);
+        juego.AlternarJugador(slowerPlayer);
+        if(this->juego.getHpOfPokemon() > 0) this->ExecuteMove(slowerPlayer,fasterPlayer,OpSlower);
+        this->IsPokemonFainted(1);
+        this->IsPokemonFainted(2);
         system("cls");
 
     }
 
-    string PrepareDesicion(int desicion,int User,int Enemy){
+    string PrepareDesicion(int desicion,int User){
         int chosen ;
         this->juego.AlternarJugador(User);
         this->pokemonName = this->juego.getNombrePokemonActual();
@@ -138,19 +141,27 @@ public:
             this->ShowEquipo();
             cin>>chosen;
             pokemonName = juego.convertNumberToStringPokemon(chosen);
-            if(pokemonName == this->juego.getNombrePokemonActual()) cout<<"Pokemon en combate, escoga otro"<<endl;
-            }while(pokemonName == this->juego.getNombrePokemonActual());
+            if(this->juego.getHpOfSpecificPokemon(pokemonName)<1) 
+            {
+                cout<<"Este pokemon ya esta debilitado escoga otro"<<endl;
+                system("pause");
+                system("cls");
+            }
+            else if(pokemonName == this->juego.getNombrePokemonActual())
+            { 
+            cout<<"Pokemon en combate, escoga otro"<<endl;
+            system("pause");
+            system("cls");
+            }
+            }while(pokemonName == this->juego.getNombrePokemonActual() || this->juego.getHpOfSpecificPokemon(pokemonName) < 1);
             return pokemonName;
         }
     }
 
-    bool ExecuteChange(int User,string nombre) {
+    void ExecuteChange(int User,string nombre) {
         this->juego.AlternarJugador(User);
-        if (this->juego.ChangePokemon(nombre) == true ) return true;
-        else {
-            cout<<"Pokemon ya en combate eliga otro"<<endl;
-            return false;
-        }
+        this->juego.ChangePokemon(nombre);
+
     }
 
     void ExecuteMove(int User, int Enemy, string nombre){
@@ -174,16 +185,27 @@ public:
         equipoActual = juego.getTeam();
         for (auto& pokemon : equipoActual) {
              cout<<i+1<<":"; 
-            cout<<pokemon.getNombre()<<endl;
+            cout<<pokemon.getNombre()<<" :";
+            cout<<pokemon.GetHP()<<endl;
              i++;
             }
     }
 
     void PrintPokemon(int jugador){
         this->juego.AlternarJugador(jugador);
-        cout<<this->juego.getNombrePokemonActual()<<endl;
+        cout<<this->juego.getNombrePokemonActual()<<"---HP: ";
         cout<<this->juego.getHpOfPokemon()<<endl;
-        system("pause");
+    }
+
+    void IsPokemonFainted(int jugador){
+        this->juego.AlternarJugador(jugador);
+        if(juego.getHpOfPokemon() < 1) {
+            this->juego.decreaseQuantityPokemon();
+            cout<<this->juego.getNombrePokemonActual()<<" ha sido debilitado"<<endl;
+            cout<<"escoga otro pokemon"<<endl;
+            this->ExecuteChange(jugador,this->PrepareDesicion(2,jugador));
+            this->juego.applyChangesToPlayer(jugador);
+        }
     }
     
   
