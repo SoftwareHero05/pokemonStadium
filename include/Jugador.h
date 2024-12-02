@@ -83,5 +83,16 @@ public:
     list <Move> getMoveSet(){
         return this->pokemonActual.GetMoveSet();
     }
+
+    int getSpeed(){
+        return this->pokemonActual.GetSpeed();
+    }
+
+    void ApplyDamageToPokemon(int damage){
+        this->pokemonActual.ApplyDamageToPokemon(damage);
+    }
+    int getHp(){
+        return this->pokemonActual.GetHP();
+    }
 };
     

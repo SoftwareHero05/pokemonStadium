@@ -27,12 +27,17 @@ public:
 
 	  	int ExecuteMove(int UserType1,int UserType2,int EnemyType1,int EnemyType2, int UserAtk, int UserSAtk,int EnemyDef,int EnemySDef)
 		{
-		int damageDone;
+		float damageDone;
 		int potencia = this->potencia;
 		if(UserType1 == this->type || UserType2  == this->type) potencia *= 1.5;
 		if(this->category == true) damageDone = UserAtk + potencia - EnemyDef;
 		else damageDone = UserSAtk + potencia - EnemySDef;
 		damageDone *= EffectiveMessage(EnemyType1,EnemyType2,this->type);
+		 cout<<"---------"<<endl;
+		cout<<EffectiveMessage(EnemyType1,EnemyType2,this->type)<<endl;
+		cout<<damageDone<<endl;
+		 cout<<"---------"<<endl;
+		damageDone /= 5;
 		return damageDone;
 		}
 		

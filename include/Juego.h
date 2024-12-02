@@ -113,8 +113,12 @@ class Juego{
         return this->jugadorActual.GetPokemonInCombatName();
     }
     
-    int ExecuteMoveChosen(string nombre){
-        return this->jugadorActual.ExecuteMoveChosen(nombre);
+    void ExecuteMoveChosen(string nombre,int Enemy,int User){
+       int damage = this->jugadorActual.ExecuteMoveChosen(nombre);
+       this->AlternarJugador(Enemy);
+       this->ApplyDamageToPokemon(damage);
+       this->applyChangesToPlayer(Enemy);
+       this->AlternarJugador(User);
     }
 
      list <Move> getMoveset(){
@@ -153,6 +157,19 @@ class Juego{
             this->jugadorActual.AsignarPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
             return true;
         }
+    }
+
+    int getPokemonSpeed(int jugador){
+        if(jugador == 1) return jugador1.getSpeed();
+        else return jugador2.getSpeed();
+    }
+
+    void ApplyDamageToPokemon(int damage){
+        this->jugadorActual.ApplyDamageToPokemon(damage);
+    }
+
+    int getHpOfPokemon(){
+        return this->jugadorActual.getHp();
     }
 
     

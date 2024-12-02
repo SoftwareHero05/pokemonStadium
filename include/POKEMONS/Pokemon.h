@@ -1,6 +1,7 @@
 #pragma once
 #include <Definer.h>
 #include <MOVES/Move.h>
+#include <MOVES/AuraSphere.h>
 
 class Pokemon
 {
@@ -58,6 +59,7 @@ public:
                 return move;
             }
         }
+		return AuraSphere();
     }
 
 	bool IsMoveInMoveSet(string nombre) {
@@ -76,8 +78,10 @@ public:
 		Enemy.GetDef(),Enemy.GetSDef());
 	}
 
-
-
+	int GetHP()
+	{
+		return this->Hp;
+	}
 	int GetAtk()
 	{
 		return this->Atk;
@@ -132,5 +136,8 @@ public:
 		this->Hp += (this->BHp * 5);
 		if (this->Hp > this->BHp)
 			this->Hp = this->BHp;
+	}
+	void ApplyDamageToPokemon(int damage){
+		this->Hp -= damage;
 	}
 };

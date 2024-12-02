@@ -1,8 +1,6 @@
 #include <Definer.h>
 #include <Jugador.h>
 #include <Juego.h>
-#include <POKEMONS/Charizard.h>
-#include <POKEMONS/Garchomp.h>
 class JuegoConsola
 {
 private:
@@ -12,6 +10,8 @@ private:
     Juego juego;
     int DPlayer1,DPlayer2;
     string OP1,OP2,pokemonName;
+    int fasterPlayer,slowerPlayer;
+    string OPfaster,OpSlower;
 
 public:
   
@@ -92,7 +92,6 @@ public:
     }
 
     void BattleExecuter(){
-        
         if(this->DPlayer1 != 1) {
         this->ExecuteChange(1,OP1);
         this->juego.applyChangesToPlayer(1);
@@ -101,6 +100,26 @@ public:
         this->ExecuteChange(2,OP2);
         this->juego.applyChangesToPlayer(2);
         }
+
+        if(this->juego.getPokemonSpeed(1) >= this->juego.getPokemonSpeed(2))
+        {
+        this->fasterPlayer = 1;
+        this->slowerPlayer = 2;
+        this->OPfaster = this->OP1;
+        this->OpSlower = this->OP2;
+        }
+        else {
+        this->fasterPlayer = 2;
+        this->slowerPlayer = 1;
+        this->OPfaster = this->OP2;
+        this->OpSlower = this->OP1;
+        }
+        this->ExecuteMove(fasterPlayer,slowerPlayer,OPfaster);
+        this->PrintPokemon(slowerPlayer);
+        this->ExecuteMove(slowerPlayer,fasterPlayer,OpSlower);
+        this->PrintPokemon(fasterPlayer);
+        system("cls");
+
     }
 
     string PrepareDesicion(int desicion,int User,int Enemy){
@@ -133,6 +152,11 @@ public:
             return false;
         }
     }
+
+    void ExecuteMove(int User, int Enemy, string nombre){
+        this->juego.AlternarJugador(User);
+        this->juego.ExecuteMoveChosen(nombre,Enemy,User);
+    }
     
     
     void ShowMoveSet(){
@@ -154,6 +178,14 @@ public:
              i++;
             }
     }
+
+    void PrintPokemon(int jugador){
+        this->juego.AlternarJugador(jugador);
+        cout<<this->juego.getNombrePokemonActual()<<endl;
+        cout<<this->juego.getHpOfPokemon()<<endl;
+        system("pause");
+    }
+    
   
     
 };

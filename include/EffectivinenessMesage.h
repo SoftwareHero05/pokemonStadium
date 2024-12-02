@@ -2,7 +2,7 @@
 #include <MOVES/Move.h>
 #include <Definer.h>
 
-int EffectiveMessage(int Type1,int Type2, int TypeAttack){
+float EffectiveMessage(int Type1,int Type2, int TypeAttack){
 float multiplier = 1;
     switch (TypeAttack)
     {
@@ -76,6 +76,7 @@ float multiplier = 1;
         break;
     }
     if(multiplier > 1) cout<<"Es muy Efectivo!!!"<<endl;
+    else if(multiplier == 0) cout<<"No hizo efecto alguno..."<<endl;
     else if(multiplier < 1) cout<<"No es muy Efectivo...."<<endl;
     else cout<<"Es Efectivo"<<endl;
     system("pause");
