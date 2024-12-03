@@ -25,17 +25,20 @@ public:
 		return this->nombre;
 	}
 
-	  	int ExecuteMove(int UserType1,int UserType2,int EnemyType1,int EnemyType2, int UserAtk, int UserSAtk,int EnemyDef,int EnemySDef)
-		{
+	int ExecuteMove(int UserType1, int UserType2, int EnemyType1, int EnemyType2, int UserAtk, int UserSAtk, int EnemyDef, int EnemySDef)
+	{
 		float damageDone;
 		int potencia = this->potencia;
-		if(UserType1 == this->type || UserType2  == this->type) potencia *= 1.5;
-		if(this->category == true) damageDone = UserAtk + potencia - EnemyDef;
-		else damageDone = UserSAtk + potencia - EnemySDef;
-		damageDone *= EffectiveMessage(EnemyType1,EnemyType2,this->type);
+		if (UserType1 == this->type || UserType2 == this->type)
+			potencia *= 1.5;
+		if (this->category == true)
+			damageDone = UserAtk + potencia - EnemyDef;
+		else
+			damageDone = UserSAtk + potencia - EnemySDef;
+		damageDone *= EffectiveMessage(EnemyType1, EnemyType2, this->type);
+		if (damageDone < 0)
+			damageDone = 0;
 		damageDone /= 5;
 		return damageDone;
-		}
-		
-
+	}
 }; 

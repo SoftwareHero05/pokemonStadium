@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
     // Prueba para verificar la creacion de charizard
     Charizard charizad;
     Garchomp garchomp;
-    Jugador jugador1;
+    EquipoPokemon jugador1;
     jugador1.AsignarPokemon(garchomp);
     jugador1.AsignarPokemon(charizad);
     list<Pokemon> equipo;

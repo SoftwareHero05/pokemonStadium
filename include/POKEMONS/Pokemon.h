@@ -134,10 +134,26 @@ public:
 	void heal50Percent()
 	{
 		this->Hp += (this->BHp * 5);
-		if (this->Hp > this->BHp)
-			this->Hp = this->BHp;
+		if (this->Hp > this->BHp) this->Hp = this->BHp;
 	}
 	void ApplyDamageToPokemon(int damage){
 		this->Hp -= damage;
+	}
+
+	void MoveDragonDance(){
+		this->boostAtk();
+		this->boostSpeed();
+	}
+	void MoveCalmMind(){
+		this->boostSAtk();
+		this->boostSDef();
+	}
+	void MoveNastyPlot(){
+		this->boostSAtk();
+		this->boostSAtk();
+	}
+	void MoveSynthesia(){
+		this->heal50Percent();
+		
 	}
 };

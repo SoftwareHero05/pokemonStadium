@@ -2,7 +2,7 @@
 #include "Move.h"
 class NastyPlot: public Move{
 	public:
-	NastyPlot():Move(0,DARK,false,23,"DragonDance"){
+	NastyPlot():Move(0,DARK,false,23,"NastyPlot"){
 	}
 	/*
     void ExecuteMove(Pokemon &User){
