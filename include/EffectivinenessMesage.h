@@ -24,7 +24,7 @@ float multiplier = 1;
         break;
     case ELECTRIC:
          multiplier *= T_ELECTRIC_effectiveness(Type1);
-		if(Type2 != 0) multiplier *= T_FIRE_effectiveness(Type2);
+		if(Type2 != 0) multiplier *= T_ELECTRIC_effectiveness(Type2);
         break;
     case ICE:
         multiplier *= T_ICE_effectiveness(Type1);

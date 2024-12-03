@@ -232,7 +232,19 @@ public:
         this->juego.ChangePlayer(jugador);
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().getNombre() << "---HP: ";
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() << endl;
+        this->PrintPokemonStats(jugador);
+        
     }
+
+    void PrintPokemonStats(int jugador)
+    {
+        cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetAtk() << endl;
+        cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetDef() << endl;
+        cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetSAtk() << endl;
+        cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetSDef() << endl;
+        cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetSpeed() << endl;
+    }
+
 
     void IsPokemonFainted(int jugador)
     {

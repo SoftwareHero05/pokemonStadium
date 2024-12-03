@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     juegoConsola.Start();
 
     system("pause");
-    system("cls");
+    //system("cls");
     /*
     juego.PrintPokemonNames();
      system("cls");
