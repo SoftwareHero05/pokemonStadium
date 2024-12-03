@@ -3,6 +3,6 @@
 
 class IronHead: public Move{
 	public:
-	IronHead():Move(80,STEEL,true,2,"IronHead"){
+	IronHead():Move(85,STEEL,true,2,"IronHead"){
 	}
 };

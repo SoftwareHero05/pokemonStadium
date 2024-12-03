@@ -161,7 +161,7 @@ public:
             {
                 this->ShowMoveSet(User);
                 cin >> chosen;
-            } while (chosen < 1 || chosen > 3);
+            } while (chosen < 1 || chosen > 4);
             return juego.ConvertNumberToStringMove(chosen);
         }
         else

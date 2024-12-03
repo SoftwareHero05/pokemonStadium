@@ -9,6 +9,8 @@
 #include <POKEMONS/Gardevoir.h>
 #include <POKEMONS/Venusaur.h>
 #include <POKEMONS/Tyranitar.h>
+#include <POKEMONS/Dragonite.h>
+#include <POKEMONS/Snorlax.h>
 
 class EquipoPokemon
 {

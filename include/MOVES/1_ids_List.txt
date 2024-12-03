@@ -21,3 +21,7 @@
 21 StoneEdge
 22 ThunderBolt
 23 NastyPlot
+24 WingAttack
+25 WaterFall
+26 BodySlam
+27 IcePunch

@@ -25,6 +25,8 @@ public:
         this->pokemons.emplace_back(Venusaur());
         this->pokemons.emplace_back(Tyranitar());
         this->pokemons.emplace_back(Gengar());
+        this->pokemons.emplace_back(Dragonite());
+        this->pokemons.emplace_back(Snorlax());
     }
     ~Juego() {}
 
@@ -48,6 +50,10 @@ public:
             return Tyranitar();
         case 8:
             return Gengar();
+        case 9:
+            return Dragonite();
+        case 10:
+            return Snorlax();
         default:
             return Lucario();
         }
@@ -134,6 +140,7 @@ public:
     void ExecuteMoveChosen(string nombre, int Enemy, int User)
     {
         int damage = this->jugadorActual.ExecuteMoveChosen(nombre);
+        this->ApplyChangesToPlayer(User);
         this->ChangePlayer(Enemy);
         this->ApplyDamageToPokemon(damage);
         this->ApplyChangesToPlayer(Enemy);
@@ -170,6 +177,7 @@ public:
 
     void ChangePokemon(string nombre)
     {
+        this->jugadorActual.GetPokemonInCombat().RestartStats();
         this->jugadorActual.AsingPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
     }
 

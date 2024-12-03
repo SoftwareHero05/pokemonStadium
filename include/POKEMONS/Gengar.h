@@ -3,6 +3,7 @@
 #include <MOVES/ShadowBall.h>
 #include <MOVES/SludgeBomb.h>
 #include <MOVES/ThunderBolt.h>
+#include <MOVES/NastyPlot.h>
 
 
 
@@ -13,6 +14,7 @@ class Gengar : public Pokemon{
 		this->AddMove(ShadowBall());
 		this->AddMove(SludgeBomb());
 		this->AddMove(ThunderBolt());
+		this->AddMove(NastyPlot());
 	 }
 	 ~Gengar() {
        

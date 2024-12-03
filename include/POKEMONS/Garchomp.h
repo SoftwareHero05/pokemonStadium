@@ -12,7 +12,7 @@ class Garchomp : public Pokemon{
 		this->AddMove(Earthquake());
 		this->AddMove(DragonClaw());
 		this->AddMove(Crunch());
-		//this->AddMove(DragonDance());
+		this->AddMove(DragonDance());
 	 }
 	 ~Garchomp() {
     }

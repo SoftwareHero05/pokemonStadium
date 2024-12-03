@@ -7,6 +7,8 @@ float multiplier = 1;
     switch (TypeAttack)
     {
     case NORMAL:
+        multiplier *= T_NORMAL_effectiviness(Type1);
+		if(Type2 != 0) multiplier *= T_NORMAL_effectiviness(Type2);
         break;
     case FIRE:
          multiplier *= T_FIRE_effectiveness(Type1);
@@ -79,6 +81,7 @@ float multiplier = 1;
     else if(multiplier == 0) cout<<"No hizo efecto alguno..."<<endl;
     else if(multiplier < 1) cout<<"No es muy Efectivo...."<<endl;
     else cout<<"Es Efectivo"<<endl;
+    cout<<multiplier<<endl;
     system("pause");
     system("cls");
     return multiplier;
