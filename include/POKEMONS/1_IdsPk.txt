@@ -6,3 +6,5 @@
 6 Venusaur
 7 Tyranitar
 8 Gengar
+9 Dragonite
+10 Snorlax
