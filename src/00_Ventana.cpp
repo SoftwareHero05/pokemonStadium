@@ -7,11 +7,18 @@
 
 class BackGround {
 public:
-    BackGround(const std::string& texturePath) {
+    BackGround(const std::string& texturePath, const sf::Vector2u& windowSize) {
         if (!texture.loadFromFile(texturePath)) {
             throw std::runtime_error("Failed to load texture: " + texturePath);
         }
         sprite.setTexture(texture);
+
+        sf::Vector2u textureSize = texture.getSize();
+        if (textureSize != windowSize) {  // Escala solo si las dimensiones no coinciden
+            float scaleX = static_cast<float>(windowSize.x) / textureSize.x;
+            float scaleY = static_cast<float>(windowSize.y) / textureSize.y;
+            sprite.setScale(scaleX, scaleY);
+        }
     }
 
     void draw(sf::RenderWindow& window) const {
@@ -147,10 +154,35 @@ private:
 int main() {
     try {
         sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
+
+        // Fondo inicial
+         BackGround initialBackground("./assets/images/FondoPokemon.png", window.getSize());
+         BackGround background("./assets/images/Bosque tarde - Zeo.png", window.getSize());
+        bool gameStarted = false;
+
+        // Pantalla inicial antes del bucle principal del juego
+        while (window.isOpen() && !gameStarted) {
+            sf::Event event;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
+
+                if (event.type == sf::Event::KeyPressed) {
+                    gameStarted = true; // Inicia el juego al presionar cualquier tecla
+                }
+            }
+
+            window.clear();
+            initialBackground.draw(window); // Dibuja el fondo inicial
+            window.display();
+        }
+
+        // Música y recursos del juego
         MusicManager music("./assets/music/batalla01.ogg");
         music.play();
 
-        BackGround background("./assets/images/Bosque tarde - Zeo.png");
+        
         Pokemon pokeball1("./assets/images/pokeball.png", 0.5f, 0.5f, 80, 220);
         Pokemon pokeball2("./assets/images/pokeball.png", 0.5f, 0.5f, 300, 80);
 
@@ -163,9 +195,10 @@ int main() {
 
         Pokemon gardevoir("./assets/images/282.png", 1.5f, 1.5f, 75, 200);
         Pokemon garchomp("./assets/images/445.png", 1.5f, 1.5f, 300, 70);
-        Ataque ataque("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); // Imagen del ataque
-        Ataque ataqueGarchomp("./assets/images/00011.png", 300, 70, 0.2f, 0.2f); // Imagen del ataque de Garchomp
-        
+
+        Ataque ataque("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); 
+        Ataque ataqueGarchomp("./assets/images/00011.png", 300, 70, 0.2f, 0.2f);
+
         bool gardevoirVisible = false;
         bool garchompVisible = false;
 
@@ -173,6 +206,7 @@ int main() {
         sf::Clock fadeClock;
         bool fadingOut = false;
 
+        // Bucle principal del juego
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -180,18 +214,18 @@ int main() {
                     window.close();
                 }
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
-                    if (!ataque.estaActivo()) { // Lanza el ataque solo si no está activo
+                    if (!ataque.estaActivo()) {
                         ataque.lanzar(230, 200, 400, 110); // Desde Gardevoir a Garchomp
                     }
                 }
 
                 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
-                    if (!ataqueGarchomp.estaActivo()) { // Lanza el ataque solo si no está activo
+                    if (!ataqueGarchomp.estaActivo()) {
                         ataqueGarchomp.lanzar(400, 80, 85, 320); // Desde Garchomp a Gardevoir
                     }
-                } 
-
+                }
             }
+
             ataque.actualizar(0.2f);
             ataqueGarchomp.actualizar(0.2f);
 
