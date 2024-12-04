@@ -10,7 +10,7 @@ int main(int argc, char const *argv[])
     // Prueba para verificar la creacion de charizard
     Charizard charizad;
     Garchomp garchomp;
-    Jugador jugador1;
+    EquipoPokemon jugador1;
     jugador1.AsignarPokemon(garchomp);
     jugador1.AsignarPokemon(charizad);
     list<Pokemon> equipo;
@@ -20,9 +20,9 @@ int main(int argc, char const *argv[])
             cout << equipo.getNombre()<<endl;
         }
 
-    bool pokemon = jugador1.PokemonAlreadyInTeam("Suicune");
+    bool pokemon = jugador1.IsPokemonInTeam("Suicune");
     cout<<pokemon<<endl;
-     pokemon = jugador1.PokemonAlreadyInTeam(charizad.getNombre());
+     pokemon = jugador1.IsPokemonInTeam(charizad.getNombre());
     cout<<pokemon<<endl;
 
     return 0;

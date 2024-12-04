@@ -3,6 +3,7 @@
 #include <MOVES/EnergyBall.h>
 #include <MOVES/SludgeBomb.h>
 #include <MOVES/EarthPower.h>
+#include <MOVES/Synthesis.h>
 
 class Venusaur : public Pokemon{
 	public:
@@ -10,7 +11,7 @@ class Venusaur : public Pokemon{
         this->AddMove(EnergyBall());
         this->AddMove(SludgeBomb());
         this->AddMove(EarthPower());
-        
+        this->AddMove(Synthesis());
 	 }
 	 ~Venusaur() {
     

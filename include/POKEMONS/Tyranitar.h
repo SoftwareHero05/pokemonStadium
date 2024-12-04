@@ -10,6 +10,7 @@ class Tyranitar : public Pokemon{
         this->AddMove(StoneEdge());
         this->AddMove(Crunch());
         this->AddMove(Earthquake());
+        this->AddMove(DragonDance());
 	 }
 	 ~Tyranitar() {
     }

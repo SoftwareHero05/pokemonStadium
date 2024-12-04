@@ -1,6 +1,7 @@
 #pragma once
 #include <Definer.h>
 #include <MOVES/Move.h>
+#include <MOVES/AuraSphere.h>
 
 class Pokemon
 {
@@ -10,6 +11,7 @@ protected:
 	int Hp, Atk, Def, SAtk, SDef, Speed, Type1, Type2;
 	int BAtk, BDef, BSAtk, BSDef, BSpeed, BHp;
 	list<Move> moves;
+	Move chosen;
 
 public:
 	// constructor con movimientos
@@ -40,6 +42,7 @@ public:
 		this->Speed = this->BSpeed;
 	}
 
+
 	list<Move> GetMoveSet()
 	{
 		return this->moves;
@@ -50,6 +53,52 @@ public:
 		this->moves.emplace_back(move);
 	}
 
+	Move SearchMove(string nombre) {
+    for (auto& move : this->moves) { 
+         if (move.GetMoveName() == nombre) { 
+                return move;
+            }
+        }
+		return AuraSphere();
+    }
+
+	bool IsMoveInMoveSet(string nombre) {
+    for (auto& move : this->moves) { 
+         if (move.GetMoveName() == nombre) { 
+                return true;
+            }
+        }
+        return false;
+    }
+
+	int ExecuteMoveChosen(string nombre, Pokemon Enemy)
+	{
+		if (nombre == "DragonDance" || nombre == "NastyPlot" || nombre == "CalmMind" || nombre == "Synthesis" || nombre == "Curse")
+		{
+			this->ExecuteBoostMove(nombre);
+			return 0;
+		}
+		else
+		{
+			this->chosen = this->SearchMove(nombre);
+			return chosen.ExecuteMove(this->getType1(), this->getType2(),
+									  Enemy.getType1(), Enemy.getType2(), this->GetAtk(), this->GetSAtk(),
+									  Enemy.GetDef(), Enemy.GetSDef());
+		}
+	}
+
+	void ExecuteBoostMove(string nombre){
+		if(nombre == "DragonDance") this->MoveDragonDance();
+		else if(nombre == "CalmMind") this->MoveCalmMind();
+		else if(nombre == "NastyPlot") this->MoveNastyPlot();
+		else if(nombre == "Synthesis") this->MoveSynthesis();
+		else if(nombre == "Curse") this->MoveCurse();
+	}
+
+	int GetHP()
+	{
+		return this->Hp;
+	}
 	int GetAtk()
 	{
 		return this->Atk;
@@ -101,8 +150,31 @@ public:
 	}
 	void heal50Percent()
 	{
-		this->Hp += (this->BHp * 5);
-		if (this->Hp > this->BHp)
-			this->Hp = this->BHp;
+		this->Hp += (this->BHp * .5);
+		if (this->Hp > this->BHp) this->Hp = this->BHp;
+	}
+	void ApplyDamageToPokemon(int damage){
+		this->Hp -= damage;
+	}
+
+	void MoveDragonDance(){
+		this->boostAtk();
+		this->boostSpeed();
+	}
+	void MoveCalmMind(){
+		this->boostSAtk();
+		this->boostSDef();
+	}
+	void MoveNastyPlot(){
+		this->boostSAtk();
+		this->boostSAtk();
+	}
+	void MoveSynthesis(){
+		this->heal50Percent();
+		
+	}
+	void MoveCurse(){
+		this->boostAtk();
+		this->boostDef();
 	}
 };

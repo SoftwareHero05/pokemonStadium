@@ -2,11 +2,13 @@
 #include <MOVES/Move.h>
 #include <Definer.h>
 
-int EffectiveMessage(int Type1,int Type2, int TypeAttack){
+float EffectiveMessage(int Type1,int Type2, int TypeAttack){
 float multiplier = 1;
     switch (TypeAttack)
     {
     case NORMAL:
+        multiplier *= T_NORMAL_effectiviness(Type1);
+		if(Type2 != 0) multiplier *= T_NORMAL_effectiviness(Type2);
         break;
     case FIRE:
          multiplier *= T_FIRE_effectiveness(Type1);
@@ -22,7 +24,7 @@ float multiplier = 1;
         break;
     case ELECTRIC:
          multiplier *= T_ELECTRIC_effectiveness(Type1);
-		if(Type2 != 0) multiplier *= T_FIRE_effectiveness(Type2);
+		if(Type2 != 0) multiplier *= T_ELECTRIC_effectiveness(Type2);
         break;
     case ICE:
         multiplier *= T_ICE_effectiveness(Type1);
@@ -76,8 +78,10 @@ float multiplier = 1;
         break;
     }
     if(multiplier > 1) cout<<"Es muy Efectivo!!!"<<endl;
+    else if(multiplier == 0) cout<<"No hizo efecto alguno..."<<endl;
     else if(multiplier < 1) cout<<"No es muy Efectivo...."<<endl;
     else cout<<"Es Efectivo"<<endl;
+    cout<<multiplier<<endl;
     system("pause");
     system("cls");
     return multiplier;

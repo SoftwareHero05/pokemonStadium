@@ -11,6 +11,7 @@ class Suicune : public Pokemon{
         this->AddMove(Surf());
         this->AddMove(IceBeam());
         this->AddMove(MoonBlast());
+        this->AddMove(CalmMind());
 	 }
 	 ~Suicune() {
       

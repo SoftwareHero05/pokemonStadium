@@ -10,6 +10,7 @@ class Gardevoir : public Pokemon{
         this->AddMove(ShadowBall());
         this->AddMove(MoonBlast());
         this->AddMove(Psychic());
+        this->AddMove(CalmMind());
 	 }
 	 ~Gardevoir() {
     

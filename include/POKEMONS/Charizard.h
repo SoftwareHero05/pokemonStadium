@@ -3,7 +3,7 @@
 #include <MOVES/Flamethrower.h>
 #include <MOVES/DragonPulse.h>
 #include <MOVES/AirSlash.h>
-
+#include <MOVES/CalmMind.h>
 class Charizard : public Pokemon
 {
 
@@ -13,6 +13,7 @@ public:
         this->AddMove(Flamethrower());
         this->AddMove(AirSlash());
         this->AddMove(DragonPulse());
+        this->AddMove(CalmMind());
     }
     ~Charizard()
     {

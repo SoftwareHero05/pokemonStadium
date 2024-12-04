@@ -3,6 +3,6 @@
 
 class AuraSphere: public Move{
 	public:
-	AuraSphere():Move(80,FIGHTING,false,1,"AuraSphere"){
+	AuraSphere():Move(85,FIGHTING,false,1,"AuraSphere"){
 	}
 };

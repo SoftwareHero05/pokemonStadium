@@ -10,6 +10,7 @@ class Lucario : public Pokemon{
         this->AddMove(AuraSphere());
         this->AddMove(FlashCannon());
         this->AddMove(DragonPulse());
+        this->AddMove(CalmMind());
         
 	 }
 	 ~Lucario() {
