@@ -5,10 +5,11 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     JuegoConsola juegoConsola;  
+    
     juegoConsola.Start();
-
+   
     system("pause");
-    //system("cls");
+    system("cls");
     /*
     juego.PrintPokemonNames();
      system("cls");

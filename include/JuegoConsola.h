@@ -232,7 +232,7 @@ public:
         this->juego.ChangePlayer(jugador);
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().getNombre() << "---HP: ";
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() << endl;
-        this->PrintPokemonStats(jugador);
+        //this->PrintPokemonStats(jugador);
         
     }
 
