@@ -5,7 +5,7 @@ class Image
 {
 public:
     Image() {}
-    void setImage(const std::string &texturePath, float scaleX = 1.0f, float scaleY = 1.0f, float posX = 0.0f, float posY = 0.0f)
+    void setImage(const std::string &texturePath, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
         if (!texture.loadFromFile(texturePath))

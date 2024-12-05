@@ -4,6 +4,7 @@
 #include <GRAPHICS/MoveGraphic.h>
 #include <GRAPHICS/ImageLoader.h>
 #include <GRAPHICS/ButtonImage.h>
+#include <GRAPHICS/Text.h>
 #include <Bridge.h>
 class JuegoGrafico
 {
@@ -13,6 +14,7 @@ private:
     Image image1, image2, image3, image4;
     MoveGraphic MoveGraphic;
     ButtonImage buttonArreglo[10];
+    Text texto1, texto2,texto3;
     Bridge link;
 
 public:
@@ -52,9 +54,9 @@ public:
             this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
             clock.restart();
             fadeClock.restart();
-            //bucle chooseTeam
+            // bucle chooseTeam
             gameStarted = false;
-            this->bucleChooseTeamScreen(window,gameStarted,event,clock,fadeClock,fadingOut,1);
+            this->bucleChooseTeamScreen(window, gameStarted, event, clock, fadeClock, fadingOut, 1);
         }
 
         catch (const std::exception &e)
@@ -139,24 +141,32 @@ public:
     }
 
     void bucleChooseTeamScreen(sf::RenderWindow &window, bool &gameStarted, sf::Event &event,
-                               sf::Clock &clock, sf::Clock &fadeClock, bool &fadingOut,int player)
+                               sf::Clock &clock, sf::Clock &fadeClock, bool &fadingOut, int player)
     {
         string choice;
-        list <int> TeamChosen;
+        list<int> TeamChosen;
         int choiceInt, a = 0;
         bool ended = false;
-        float x = 100.0f, y = 0.f;
+        this->image3.setImage("./assets/images/textbox1.png", .2f, .2f, 20.0f, 150.0f);
+        this->texto1.setText("Pokemon Ya escogido", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
+        this->texto2.setText("Pokemon agregado \nal equipo", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
+        this->texto2.setText(choice,"./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
+        this->texto1.setColor(sf::Color(0, 0, 0, 255));
+        this->texto2.setColor(sf::Color(0, 0, 0, 255));
+        this->texto1.setVisibility(false);
+        this->texto2.setVisibility(false);
+        float x = 250.0f, y = 0.f;
         for (int i = 0; i < 5; i++)
-        {   
-            this->buttonArreglo[i].setButton(this->link.getPokemonImageDirection(i, 2), sf::Vector2f(x , y + i*75.0f), this->link.getSpecificPokemonName(i));
+        {
+            this->buttonArreglo[i].setButton(this->link.getPokemonImageDirection(i, 2), sf::Vector2f(x, y + i * 75.0f), this->link.getSpecificPokemonName(i));
         }
-        x = 300.0f;
+        x = 400.0f;
         for (int i = 0; i < 5; i++)
-        {   
-            this->buttonArreglo[i + 5].setButton(this->link.getPokemonImageDirection(i + 5, 2), sf::Vector2f(x , y + i*75.0f), this->link.getSpecificPokemonName(i + 5));
+        {
+            this->buttonArreglo[i + 5].setButton(this->link.getPokemonImageDirection(i + 5, 2), sf::Vector2f(x, y + i * 75.0f), this->link.getSpecificPokemonName(i + 5));
         }
-       
-        while (window.isOpen() && !ended )
+
+        while (window.isOpen() && !ended)
         {
             while (window.pollEvent(event))
             {
@@ -170,32 +180,44 @@ public:
                     if (button.handleEvent(event, window, choice))
                     {
                         choiceInt = this->link.StringToNumberPokemon(choice);
-                        if(this->checkPokemon(TeamChosen,choiceInt) == false) 
+                        if (this->checkPokemon(TeamChosen, choiceInt) == false)
                         {
                             TeamChosen.push_back(choiceInt);
                             a++;
-                            cout<<a<<endl;
-                        } 
-                        else cout<<"Pokemon ya escogido"<<endl;
+                           
+                            this->texto1.setVisibility(false);
+                            this->texto2.setVisibility(true);
+
+                        }
+                        else
+                        {
+                            this->texto2.setVisibility(false);
+                            this->texto1.setVisibility(true);
+                        }
                     }
                 }
 
                 window.clear();
                 backGround.draw(window);
+                image3.draw(window);
                 for (auto &button : buttonArreglo)
                 {
                     button.draw(window);
                 }
+                texto1.draw(window);
+                texto2.draw(window);
                 window.display();
-                if(a == 6) {
-                    this->link.AsignTeam(TeamChosen,player);
+                if (a == 6)
+                {
+                    this->link.AsignTeam(TeamChosen, player);
                     ended = true;
                 }
             }
         }
     }
 
-    bool checkPokemon(list <int> teamChosen, int opcion){
+    bool checkPokemon(list<int> teamChosen, int opcion)
+    {
         for (auto &pokemon : teamChosen)
         {
             if (pokemon == opcion)
