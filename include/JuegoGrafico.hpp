@@ -148,13 +148,15 @@ public:
         int choiceInt, a = 0;
         bool ended = false;
         this->image3.setImage("./assets/images/textbox1.png", .2f, .2f, 20.0f, 150.0f);
-        this->texto1.setText("Pokemon Ya escogido", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
-        this->texto2.setText("Pokemon agregado \nal equipo", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
-        this->texto2.setText(choice,"./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 30.0f, 170.0f);
+        this->texto1.setText("Este Pokemon \nya fue escogido", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 32.0f, 170.0f);
+        this->texto2.setText("fue agregado \nal equipo", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf", 18U, 34.0f, 188.0f);
+        this->texto3.setText("x", "./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf",18U, 34.0f, 170.0f);
         this->texto1.setColor(sf::Color(0, 0, 0, 255));
         this->texto2.setColor(sf::Color(0, 0, 0, 255));
+        this->texto3.setColor(sf::Color(0, 0, 0, 255));
         this->texto1.setVisibility(false);
         this->texto2.setVisibility(false);
+        this->texto3.setVisibility(false);
         float x = 250.0f, y = 0.f;
         for (int i = 0; i < 5; i++)
         {
@@ -184,14 +186,16 @@ public:
                         {
                             TeamChosen.push_back(choiceInt);
                             a++;
-                           
+                            this->texto3.setString(choice);
                             this->texto1.setVisibility(false);
                             this->texto2.setVisibility(true);
+                            this->texto3.setVisibility(true);
 
                         }
                         else
                         {
                             this->texto2.setVisibility(false);
+                            this->texto3.setVisibility(false);
                             this->texto1.setVisibility(true);
                         }
                     }
@@ -206,6 +210,7 @@ public:
                 }
                 texto1.draw(window);
                 texto2.draw(window);
+                texto3.draw(window);
                 window.display();
                 if (a == 6)
                 {
