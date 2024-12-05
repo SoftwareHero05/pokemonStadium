@@ -47,4 +47,9 @@ public:
     {
         window.draw(sprite);
     }
+
+    void setScale(float scaleX, float scaleY)
+    {
+        sprite.setScale(scaleX, scaleY);
+    }
 };

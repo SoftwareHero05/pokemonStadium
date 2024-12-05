@@ -8,7 +8,8 @@ private:
     list<Pokemon> pokemons;
     list<Pokemon> equipoActual;
     list<Move> moveSetActual;
-    list<string> stringList;
+    list<string> stringListAllPokemons;
+    list<string> stringListTeam;
     Juego juego;
     int DPlayer1, DPlayer2;
     string OP1, OP2, pokemonName;
@@ -29,23 +30,36 @@ public:
         this->pokemons = juego.GetAllPokemons();
         for (auto &&pokemon : this->pokemons)
         {
-          this->stringList.emplace_back(pokemon.getNombre());
+          this->stringListAllPokemons.emplace_back(pokemon.getNombre());
         }
     }
     
     list<string> getAllPokemonsNamesString(){
-        return this->stringList;
+        return this->stringListAllPokemons;
     }
 
-    string getSpecificPokemonName(int i){
-        auto it = this->stringList.begin();
+    string getSpecificPokemonNameWithInt(int i){
+        auto it = this->stringListAllPokemons.begin();
         advance(it, i);
         return *it;  
     }
 
-    string getPokemonImageDirection(int i, int player){
-        if(player == 1) return "./assets/images/POKEMONS_SPRITES/B_" + this->getSpecificPokemonName(i) + ".png";
-        else return "./assets/images/POKEMONS_SPRITES/F_" + this->getSpecificPokemonName(i) + ".png";
+    bool IsPokemonReal(string nombre){
+        for (auto &&pokemon : this->pokemons)
+        {
+          if(pokemon.getNombre() == nombre) return true;
+        }
+        return false;
+    }
+
+    string getPokemonImageDirectionWithInt(int i, int player){
+        if(player == 1) return "./assets/images/POKEMONS_SPRITES/B_" + this->getSpecificPokemonNameWithInt(i) + ".png";
+        else return "./assets/images/POKEMONS_SPRITES/F_" + this->getSpecificPokemonNameWithInt(i) + ".png";
+    }
+
+    string getPokemonImageDirectionWithString(string nombre, int player){
+        if(player == 1) return "./assets/images/POKEMONS_SPRITES/B_" + nombre + ".png";
+        else return "./assets/images/POKEMONS_SPRITES/F_" + nombre + ".png";
     }
 
     int StringToNumberPokemon(string opcion){
@@ -69,6 +83,16 @@ public:
             this->juego.CanAddPokemonToPlayer(pokemon);
         }
         this->juego.ApplyChangesToPlayer(jugador);
+    }
+
+    list <string> getTeamString(int jugador){
+        this->stringListTeam.clear();
+        this->equipoActual = this->juego.GetJugadorSpecific(jugador).GetTeam();
+        for (auto &&pokemon : this->equipoActual)
+        {   
+            this->stringListTeam.push_back(pokemon.getNombre());
+        }
+        return this->stringListTeam;
     }
 
 };

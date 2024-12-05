@@ -6,14 +6,15 @@
 class Text
 {
 public:
-    Text() : visible(true) {}
-
-    void setText(const std::string &text, const std::string &fontPath, unsigned int fontSize = 30, float posX = 0.0f, float posY = 0.0f)
-    {
+    Text(const std::string &fontPath) : visible(true) {
         if (!font.loadFromFile(fontPath))
         {
             throw std::runtime_error("Failed to load font: " + fontPath);
         }
+    }
+
+    void setText(const std::string &text, unsigned int fontSize = 30, float posX = 0.0f, float posY = 0.0f)
+    {
         this->text.setFont(font);
         this->text.setString(text);
         this->text.setCharacterSize(fontSize);
