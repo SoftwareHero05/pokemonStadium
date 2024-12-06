@@ -5,7 +5,6 @@
 #include <cmath>
 #include <GRAPHICS/ImageLoader.h>
 
-
 class BackGround {
 public:
     BackGround(const std::string& texturePath, const sf::Vector2u& windowSize) {
@@ -152,6 +151,9 @@ private:
 
 
 
+std::vector<Pokemon> pokemonesAdicionales;
+const int maxPokemones = 6;
+
 int main() {
     try {
         sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
@@ -174,6 +176,22 @@ int main() {
                 }
             }
 
+
+            if (event.type == sf::Event::KeyPressed && pokemonesAdicionales.size() < maxPokemones) {
+            if (event.key.code == sf::Keyboard::A) {  // Primera tecla
+            pokemonesAdicionales.emplace_back("./assets/images/003.png", 0.8f, 0.8f, 150, 150); // Charmander
+            } else if (event.key.code == sf::Keyboard::B) {  // Segunda tecla
+            pokemonesAdicionales.emplace_back("./assets/images/006.png", 0.8f, 0.8f, 200, 100); // Squirtle
+            } else if (event.key.code == sf::Keyboard::C) {  // Tercera tecla
+            pokemonesAdicionales.emplace_back("./assets/images/142.png", 0.8f, 0.8f, 300, 200); // Bulbasaur
+            } else if (event.key.code == sf::Keyboard::D) {  // Cuarta tecla
+            pokemonesAdicionales.emplace_back("./assets/images/149.png", 0.8f, 0.8f, 100, 250); // Pikachu
+            } else if (event.key.code == sf::Keyboard::E) {  // Quinta tecla
+            pokemonesAdicionales.emplace_back("./assets/images/448.png", 0.8f, 0.8f, 250, 250); // Mewtwo
+            } else if (event.key.code == sf::Keyboard::F) {  // Sexta tecla
+            pokemonesAdicionales.emplace_back("./assets/images/445.png", 0.8f, 0.8f, 350, 150); // Charizard
+            }
+            }
             window.clear();
             initialBackground.draw(window); // Dibuja el fondo inicial
             window.display();
@@ -259,6 +277,10 @@ int main() {
 
             window.clear();
             background.draw(window);
+            
+            for (const auto& pokemon : pokemonesAdicionales) {
+            pokemon.draw(window);
+            }
 
             if (entrenador1.getAlpha() > 0 || entrenador2.getAlpha() > 0) {
                 if (entrenador1.getAlpha() > 0) entrenador1.draw(window);
