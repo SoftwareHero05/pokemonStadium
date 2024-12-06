@@ -23,6 +23,9 @@ public:
     }
     ~Bridge() {}
 
+    Juego& Getjuego() {
+        return this->juego;
+    }
 
     void GetAllPokemonNames()
     {
@@ -94,5 +97,10 @@ public:
         }
         return this->stringListTeam;
     }
+
+    string GetPokemonActual(int player){
+        return this->juego.GetJugadorSpecific(player).GetPokemonInCombat().getNombre();
+    }
+
 
 };

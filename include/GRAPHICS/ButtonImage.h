@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <string>
@@ -9,11 +10,13 @@ private:
     sf::Texture texture;
     std::string returnValue; // Valor asociado al botón
     std::function<void()> onClick;
+    bool visible;
 
 public:
     // Configurar el botón con un valor de retorno
     void setButton(const std::string& texturePath, sf::Vector2f position, const std::string& value)
     {
+
         if (!texture.loadFromFile(texturePath))
         {
             throw std::runtime_error("Error al cargar la textura: " + texturePath);
@@ -45,7 +48,15 @@ public:
     // Dibujar el botón
     void draw(sf::RenderWindow& window)
     {
-        window.draw(sprite);
+        if (visible)
+        {
+            window.draw(sprite);
+        }
+    }
+
+    void setVisibility(bool visibility)
+    {
+        visible = visibility;
     }
 
     void setScale(float scaleX, float scaleY)

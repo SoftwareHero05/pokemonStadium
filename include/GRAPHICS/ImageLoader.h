@@ -32,6 +32,11 @@ public:
         sprite.setTextureRect(rect);
     }
 
+    void restoreTextureRect()
+    {
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
+    }
+
     void setVisibility(bool visibility)
     {
         visible = visibility;
