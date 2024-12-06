@@ -5,6 +5,8 @@ class BackGround {
 public:
     BackGround() {}
 
+    ~BackGround() {}
+
     BackGround(const std::string& texturePath,const sf::Vector2u& windowSize) {
         setBackGround(texturePath,windowSize);
     }

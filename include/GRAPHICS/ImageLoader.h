@@ -1,17 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "TextureManager.h"
 class Image
 {
 public:
     Image() {}
-    void setImage(const std::string &texturePath, float scaleX , float scaleY , float posX, float posY)
+    ~Image(){}
+    void setImage(const std::string &texturePath, TextureManager& manager, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
-        if (!texture.loadFromFile(texturePath))
-        {
-            throw std::runtime_error("Failed to load texture: " + texturePath);
-        }
+         const sf::Texture& texture = manager.getTexture(texturePath);
         sprite.setTexture(texture);
         sprite.setScale(scaleX, scaleY);
         sprite.setPosition(posX, posY);
