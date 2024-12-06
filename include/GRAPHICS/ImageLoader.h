@@ -5,7 +5,7 @@ class Image
 {
 public:
     Image() {}
-    void setImage(const std::string &texturePath, float scaleX = 1.0f, float scaleY = 1.0f, float posX = 0.0f, float posY = 0.0f)
+    void setImage(const std::string &texturePath, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
         if (!texture.loadFromFile(texturePath))
@@ -30,6 +30,11 @@ public:
     void setTextureRect(const sf::IntRect &rect)
     {
         sprite.setTextureRect(rect);
+    }
+
+    void restoreTextureRect()
+    {
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
     }
 
     void setVisibility(bool visibility)

@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <GRAPHICS/ImageLoader.h>
 
 class BackGround {
 public:
@@ -200,7 +201,6 @@ int main() {
         MusicManager music("./assets/music/batalla01.ogg");
         music.play();
 
-        
         Pokemon pokeball1("./assets/images/pokeball.png", 0.5f, 0.5f, 80, 220);
         Pokemon pokeball2("./assets/images/pokeball.png", 0.5f, 0.5f, 300, 80);
 
