@@ -1,33 +1,26 @@
 #pragma once
 #include <Juego.h>
-#include <sstream>
-#include <GRAPHICS/BackGround.h>
-#include <GRAPHICS/MusicManager.h>
-#include <GRAPHICS/MoveGraphic.h>
-#include <GRAPHICS/ImageLoader.h>
-#include <GRAPHICS/ButtonImage.h>
-#include <GRAPHICS/Text.h>
+#include <GRAPHICS/Screen.h>
 #include <Bridge.h>
-#include <GRAPHICS/TextureManager.h>
 class JuegoGrafico
 {
 private:
-    BackGround backGroundInitial, backGround;
-    MusicManager musicManager;
-    Image trainerImage1, trainerImage2, image1, image2, image3, image4;
-    MoveGraphic MoveGraphic;
-    ButtonImage buttonArregloPokemons[10], buttonArregloAction1[2], buttonArregloAction2[2];
-    Text texto1, texto2, texto3, texto4;
     TextureManager manager;
     Bridge link;
+    sf::Font font;
+    sf::RenderWindow window;
+    sf::Clock clock;
+    sf::Clock fadeClock;
+    sf::Font font;
 
 public:
-    JuegoGrafico()
-        : texto1("./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf"),
-          texto2("./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf"),
-          texto3("./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf"),
-          texto4("./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf")
+    JuegoGrafico(): window(sf::VideoMode(512, 384), "SFML with Classes") 
     {
+        // Aquí puedes inicializar otros miembros si es necesario
+        if (!font.loadFromFile("path/to/font.ttf")) {
+            // Manejo del error si no se puede cargar la fuente
+            std::cerr << "Error al cargar la fuente" << std::endl;
+        }
     }
     ~JuegoGrafico() {}
 
@@ -35,14 +28,7 @@ public:
     {
         try
         {
-            sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
-            sf::Clock clock;
-            sf::Clock fadeClock;
-            sf::Font font;
-            if (!font.loadFromFile("./assets/fonts/pokemon-firered-leafgreen-font-recreation.ttf"))
-            {
-                std::cerr << "No se pudo cargar la fuente.\n";
-            }
+        
             bool fadingOut = false;
             bool gameStarted = false;
             sf::Event event;
