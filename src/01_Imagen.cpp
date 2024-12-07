@@ -162,7 +162,7 @@ int main() {
         entrenador2.setTextureRect(sf::IntRect(195, 0, 196, 130)); // Segundo entrenador
 
         Pokemon charizard("./assets/images/006B.png", 1.5f, 1.5f, 75, 200);
-        Pokemon lucario("./assets/images/006F.png", 1.5f, 1.5f, 300, 70);
+        Pokemon lucario("./assets/images/448F.png", 1.5f, 1.5f, 300, 70);
         Ataque ataqueCharizard("./assets/images/00013.png", 90, 300, 0.2f, 0.2f); // Imagen del ataque
         Ataque ataqueLucario("./assets/images/00011.png", 300, 70, 0.2f, 0.2f); // Imagen del ataque de Garchomp
         

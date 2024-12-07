@@ -1,19 +1,88 @@
 @startuml diagrama
 
+package MOVES{
+    class AirSlash
+    class AuraSphere
+    class BodySlam
+    class CalmMind
+    class Crunch
+    class Curse
+    class DragonClaw
+    class DragonDance
+    class DragonPulse
+    class EarthPower
+    class Earthquake
+    class EnergyBall 
+    class Flamethrower
+    class FlashCannon
+    class IceBeam
+    class IcePunch
+    class IronHead
+    class MoonBlast
+    class Move{}
+    class NastyPlot
+    class Psychic
+    class ShadowBall
+    class SludgeBomb
+    class StoneEdge
+    class Surf
+    class Synthesis
+    class ThunderBolt
+    class WaterFall
+    class WingAttack
+}
+
+
 package POKEMONS{
     class Pokemon
+    class Charizard
+    class Dragonite
+    class Garchomp
+    class Gardevoir
+    class Gengar
+    class Lucario
+    class Snorlax
+    class Suicune
+    class Tyranitar
+    class Venusaur
+    class EquipoPokemon
+    class GameWindow{} 
+    class Juego{}
+    class JuegoConsola{}
+    class JuegoGrafico{}
+
 }
 
+package GRAPHICS{
+    class BackGround{
+    - texture: sf::Texture
+    - sprite: sf::Sprite
 
-package MOVES{
-    class Move
-    class Attack
-    class Boost
-    class AirSlash
+    + BackGround()     
+    + BackGround(texturePath: std::string, windowSize: sf::Vector2u)
+    + setBackGround(texturePath: std::string, windowSize: sf::Vector2u): void
+    + draw(window: sf::RenderWindow): void
+    }
+    
+    class ButtonImage{
+    - sprite: sf::Sprite
+    - texture: sf::Texture
+    - returnValue: std::string
+    - function<void> onClick;
+    - visible: bool
+
+    + setButton(texturePath: std::string, position: sf::Vector2f, value: std::string): void
+    + handleEvent(event: sf::Event, window: sf::RenderWindow, result: std::string): bool
+    + draw(window: sf::RenderWindow): void
+    + setVisibility(visibility: bool): void
+    + setScale(scaleX: float, scaleY: float): void
+
+    }
+    class Image
+    class MoveGraphic
+    class MusicManager
+    class Text
+
 }
-
-
-
-
 
 @enduml
