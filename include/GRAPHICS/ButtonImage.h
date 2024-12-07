@@ -15,7 +15,7 @@ private:
 public:
     // Configurar el botón con un valor de retorno
     ButtonImage(){}
-    void setButton(const std::string& texturePath,TextureManager& textureManager, sf::Vector2f position, const std::string& value)
+    void setButton(const std::string& texturePath,SourceManager& textureManager, sf::Vector2f position, const std::string& value)
     {
 
         const sf::Texture& texture = textureManager.getTexture(texturePath);

@@ -1,20 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "TextureManager.h"
 class BackGround {
 public:
     BackGround() {}
 
-    ~BackGround() {}
+    ~BackGround() {} 
 
-    BackGround(const std::string& texturePath,const sf::Vector2u& windowSize) {
-        setBackGround(texturePath,windowSize);
-    }
-        
-    void setBackGround(const std::string& texturePath,const sf::Vector2u& windowSize){
-        if (!texture.loadFromFile(texturePath)) {
-            throw std::runtime_error("Failed to load texture: " + texturePath);
-        }
+    void setBackGround(const std::string& texturePath,SourceManager& manager,const sf::Vector2u& windowSize){
+        this->texture = manager.getTexture(texturePath);
         this->sprite.setTexture(texture);
         sf::Vector2u textureSize = texture.getSize();
        if (textureSize != windowSize) {  // Escala solo si las dimensiones no coinciden

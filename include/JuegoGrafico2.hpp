@@ -17,22 +17,21 @@ private:
     string OP1, OP2, pokemonName;
     int fasterPlayer, slowerPlayer;
     string OPfaster, OpSlower;
-    TextureManager manager;
+    SourceManager manager;
     sf::RenderWindow window;
     sf::Clock clock;
     sf::Clock fadeClock;
     sf::Font font;
     std::vector<std::shared_ptr<Pantalla>> pantallas; // Pantallas del juego
-    int pantallaActual; // Índice de la pantalla actual
+    int pantallaActual = 0; // Índice de la pantalla actual
 
 public:
-    JuegoGrafico() : window(sf::VideoMode(512, 384), "SFML with Classes"), pantallaActual(0) 
+    JuegoGrafico() : window(sf::VideoMode(1024, 768), "SFML with Classes"), pantallaActual(0) 
     {
-        if (!font.loadFromFile("path/to/font.ttf")) {
-            std::cerr << "Error al cargar la fuente" << std::endl;
-        }
-
+        
+        manager.getFont("pokemon-firered-leafgreen-font-recreation.ttf");
         // Inicializamos las pantallas
+        pantallas.push_back(std::make_shared<PantallaCarga>(window, manager));
         pantallas.push_back(std::make_shared<PantallaCarga>(window, manager));
     }
 

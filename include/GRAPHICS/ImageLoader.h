@@ -6,10 +6,10 @@ class Image
 public:
     Image() {}
     ~Image(){}
-    void setImage(const std::string &texturePath, TextureManager& manager, float scaleX , float scaleY , float posX, float posY)
+    void setImage(const std::string &texturePath, SourceManager& manager, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
-         const sf::Texture& texture = manager.getTexture(texturePath);
+        this->texture = manager.getTexture(texturePath);
         sprite.setTexture(texture);
         sprite.setScale(scaleX, scaleY);
         sprite.setPosition(posX, posY);
@@ -23,6 +23,14 @@ public:
     void setScale(float scaleX, float scaleY)
     {
         sprite.setScale(scaleX, scaleY);
+    }
+
+    float getTextureSizeX(){
+        return texture.getSize().x;
+    }
+
+    float getTextureSizeY(){
+        return texture.getSize().x;
     }
 
     void setTextureRect(const sf::IntRect &rect)
