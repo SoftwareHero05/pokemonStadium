@@ -17,7 +17,7 @@ private:
     sf::Clock clock;
     sf::Clock fadeClock;
     BackGround backGround;
-    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10,text11;
+    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11;
     Image image1, image2, image3, image4, image5, image6;
     MusicManager musicManager;
     list<ButtonText> buttonsText;
@@ -99,6 +99,8 @@ public:
             fadeClock.restart();
             musicManager.changeMusic("./assets/music/Theme1.ogg");
             this->bucleChooseAction(window, event, fadeClock);
+            gameStarted = false;
+            this->bucleEnd(window, gameStarted,event);
         }
 
         catch (const std::exception &e)
@@ -376,7 +378,8 @@ public:
                         if (player1 == false)
                         {
                             this->GetChoices(window, event, choicePlayer1, choicePlayer2);
-                            this->BucleExecuteAction(window, event);
+                            if (this->BucleExecuteAction(window, event) == false)
+                                ended = true;
                             player1 = true;
                         }
                     }
@@ -425,7 +428,7 @@ public:
         string choice2;
         if (choicePlayer1 == "change")
         {
-            choice1 = this->BucleChangePokemon(window, event, 1,false);
+            choice1 = this->BucleChangePokemon(window, event, 1, false);
             link.setPlayerDecision(1, 2, choice1);
         }
         else
@@ -436,7 +439,7 @@ public:
 
         if (choicePlayer2 == "change")
         {
-            choice2 = this->BucleChangePokemon(window, event, 2,false);
+            choice2 = this->BucleChangePokemon(window, event, 2, false);
             link.setPlayerDecision(2, 2, choice2);
         }
         else
@@ -446,29 +449,48 @@ public:
         }
     }
 
-    void BucleExecuteAction(sf::RenderWindow &window, sf::Event &event)
-    {   
+    bool BucleExecuteAction(sf::RenderWindow &window, sf::Event &event)
+    {
         link.ExecuteTurn();
         string choice;
-        if(link.Getjuego().GetJugadorSpecific(1).GetPokemonInCombat().GetHP() < 1)  {
-            choice = this->BucleChangePokemon(window,event,1,true);
-            this->link.ExecuteChange(1,choice);
+        if (this->link.IsGameOver(1) == true)
+        {
+            return false;
+        }
+
+        if (link.Getjuego().GetJugadorSpecific(1).GetPokemonInCombat().GetHP() < 1)
+        {
+            choice = this->BucleChangePokemon(window, event, 1, true);
+            this->link.ExecuteChange(1, choice);
             this->link.Getjuego().ApplyChangesToPlayer(1);
+        }
+        if (this->link.IsGameOver(2) == true)
+        {
+            return false;
+        }
+        if (link.Getjuego().GetJugadorSpecific(2).GetPokemonInCombat().GetHP() < 1)
+        {
+            if (this->link.IsGameOver(2) == true)
+            {
+                return false;
             }
-        if(link.Getjuego().GetJugadorSpecific(2).GetPokemonInCombat().GetHP() < 1) {
-            choice = this->BucleChangePokemon(window,event,2,true);
-            this->link.ExecuteChange(2,choice);
-            this->link.Getjuego().ApplyChangesToPlayer(2);
+            else
+            {
+                choice = this->BucleChangePokemon(window, event, 2, true);
+                this->link.ExecuteChange(2, choice);
+                this->link.Getjuego().ApplyChangesToPlayer(2);
             }
+        }
         text7.setString(link.GetHP(1));
         text8.setString(link.GetHP(2));
         text9.setString(link.GetPokemonActual(1));
         text10.setString(link.GetPokemonActual(2));
         image3.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
         image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
+        return true;
     }
 
-    string BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, int player,bool isFainted)
+    string BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, int player, bool isFainted)
     {
         bool ended = false;
         int state = 0;
@@ -508,7 +530,7 @@ public:
                     {
                         if (pokemon == pokemonActual)
                             state = 1;
-                        else if(this->CheckFaintedPokemons(pokemon,fainted) == false)
+                        else if (this->CheckFaintedPokemons(pokemon, fainted) == false)
                             state = 2;
                         else
                             return pokemon;
@@ -525,7 +547,8 @@ public:
             {
                 buton.draw(window);
             }
-            if(isFainted == true) window.draw(text11);
+            if (isFainted == true)
+                window.draw(text11);
             window.display();
         }
         return "";
@@ -580,6 +603,36 @@ public:
         return "";
     }
 
+    void bucleEnd(sf::RenderWindow &window, bool &gameStarted, sf::Event &event)
+    {
+        if(link.IsGameOver(1) == true) textManger(text1,"Player one has no pokemon Left\nPlayer 2 wins",50U,600,350);
+        else textManger(text1,"Player one has no pokemon Left\nPlayer 2 wins",50U,600,250);
+        textManger(text2,"Thanks for playing\nMade by\nJesus Baez 23310372\nHector",50U,600,400);
+        while (window.isOpen() && !gameStarted)
+        {
+
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+
+                if (event.type == sf::Event::KeyPressed)
+                {
+                    gameStarted = true; 
+                }
+            }
+
+            window.clear();
+            backGround.draw(window); 
+            window.draw(text1);
+            window.draw(text2);
+            window.display();
+        }
+        
+    }
+
     void textManger(sf::Text &text, string message, int size, float x, float y)
     {
         text.setString(message);
@@ -587,10 +640,12 @@ public:
         text.setPosition(x, y);
     }
 
-    bool CheckFaintedPokemons(string choice, list<string> fainted){
-         for (auto &pokemon : fainted)
+    bool CheckFaintedPokemons(string choice, list<string> fainted)
+    {
+        for (auto &pokemon : fainted)
         {
-            if(pokemon == choice) return false;
+            if (pokemon == choice)
+                return false;
         }
         return true;
     }
