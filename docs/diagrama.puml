@@ -1,55 +1,179 @@
 @startuml diagrama
 
 package MOVES{
-    class AirSlash
-    class AuraSphere
-    class BodySlam
-    class CalmMind
-    class Crunch
-    class Curse
-    class DragonClaw
-    class DragonDance
-    class DragonPulse
-    class EarthPower
-    class Earthquake
-    class EnergyBall 
-    class Flamethrower
-    class FlashCannon
-    class IceBeam
-    class IcePunch
-    class IronHead
-    class MoonBlast
-    class Move{}
-    class NastyPlot
-    class Psychic
-    class ShadowBall
-    class SludgeBomb
-    class StoneEdge
-    class Surf
-    class Synthesis
-    class ThunderBolt
-    class WaterFall
-    class WingAttack
+
+    class Move{
+    - id: int      
+    - nombre: string 
+    - potencia: int 
+    - type: int     
+    - category: bool
+
+    + Move()       
+    + Move(potencia: int, type:
+      int, category: bool, id: int, nombre: string) 
+    + GetMoveName(): string 
+    + ExecuteMove(UserType1: int, UserType2: int,  EnemyType1: int, EnemyType2: int, UserAtk: int, UserSAtk: int, EnemyDef: int, EnemySDef: int): int 
+    }
+
+    class AirSlash{
+    + AirSlash() 
+    }
+    class AuraSphere{
+    + AuraSphere()
+    }
+    class BodySlam{
+    + BodySlam() 
+    }
+    class CalmMind{
+    + CalmMind()   
+    }
+    class Crunch{
+    + Crunch()   
+    }
+    class Curse{
+    + Curse()    
+    }
+    class DragonClaw{
+    + DragonClaw()
+    }
+    class DragonDance{
+    + DragonDance()
+    }
+    class DragonPulse{
+    + DragonPulse()
+    }
+    class EarthPower{
+    + EarthPower()
+    }
+    class Earthquake{
+    + Earthquake()
+    }
+    class EnergyBall{
+    + EnergyBall()
+    }
+    class Flamethrower{
+    + Flamethrower()
+    }
+    class FlashCannon{
+    + FlashCannon()
+    }
+    class IceBeam{
+    + IceBeam()
+    }
+    class IcePunch{
+    + IcePunch()
+    }
+    class IronHead{
+    + IronHead()
+    }
+    class MoonBlast{
+    + MoonBlast()
+    }
+    class NastyPlot{
+     + NastyPlot()
+    }
+    class Psychic{
+    + Psychic()   
+    }
+    class ShadowBall{
+    + ShadowBall()
+    }
+    class SludgeBomb{
+    + SludgeBomb() 
+    }
+    class StoneEdge{
+    + StoneEdge() 
+    }
+    class Surf{
+    + Surf()   
+    }
+    class Synthesis{
+    + Synthesis()  
+    }
+    class ThunderBolt{
+    + ThunderBolt()
+    }
+    class WaterFall{
+    + WaterFall()
+    }
+    class WingAttack{
+    + WingAttack()
+    }
 }
 
 
 package POKEMONS{
-    class Pokemon
-    class Charizard
-    class Dragonite
-    class Garchomp
-    class Gardevoir
-    class Gengar
-    class Lucario
-    class Snorlax
-    class Suicune
-    class Tyranitar
-    class Venusaur
-    class EquipoPokemon
-    class GameWindow{} 
-    class Juego{}
-    class JuegoConsola{}
-    class JuegoGrafico{}
+    class Pokemon{
+    - iD: int      
+    - nombre: string 
+    - Hp: int       
+    - Atk: int      
+    - Def: int      
+    - SAtk: int     
+    - SDef: int     
+    - Speed: int    
+    - Type1: int    
+    - Type2: int    
+    - BAtk: int     
+    - BDef: int     
+    - BSAtk: int    
+    - BSDef: int    
+    - BSpeed: int   
+    - BHp: int      
+    - moves: list<Move> 
+    - chosen: Move  
+
+    + Pokemon()    
+    + Pokemon(Hp: int, Atk: int, Def: int, SAtk: int, SDef: int, Speed: int, id: int, nombre: string, Type1: int, Type2: int) 
+    + AddMove(move: Move): void 
+    + ExecuteMoveChosen(nombre: string, Enemy: Pokemon): int 
+    + ExecuteBoostMove(nombre: string): void 
+    + RestartStats(): void 
+    + boostAtk(): void 
+    + boostDef(): void 
+    + boostSAtk(): void 
+    + boostSDef(): void 
+    + boostSpeed(): void 
+    + heal50Percent(): void 
+    + ApplyDamageToPokemon(damage: int): void 
+    + MoveDragonDance(): void 
+    + MoveCalmMind(): void 
+    + MoveNastyPlot(): void 
+    + MoveSynthesis(): void 
+    + MoveCurse(): void 
+    }
+
+    class Charizard{
+    + Charizard()   
+    }
+    class Dragonite{
+    + Dragonite()  
+    }
+    class Garchomp{
+    + Garchomp()   
+    }
+    class Gardevoir{
+    + Gardevoir()  
+    }
+    class Gengar{
+    + Gengar() 
+    }
+    class Lucario{
+    + Lucario()
+    }
+    class Snorlax{
+    + Snorlax()  
+    }
+    class Suicune{
+    + Suicune()  
+    }    
+    class Tyranitar{
+    + Tyranitar()
+    }
+    class Venusaur{
+    + Venusaur() 
+    }
 
 }
 
@@ -78,10 +202,173 @@ package GRAPHICS{
     + setScale(scaleX: float, scaleY: float): void
 
     }
-    class Image
-    class MoveGraphic
-    class MusicManager
-    class Text
+    class Image{
+    - texture: sf::Texture
+    - sprite: sf::Sprite
+    - visible: bool
+
+    + setImage(texturePath: std::string, scaleX: float, scaleY: float, posX: float, posY: float): void
+    + setPosition(x: float, y: float): void
+    + setScale(scaleX: float, scaleY: float): void
+    + setTextureRect(rect: sf::IntRect): void
+    + restoreTextureRect(): void
+    + setVisibility(visibility: bool): void
+    + setColor(color: sf::Color): void
+    + getAlpha(): sf::Uint8
+    + draw(window: sf::RenderWindow): void
+    }
+
+
+    class MoveGraphic{
+    - texture: sf::Texture
+    - sprite: sf::Sprite
+    - active: bool
+    - objetivoX: float
+    - objetivoY: float
+
+    + MoveGraphic()
+    + MoveGraphic(texturePath: std::string, startX: float, startY: float, scaleX: float, scaleY: float)
+    + lanzar(startX: float, startY: float, targetX: float, targetY: float): void
+    + actualizar(velocidad: float): void
+    + draw(window: sf::RenderWindow): void
+    + estaActivo(): bool
+
+    }
+    class MusicManager{
+    - music: sf::Music
+
+    + MusicManager()
+    + play(): void
+    + stop(): void
+    + changeMusic(newMusicPath: std::string): void
+
+    }
+    class Text{
+    - font: sf::Font
+    - text: sf::Text
+    - visible: bool
+
+    + Text(fontPath: std::string)
+    + setText(text: std::string, fontSize: unsigned int, posX: float, posY: float): void
+    + setPosition(x: float, y: float): void
+    + setColor(color: sf::Color): void
+    + setOutlineColor(color: sf::Color): void
+    + setOutlineThickness(thickness: float): void
+    + setVisibility(visibility: bool): void
+    + setStyle(style: sf::Text::Style): void
+    + setString(str: std::string): void
+    + getAlpha(): sf::Uint8
+    + draw(window: sf::RenderWindow): void
+    }
+
+}
+
+class EquipoPokemon{
+
+ - equipo: list<Pokemon>       
+ - pokemonActual: Pokemon      
+ - IsMove: bool                
+ - IsAtacking: bool            
+ - EnemyPokemon: Pokemon       
+
+ + EquipoPokemon()             
+ + ~EquipoPokemon()            
+ + GetTeam(): list<Pokemon>&   
+ + AddPokemon(pokemon: Pokemon): void 
+ + AsingEnemy(Enemy: Pokemon): void   
+ + SearchPokemon(nombre: string): Pokemon 
+ + ApplyDamageToSpecifiPokemon(nombre: string, damage: int): void 
+ + IsPokemonInTeam(nombre: string): bool 
+ + GetPokemonInCombat(): Pokemon 
+ + GetPokemonSpecific(nombre: string): Pokemon 
+ + AsingPokemonInCombat(pokemon: Pokemon): void 
+ + GetPokemonLeader(): Pokemon 
+ + ExecuteMoveChosen(nombre: string): int 
+ + ApplyDamageToPokemon(damage: int): void 
+
+}
+
+class GameWindow{
+
+ - window: sf::RenderWindow 
+
+ + GameWindow(width: int, height: int, title: string) 
+ + isOpen(): bool                                    
+ + close(): void                                     
+ + clear(): void                                     
+ + display(): void                                   
+ + draw(shape: sf::Shape&): void                    
+ + pollEvent(event: sf::Event&): bool               
+ + getSize(): sf::Vector2u    
+ 
+}
+
+class Juego{
+ - jugador1: EquipoPokemon           
+ - jugador2: EquipoPokemon           
+ - jugadorActual: EquipoPokemon      
+ - pokemons: list<Pokemon>           
+ - moveSetActual: list<Move>         
+ - moveSetActualNames: list<string>  
+ - pokemon: Pokemon                  
+ - equipoActual: list<Pokemon>       
+ - equipoActualNames: list<string>   
+
+ + Juego()                           
+ + ~Juego()                          
+ + CreatePokemon(opcion: int): Pokemon   
+ + AddPokemonToPlayer(opcion: Pokemon): void  
+ + CanAddPokemonToPlayer(opcion: int): bool   
+ + ChangePlayer(jugador: int): void  
+ + ApplyChangesToPlayer(jugador: int): void   
+ + AsignEnemyToPlayer(jugador: int): void     
+ + GetAllPokemons(): list<Pokemon>&  
+ + GetTeamSpefic(jugador: int): list<Pokemon>& 
+ + BeginCombat(): void               
+ + BeginTurn(): void                 
+ + GetJugador(): EquipoPokemon       
+ + GetJugadorSpecific(jugador: int): EquipoPokemon 
+ + ExecuteMoveChosen(nombre: string, Enemy: int, User: int): void 
+ + ConvertNumberToStringMove(number: int): string  
+ + ConvertNumberToStringPokemon(number: int): string  
+ + ChangePokemon(nombre: string): void 
+ + ApplyDamageToPokemon(damage: int): void 
+ + GetJugadorActual(): EquipoPokemon 
+ + IsGameOver(jugador: int): int   
+
+
+}
+
+class JuegoConsola{
+ - pokemons: list<Pokemon>                     
+ - equipoActual: list<Pokemon>                 
+ - moveSetActual: list<Move>                   
+ - juego: Juego                                
+ - DPlayer1: int                               
+ - DPlayer2: int                               
+ - OP1: string                                 
+ - OP2: string                                 
+ - pokemonName: string                         
+ - fasterPlayer: int                           
+ - slowerPlayer: int                           
+ - OPfaster: string                            
+ - OpSlower: string                            
+
+ + JuegoConsola()                              
+ + ~JuegoConsola()                             
+ + Start(): void                               
+ + PrintPokemonNames(): void                   
+ + ChooseTeam(jugador: int): void              
+ + GetPlayerDesicion(User: int, Enemy: int): int 
+ + ExecuteTurn(): bool                         
+ + PrepareDesicion(desicion: int, User: int): string 
+ + ExecuteChange(User: int, nombre: string): void 
+ + ExecuteMove(User: int, Enemy: int, nombre: string): void 
+ + ShowMoveSet(jugador: int): void             
+ + ShowTeam(jugador: int): void                
+ + PrintPokemon(jugador: int): void            
+ + PrintPokemonStats(jugador: int): void       
+ + IsPokemonFainted(jugador: int): void     
 
 }
 
