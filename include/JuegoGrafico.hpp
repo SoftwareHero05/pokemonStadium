@@ -26,7 +26,10 @@ private:
     ButtonImage button;
 
 public:
-    JuegoGrafico() : window(sf::VideoMode(1350, 770), "SFML with Classes")
+
+    JuegoGrafico() : window(sf::VideoMode(1354, 770), "SFML with Classes")
+
+
     {
         // Aquí puedes inicializar otros miembros si es necesario
         this->font = manager.getFont("pokemon-firered-leafgreen-font-recreation.ttf");
@@ -69,8 +72,8 @@ public:
             gameStarted = false;
             this->musicManager.changeMusic("./assets/music/Theme2.ogg");
             this->backGround.setBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
-            this->image1.setImage("RED.png", manager, 1.0f, 1.0f, 0.2f, 70);
-            this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 315, 200);
+            this->image1.setImage("RED.png", manager, 1.0f, 1.0f, 0.2f, 70); 
+            this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 315, 200); 
             this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
             this->image1.setImage("textbox1.png", manager, .2f, .2f, 20.0f, 300.0f);
             this->image1.setColor(sf::Color(255, 255, 255, 255));
