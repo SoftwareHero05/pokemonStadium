@@ -113,7 +113,7 @@ public:
             this->OP1 = nombre;
         }
         else {
-            this->DPlayer1 = eleccion;
+            this->DPlayer2 = eleccion;
             this->OP2 = nombre;
             }
     }
