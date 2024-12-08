@@ -42,7 +42,6 @@ public:
     {
         try
         {
-
             bool fadingOut = false;
             bool gameStarted = false;
             sf::Event event;
@@ -58,7 +57,9 @@ public:
             this->image1.setImage("RED.png", manager, 1.0f, 1.0f, 0.2f, 70);
             this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 315, 200);
             this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
-            this->image1.setImage("textbox1.png", manager, .2f, .2f, 20.0f, 150.0f);
+            this->image1.setImage("textbox1.png", manager, .2f, .2f, 20.0f, 300.0f);
+            this->image1.setColor(sf::Color(255, 255, 255, 255));
+            this->image2.setColor(sf::Color(255, 255, 255, 255));
             clock.restart();
             fadeClock.restart();
             // bucle chooseTeam
@@ -252,7 +253,7 @@ public:
         int i = 0, a = 0;
         float x = 270.0f, y = 0.0f;
         ostringstream convertidor;
-        list<string> team = this->link.getTeamString(player);
+        list <string> team = this->link.getTeamString(player);
         convertidor << player;
         buttons.clear();
         textManger(text2, "Player " + convertidor.str(), 24U, 35.0f, 170.0f);
@@ -300,11 +301,12 @@ public:
     {
         buttons.clear();
         buttons2.clear();
+        string choicePlayer1,choicePlayer2;
         bool player1 = true;
-        this->image1.setImage("textbox1.png", manager, .15f, .2f, 50.0f, 10.0f);
-        this->image2.setImage("textbox1.png", manager, .17f, .2f, 280.0f, 230.0f);
+        this->image1.setImage("textbox1.png", manager, .3f, .3f, 50.0f, 10.0f);
+        this->image2.setImage("textbox1.png", manager, .3f, .3f, 280.0f, 230.0f);
         button.setButton("attackIcon.png", manager, sf::Vector2f(320.0f, 255.0f), "attack");
-        button.setScale(.25f,.25f);
+        button.setScale(1.0f,1.0f);
         buttons.push_back(button);
         button.setButton("changeIcon.png", manager, sf::Vector2f(400.0f, 255.0f), "change");
         button.setScale(.15f,.15f);
@@ -329,18 +331,30 @@ public:
                {
                     window.close();
                }
-            }
-            this->renderCombat(window, player1);
+
+               for (auto &button : buttons)
+                {
+                    if (button.handleEvent(event, window, choicePlayer1))
+                    {
+                        cout<<choicePlayer1<<endl;
+                        player1 = false;
+                    }
+                }
+
+                for (auto &button : buttons2)
+                {
+                    if (button.handleEvent(event, window, choicePlayer2))
+                    {
+                        if(player1 == false) {
+                            cout<<choicePlayer2<<endl;
+                            this->ExecuteAction(window,event,choicePlayer1,choicePlayer2);
+                            player1 = true;
+                        }
+                    }
+                }
          }
+         this->renderCombat(window, player1);
      }
-
-
-     void setVisibilityButtons(ButtonImage buttons[], int size, bool visibility)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            buttons[i].setVisibility(visibility);
-         }
     }
 
      void renderCombat(sf::RenderWindow &window,bool player1)
@@ -349,9 +363,9 @@ public:
         backGround.draw(window);
         if(player1 == true)
         {
-        image1.draw(window);
-        window.draw(text1);
+        image2.draw(window);
         window.draw(text2);
+        window.draw(text4);
             for (auto &actions : buttons)
             {
                 actions.draw(window);
@@ -359,7 +373,7 @@ public:
         } 
         else
         {
-            image2.draw(window);
+            image1.draw(window);
             window.draw(text3);
             window.draw(text4);
             for (auto &actions : buttons2)
@@ -370,6 +384,17 @@ public:
         image3.draw(window);
         image4.draw(window);
          window.display();
+     }
+
+     void ExecuteAction(sf::RenderWindow &window, sf::Event &event, string &choicePlayer1, string &choicePlayer2){
+        if(choicePlayer1 == "Change") this->BucleChangePokemon(window,event,choicePlayer1);
+        else cout<<"xd"<<endl;
+         if(choicePlayer2 == "Change") this->BucleChangePokemon(window,event,choicePlayer2);
+        else cout<<"xd"<<endl;
+     }
+
+     void BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, string &choicePlayer){
+        image3.setVisibility(false);
      }
 
     void textManger(sf::Text &text, string message, int size, float x, float y)

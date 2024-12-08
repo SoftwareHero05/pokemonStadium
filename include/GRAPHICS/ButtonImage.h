@@ -20,6 +20,7 @@ public:
 
         const sf::Texture& texture = textureManager.getTexture(texturePath);
         sprite.setTexture(texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setPosition(position);
         returnValue = value; // Asigna el valor al botón
         onClick = nullptr;   // Inicializa la acción como nula

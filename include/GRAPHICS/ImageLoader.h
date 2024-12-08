@@ -11,6 +11,7 @@ public:
         this->visible = true;
         this->texture = manager.getTexture(texturePath);
         sprite.setTexture(texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setScale(scaleX, scaleY);
         sprite.setPosition(posX, posY);
     }
