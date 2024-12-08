@@ -9,6 +9,7 @@ private:
     list<Move> moveSetActual;
     list<string> stringListAllPokemons;
     list<string> stringListTeam;
+    list<string> stringMoveSet;
     Juego juego;
     int DPlayer1, DPlayer2;
     string OP1, OP2, pokemonName;
@@ -145,20 +146,22 @@ public:
             this->OPfaster = this->OP2;
             this->OpSlower = this->OP1;
         }
+        
         this->ExecuteMove(fasterPlayer, slowerPlayer, OPfaster);
         juego.ChangePlayer(slowerPlayer);
         if (this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() > 0)
         {
             this->ExecuteMove(slowerPlayer, fasterPlayer, OpSlower);
         }
-        if (this->juego.IsGameOver(2) == 6)
+        
+        /*if (this->juego.IsGameOver(2) == 6)
         {
             return false;
         }
         if (juego.IsGameOver(1) == 6)
         {
         return false;  
-        }
+        }*/
         //this->IsPokemonFainted(1);
         //this->IsPokemonFainted(2);
         return true;
@@ -174,6 +177,20 @@ public:
     {
         this->juego.ChangePlayer(User);
         this->juego.ExecuteMoveChosen(nombre, Enemy, User);
+    }
+
+    string GetHP(int jugador){
+         return std::to_string(this->juego.GetJugadorSpecific(jugador).GetPokemonInCombat().GetHP());
+    }
+
+     list <string> GetMoveSet(int jugador){
+        this->stringMoveSet.clear();
+         this->moveSetActual = this->juego.GetJugadorSpecific(jugador).GetPokemonInCombat().GetMoveSet();
+         for (auto &move : moveSetActual)
+        {
+            this->stringMoveSet.push_back(move.GetMoveName());
+        }
+        return this->stringMoveSet;
     }
 
 

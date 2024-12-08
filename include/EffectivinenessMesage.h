@@ -77,12 +77,12 @@ float multiplier = 1;
 		if(Type2 != 0) multiplier *= T_FAIRY_effectiveness(Type2);
         break;
     }
-    if(multiplier > 1) cout<<"Es muy Efectivo!!!"<<endl;
+    /*if(multiplier > 1) cout<<"Es muy Efectivo!!!"<<endl;
     else if(multiplier == 0) cout<<"No hizo efecto alguno..."<<endl;
     else if(multiplier < 1) cout<<"No es muy Efectivo...."<<endl;
     else cout<<"Es Efectivo"<<endl;
     cout<<multiplier<<endl;
     system("pause");
-    system("cls");
+    system("cls");*/
     return multiplier;
 }
