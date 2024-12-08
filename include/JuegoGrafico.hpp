@@ -23,7 +23,7 @@ private:
     ButtonImage button;
 
 public:
-    JuegoGrafico() : window(sf::VideoMode(1024, 600), "SFML with Classes")
+    JuegoGrafico() : window(sf::VideoMode(1350, 770), "SFML with Classes")
     {
         // Aquí puedes inicializar otros miembros si es necesario
         this->font = manager.getFont("pokemon-firered-leafgreen-font-recreation.ttf");
@@ -359,6 +359,7 @@ public:
                         if (player1 == false)
                         {
                             this->GetChoices(window, event, choicePlayer1, choicePlayer2);
+                            this->BucleExecuteAction(window,event);
                             player1 = true;
                         }
                     }
@@ -406,34 +407,23 @@ public:
             link.setPlayerDecision(1,2,choice1);
             }
         else{
-            link.setPlayerDecision(2,1,choice1);
+            link.setPlayerDecision(1,1,choice1);
             }
             
         if (choicePlayer2 == "change"){
-            link.setPlayerDecision(2,2,choice2);
             string choice2 = this->BucleChangePokemon(window, event, choicePlayer2, 2);
+            link.setPlayerDecision(2,2,choice2);
             }
         else{
             link.setPlayerDecision(2,1,choice2);
-            cout << "xd" << endl;
         }
     }
 
-    void BucleExecuteAction(sf::RenderWindow &window, sf::Event &event, string &choicePlayer){
+    void BucleExecuteAction(sf::RenderWindow &window, sf::Event &event){
         link.ExecuteTurn();
-        bool ended = false;
-        while (window.isOpen() && !ended)
-        {
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed)
-                {
-                    window.close();
-                }
-            }
-        }
         image3.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
-        image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.0f, 1.3f, 280.0f, 20.0f);
+        image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
+        
     }
 
     string BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, string &choicePlayer, int player)
