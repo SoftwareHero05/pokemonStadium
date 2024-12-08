@@ -4,7 +4,7 @@
 #include <GRAPHICS/TextureManager.h>
 #include <GRAPHICS/ButtonImage.h>
 #include <GRAPHICS/MusicManager.h>
-#include <GRAPHICS/ImageLoader.h>
+#include <GRAPHICS/Image.h>
 #include <sstream>
 class JuegoGrafico
 {
@@ -16,12 +16,11 @@ private:
     sf::Clock clock;
     sf::Clock fadeClock;
     BackGround backGround;
-    sf::Text text1, text2, text3, text4,text5,text6,text7,text8;
-    Image image1, image2,image3,image4,image5,image6;
+    sf::Text text1, text2, text3, text4, text5, text6, text7, text8;
+    Image image1, image2, image3, image4, image5, image6;
     MusicManager musicManager;
-    list<ButtonImage> buttons, buttons2,buttonsPokemon;
+    list<ButtonImage> buttons, buttons2, buttonsPokemon;
     ButtonImage button;
-    
 
 public:
     JuegoGrafico() : window(sf::VideoMode(1024, 600), "SFML with Classes")
@@ -78,8 +77,8 @@ public:
             this->bucleChooseTeamScreen(window, event, 2);
             this->drawTeam(window, event, fadeClock, 2);
             this->link.Getjuego().BeginCombat();
-            image3.setImage(this->link.getPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
-            image4.setImage(this->link.getPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.0f, 1.3f, 280.0f, 20.0f);
+            image3.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+            image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.0f, 1.3f, 280.0f, 20.0f);
             fadeClock.restart();
             musicManager.changeMusic("./assets/music/Theme1.ogg");
             this->bucleChooseAction(window, event, fadeClock);
@@ -184,14 +183,15 @@ public:
         float x = 200.0f;
         float y = 100.0f;
         int i = 0;
-        for (auto &&pokemon : this->link.getAllPokemonsNamesString())
+        for (auto &&pokemon : this->link.GetAllPokemonsNamesString())
         {
-            if(i > 4){
+            if (i > 4)
+            {
                 x = 400.0f;
                 a = i - 5;
             }
-            
-            button.setButton(link.getPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), pokemon);
+
+            button.setButton(link.GetPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), pokemon);
             buttons.push_back(button);
             a++;
             i++;
@@ -217,7 +217,8 @@ public:
                             members++;
                             pokemonChosen = true;
                         }
-                        else pokemonChosen = false;
+                        else
+                            pokemonChosen = false;
                     }
                 }
             }
@@ -229,12 +230,14 @@ public:
             {
                 button.draw(window);
             }
-            if(pokemonChosen == true) {
+            if (pokemonChosen == true)
+            {
                 window.draw(text3);
                 window.draw(text2);
                 window.draw(text4);
             }
-            else window.draw(text1);
+            else
+                window.draw(text1);
             window.display();
             if (members == 6)
             {
@@ -262,7 +265,7 @@ public:
         int i = 0, a = 0;
         float x = 270.0f, y = 0.0f;
         ostringstream convertidor;
-        list <string> team = this->link.getTeamString(player);
+        list<string> team = this->link.GetTeamString(player);
         convertidor << player;
         buttons.clear();
         textManger(text2, "Player " + convertidor.str(), 24U, 35.0f, 170.0f);
@@ -274,7 +277,7 @@ public:
                 x = 400.0f;
                 a = i - 3;
             }
-            button.setButton(this->link.getPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.getSpecificPokemonNameWithIntTeam(i));
+            button.setButton(this->link.GetPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.GetSpecificPokemonNameOfTeamWithIndex(i));
             button.setScale(1.3f, 1.3f);
             buttons.push_back(button);
             i++;
@@ -310,42 +313,41 @@ public:
     {
         buttons.clear();
         buttons2.clear();
-        string choicePlayer1,choicePlayer2;
+        string choicePlayer1, choicePlayer2;
         bool player1 = true;
         this->image1.setImage("textbox1.png", manager, .3f, .3f, 50.0f, 10.0f);
         this->image2.setImage("textbox1.png", manager, .3f, .3f, 280.0f, 230.0f);
         button.setButton("attackIcon.png", manager, sf::Vector2f(320.0f, 255.0f), "attack");
-        button.setScale(1.0f,1.0f);
+        button.setScale(1.0f, 1.0f);
         buttons.push_back(button);
         button.setButton("changeIcon.png", manager, sf::Vector2f(400.0f, 255.0f), "change");
-        button.setScale(.15f,.15f);
+        button.setScale(.15f, .15f);
         buttons.push_back(button);
         button.setButton("attackIcon.png", manager, sf::Vector2f(30.0f, 40.0f), "attack");
-        button.setScale(.25f,.25f);
+        button.setScale(.25f, .25f);
         buttons2.push_back(button);
         button.setButton("changeIcon.png", manager, sf::Vector2f(110.0f, 40.0f), "change");
-        button.setScale(.15f,.15f);
+        button.setScale(.15f, .15f);
         buttons2.push_back(button);
-        textManger(text1,this->link.GetPokemonActual(1), 1, 320.0f, 240.0f);
-        textManger(text2,this->link.GetPokemonActual(2), 1, 320.0f, 240.0f);
-        textManger(text3,"What Will you do \nPlayer 1", 20U, 110.0f, 240.0f);
-        textManger(text4,"What Will you do \nPlayer 2", 1, 320.0f, 240.0f);
-         int player = 1;
-         bool ended = false;
+        textManger(text1, this->link.GetPokemonActual(1), 1, 320.0f, 240.0f);
+        textManger(text2, this->link.GetPokemonActual(2), 1, 320.0f, 240.0f);
+        textManger(text3, "What Will you do \nPlayer 1", 20U, 110.0f, 240.0f);
+        textManger(text4, "What Will you do \nPlayer 2", 1, 320.0f, 240.0f);
+        int player = 1;
+        bool ended = false;
         while (window.isOpen() && !ended)
-         {
+        {
             while (window.pollEvent(event))
-             {
+            {
                 if (event.type == sf::Event::Closed)
-               {
+                {
                     window.close();
-               }
+                }
 
-               for (auto &button : buttons)
+                for (auto &button : buttons)
                 {
                     if (button.handleEvent(event, window, choicePlayer1))
                     {
-                        cout<<choicePlayer1<<endl;
                         player1 = false;
                     }
                 }
@@ -354,32 +356,32 @@ public:
                 {
                     if (button.handleEvent(event, window, choicePlayer2))
                     {
-                        if(player1 == false) {
-                            cout<<choicePlayer2<<endl;
-                            this->ExecuteAction(window,event,choicePlayer1,choicePlayer2);
+                        if (player1 == false)
+                        {
+                            this->GetChoices(window, event, choicePlayer1, choicePlayer2);
                             player1 = true;
                         }
                     }
                 }
-         }
-         this->renderCombat(window, player1);
-     }
+            }
+            this->renderCombat(window, player1);
+        }
     }
 
-     void renderCombat(sf::RenderWindow &window,bool player1)
-     {
-         window.clear();
+    void renderCombat(sf::RenderWindow &window, bool player1)
+    {
+        window.clear();
         backGround.draw(window);
-        if(player1 == true)
+        if (player1 == true)
         {
-        image2.draw(window);
-        window.draw(text2);
-        window.draw(text4);
+            image2.draw(window);
+            window.draw(text2);
+            window.draw(text4);
             for (auto &actions : buttons)
             {
                 actions.draw(window);
             }
-        } 
+        }
         else
         {
             image1.draw(window);
@@ -389,29 +391,62 @@ public:
             {
                 actions.draw(window);
             }
-        }      
+        }
         image3.draw(window);
         image4.draw(window);
-         window.display();
-     }
+        window.display();
+    }
 
-     void ExecuteAction(sf::RenderWindow &window, sf::Event &event, string &choicePlayer1, string &choicePlayer2){
-        if(choicePlayer1 == "change") this->BucleChangePokemon(window,event,choicePlayer1,1);
-        else cout<<"xd"<<endl;
-         if(choicePlayer2 == "change") this->BucleChangePokemon(window,event,choicePlayer2,2);
-        else cout<<"xd"<<endl;
-     }
+    void GetChoices(sf::RenderWindow &window, sf::Event &event, string &choicePlayer1, string &choicePlayer2)
+    {
+        string choice1 = "AuraSphere";
+        string choice2 = "FlashCannon";
+        if (choicePlayer1 == "change") {
+            string choice1 = this->BucleChangePokemon(window, event, choicePlayer1, 1);
+            link.setPlayerDecision(1,2,choice1);
+            }
+        else{
+            link.setPlayerDecision(2,1,choice1);
+            }
+            
+        if (choicePlayer2 == "change"){
+            link.setPlayerDecision(2,2,choice2);
+            string choice2 = this->BucleChangePokemon(window, event, choicePlayer2, 2);
+            }
+        else{
+            link.setPlayerDecision(2,1,choice2);
+            cout << "xd" << endl;
+        }
+    }
 
-     string BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, string &choicePlayer,int player){
+    void BucleExecuteAction(sf::RenderWindow &window, sf::Event &event, string &choicePlayer){
+        link.ExecuteTurn();
+        bool ended = false;
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+        }
+        image3.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+        image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.0f, 1.3f, 280.0f, 20.0f);
+    }
+
+    string BucleChangePokemon(sf::RenderWindow &window, sf::Event &event, string &choicePlayer, int player)
+    {
         bool ended = false;
         int state = 0;
         int i = 0, a = 0;
         float x = 270.0f, y = 0.0f;
         string pokemon;
-        list <string> team = this->link.getTeamString(player);
+        list<string> team = this->link.GetTeamString(player);
         buttonsPokemon.clear();
-        textManger(text5, "Pokemon Ya en combate" , 24U, 35.0f, 170.0f);
-        textManger(text6, "Pokemon Ya debilitado" , 24U, 35.0f, 170.0f);
+        textManger(text5, "Pokemon Ya en combate", 24U, 35.0f, 170.0f);
+        textManger(text6, "Pokemon Ya debilitado", 24U, 35.0f, 170.0f);
         for (auto &&pokemon : team)
         {
             if (i > 2)
@@ -419,7 +454,7 @@ public:
                 x = 400.0f;
                 a = i - 3;
             }
-            button.setButton(this->link.getPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.getSpecificPokemonNameWithIntTeam(i));
+            button.setButton(this->link.GetPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.GetSpecificPokemonNameOfTeamWithIndex(i));
             button.setScale(1.3f, 1.3f);
             buttonsPokemon.push_back(button);
             i++;
@@ -438,16 +473,20 @@ public:
                 {
                     if (button.handleEvent(event, window, pokemon))
                     {
-                        cout<<pokemon<<endl;
-                        if(pokemon == this->link.GetPokemonActual(player)) state = 1; 
-                        else return pokemon;
+                        cout << pokemon << endl;
+                        if (pokemon == this->link.GetPokemonActual(player))
+                            state = 1;
+                        else
+                            return pokemon;
                     }
                 }
             }
             window.clear();
             backGround.draw(window);
-            if(state == 1)window.draw(text5);
-            if(state == 2)window.draw(text6);
+            if (state == 1)
+                window.draw(text5);
+            if (state == 2)
+                window.draw(text6);
             for (auto &&buton : buttonsPokemon)
             {
                 buton.draw(window);
@@ -455,7 +494,7 @@ public:
             window.display();
         }
         return "";
-     }
+    }
 
     void textManger(sf::Text &text, string message, int size, float x, float y)
     {

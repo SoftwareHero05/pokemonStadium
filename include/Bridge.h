@@ -36,17 +36,17 @@ public:
         }
     }
     
-    list<string> getAllPokemonsNamesString(){
+    list<string> GetAllPokemonsNamesString(){
         return this->stringListAllPokemons;
     }
 
-    string getSpecificPokemonNameWithInt(int i){
+    string GetSpecificPokemonNameWithInt(int i){
         auto it = this->stringListAllPokemons.begin();
         advance(it, i);
         return *it;  
     }
 
-    string getSpecificPokemonNameWithIntTeam(int i){
+    string GetSpecificPokemonNameOfTeamWithIndex(int i){
         auto it = this->stringListTeam.begin();
         advance(it, i);
         return *it;  
@@ -60,12 +60,12 @@ public:
         return false;
     }
 
-    string getPokemonImageDirectionWithInt(int i, int player){
-        if(player == 1) return "POKEMONS_SPRITES/B_" + this->getSpecificPokemonNameWithInt(i) + ".png";
-        else return "POKEMONS_SPRITES/F_" + this->getSpecificPokemonNameWithInt(i) + ".png";
+    string GetPokemonImageDirectionWithInt(int i, int player){
+        if(player == 1) return "POKEMONS_SPRITES/B_" + this->GetSpecificPokemonNameWithInt(i) + ".png";
+        else return "POKEMONS_SPRITES/F_" + this->GetSpecificPokemonNameWithInt(i) + ".png";
     }
 
-    string getPokemonImageDirectionWithString(string nombre, int player){
+    string GetPokemonImageDirectionWithString(string nombre, int player){
         if(player == 1) return "POKEMONS_SPRITES/B_" + nombre + ".png";
         else return "POKEMONS_SPRITES/F_" + nombre + ".png";
     }
@@ -93,7 +93,7 @@ public:
         this->juego.ApplyChangesToPlayer(jugador);
     }
 
-    list <string> getTeamString(int jugador){
+    list <string> GetTeamString(int jugador){
         this->stringListTeam.clear();
         this->equipoActual = this->juego.GetJugadorSpecific(jugador).GetTeam();
         for (auto &&pokemon : this->equipoActual)
@@ -106,6 +106,90 @@ public:
     string GetPokemonActual(int player){
         return this->juego.GetJugadorSpecific(player).GetPokemonInCombat().getNombre();
     }
+
+    void setPlayerDecision(int jugador, int eleccion,string nombre){
+        if(jugador == 1) {
+            this->DPlayer1 = eleccion;
+            this->OP1 = nombre;
+        }
+        else {
+            this->DPlayer1 = eleccion;
+            this->OP2 = nombre;
+            }
+    }
+
+    bool ExecuteTurn()
+    {
+        if (this->DPlayer1 != 1)
+        {
+            this->ExecuteChange(1, OP1);
+            this->juego.ApplyChangesToPlayer(1);
+        }
+        if (this->DPlayer2 != 1)
+        {
+            this->ExecuteChange(2, OP2);
+            this->juego.ApplyChangesToPlayer(2);
+        }
+        this->juego.BeginTurn();
+        if (this->juego.GetJugadorSpecific(1).GetPokemonInCombat().GetSpeed() >= this->juego.GetJugadorSpecific(2).GetPokemonInCombat().GetSpeed())
+        {
+            this->fasterPlayer = 1;
+            this->slowerPlayer = 2;
+            this->OPfaster = this->OP1;
+            this->OpSlower = this->OP2;
+        }
+        else
+        {
+            this->fasterPlayer = 2;
+            this->slowerPlayer = 1;
+            this->OPfaster = this->OP2;
+            this->OpSlower = this->OP1;
+        }
+        this->ExecuteMove(fasterPlayer, slowerPlayer, OPfaster);
+        juego.ChangePlayer(slowerPlayer);
+        if (this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() > 0)
+        {
+            this->ExecuteMove(slowerPlayer, fasterPlayer, OpSlower);
+        }
+        if (this->juego.IsGameOver(2) == 6)
+        {
+            return false;
+        }
+        if (juego.IsGameOver(1) == 6)
+        {
+        return false;  
+        }
+        //this->IsPokemonFainted(1);
+        //this->IsPokemonFainted(2);
+        return true;
+    }
+
+    void ExecuteChange(int User, string nombre)
+    {
+        this->juego.ChangePlayer(User);
+        this->juego.ChangePokemon(nombre);
+    }
+
+    void ExecuteMove(int User, int Enemy, string nombre)
+    {
+        this->juego.ChangePlayer(User);
+        this->juego.ExecuteMoveChosen(nombre, Enemy, User);
+    }
+
+
+    // void IsPokemonFainted(int jugador)
+    // {
+    //     this->juego.ChangePlayer(jugador);
+    //     if (juego.GetJugadorActual().GetPokemonInCombat().GetHP() < 1)
+    //     {
+    //         cout << this->juego.GetJugadorActual().GetPokemonInCombat().getNombre() << " ha sido debilitado" << endl;
+    //         cout << "escoga otro pokemon" << endl;
+    //         this->ExecuteChange(jugador, this->PrepareDesicion(2, jugador));
+    //         this->juego.ApplyChangesToPlayer(jugador);
+    //         system("pause");
+    //     }
+    // }
+
 
 
 };
