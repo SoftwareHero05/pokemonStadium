@@ -10,6 +10,7 @@ private:
     list<string> stringListAllPokemons;
     list<string> stringListTeam;
     list<string> stringMoveSet;
+    list<string> stringFainted;
     Juego juego;
     int DPlayer1, DPlayer2;
     string OP1, OP2, pokemonName;
@@ -192,6 +193,22 @@ public:
         }
         return this->stringMoveSet;
     }
+
+    list <string> GetFaintedPokemon(int jugador){
+        this->stringFainted.clear();
+         this->equipoActual = this->juego.GetJugadorSpecific(jugador).GetTeam();
+         for (auto &pokemon : this->equipoActual)
+        {
+            if(pokemon.GetHP() < 1) this->stringFainted.push_back(pokemon.getNombre());
+        }
+        return this->stringFainted;
+    }
+
+    bool IsGameOver(int jugador){
+        if(this->juego.IsGameOver(jugador) == 6) return true;
+        else return false;
+    }
+
 
 
     // void IsPokemonFainted(int jugador)
