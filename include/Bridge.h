@@ -46,6 +46,12 @@ public:
         return *it;  
     }
 
+    string getSpecificPokemonNameWithIntTeam(int i){
+        auto it = this->stringListTeam.begin();
+        advance(it, i);
+        return *it;  
+    }
+
     bool IsPokemonReal(string nombre){
         for (auto &&pokemon : this->pokemons)
         {
