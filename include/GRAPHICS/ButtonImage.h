@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <string>
-
+#include "TextureManager.h"
 class ButtonImage
 {
 private:
@@ -14,14 +14,13 @@ private:
 
 public:
     // Configurar el botón con un valor de retorno
-    void setButton(const std::string& texturePath, sf::Vector2f position, const std::string& value)
+    ButtonImage(){}
+    void setButton(const std::string& texturePath,SourceManager& textureManager, sf::Vector2f position, const std::string& value)
     {
 
-        if (!texture.loadFromFile(texturePath))
-        {
-            throw std::runtime_error("Error al cargar la textura: " + texturePath);
-        }
+        const sf::Texture& texture = textureManager.getTexture(texturePath);
         sprite.setTexture(texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setPosition(position);
         returnValue = value; // Asigna el valor al botón
         onClick = nullptr;   // Inicializa la acción como nula

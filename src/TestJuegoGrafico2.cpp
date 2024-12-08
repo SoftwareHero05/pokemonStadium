@@ -1,9 +1,9 @@
-#include <JuegoGrafico.hpp>
+#include <JuegoGrafico2.hpp>
 #include <iostream>
 
 int main(int argc, char const *argv[])
 {
     JuegoGrafico juego;
-    juego.Iniciar();
-    //system("cls");
+    juego.iniciar();
+    system("cls");
 }

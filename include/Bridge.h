@@ -1,6 +1,5 @@
 #pragma once
 #include <Definer.h>
-#include <EquipoPokemon.h>
 #include <Juego.h>
 class Bridge
 {
@@ -47,6 +46,12 @@ public:
         return *it;  
     }
 
+    string getSpecificPokemonNameWithIntTeam(int i){
+        auto it = this->stringListTeam.begin();
+        advance(it, i);
+        return *it;  
+    }
+
     bool IsPokemonReal(string nombre){
         for (auto &&pokemon : this->pokemons)
         {
@@ -56,13 +61,13 @@ public:
     }
 
     string getPokemonImageDirectionWithInt(int i, int player){
-        if(player == 1) return "./assets/images/POKEMONS_SPRITES/B_" + this->getSpecificPokemonNameWithInt(i) + ".png";
-        else return "./assets/images/POKEMONS_SPRITES/F_" + this->getSpecificPokemonNameWithInt(i) + ".png";
+        if(player == 1) return "POKEMONS_SPRITES/B_" + this->getSpecificPokemonNameWithInt(i) + ".png";
+        else return "POKEMONS_SPRITES/F_" + this->getSpecificPokemonNameWithInt(i) + ".png";
     }
 
     string getPokemonImageDirectionWithString(string nombre, int player){
-        if(player == 1) return "./assets/images/POKEMONS_SPRITES/B_" + nombre + ".png";
-        else return "./assets/images/POKEMONS_SPRITES/F_" + nombre + ".png";
+        if(player == 1) return "POKEMONS_SPRITES/B_" + nombre + ".png";
+        else return "POKEMONS_SPRITES/F_" + nombre + ".png";
     }
 
     int StringToNumberPokemon(string opcion){

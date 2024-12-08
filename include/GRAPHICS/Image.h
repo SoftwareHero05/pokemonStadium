@@ -1,18 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "TextureManager.h"
 class Image
 {
 public:
     Image() {}
-    void setImage(const std::string &texturePath, float scaleX , float scaleY , float posX, float posY)
+    ~Image(){}
+    void setImage(const std::string &texturePath, SourceManager& manager, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
-        if (!texture.loadFromFile(texturePath))
-        {
-            throw std::runtime_error("Failed to load texture: " + texturePath);
-        }
+        this->texture = manager.getTexture(texturePath);
         sprite.setTexture(texture);
+        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setScale(scaleX, scaleY);
         sprite.setPosition(posX, posY);
     }
@@ -25,6 +24,14 @@ public:
     void setScale(float scaleX, float scaleY)
     {
         sprite.setScale(scaleX, scaleY);
+    }
+
+    float getTextureSizeX(){
+        return texture.getSize().x;
+    }
+
+    float getTextureSizeY(){
+        return texture.getSize().x;
     }
 
     void setTextureRect(const sf::IntRect &rect)
