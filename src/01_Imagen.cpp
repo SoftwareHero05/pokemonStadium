@@ -14,7 +14,7 @@ public:
         sprite.setTexture(texture);
     }
 
-    void draw(sf::RenderWindow& window) const {
+    void Draw(sf::RenderWindow& window) const {
         window.draw(sprite);
     }
 
@@ -224,7 +224,7 @@ int main() {
             }
 
             window.clear();
-            background.draw(window);
+            background.Draw(window);
 
             if (entrenador1.getAlpha() > 0 || entrenador2.getAlpha() > 0) {
                 if (entrenador1.getAlpha() > 0) entrenador1.draw(window);

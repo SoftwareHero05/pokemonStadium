@@ -6,60 +6,55 @@ class Image
 public:
     Image() {}
     ~Image(){}
-    void setImage(const std::string &texturePath, SourceManager& manager, float scaleX , float scaleY , float posX, float posY)
+    void SetImage(const std::string &texturePath, SourceManager& manager, float scaleX , float scaleY , float posX, float posY)
     {
         this->visible = true;
-        this->texture = manager.getTexture(texturePath);
+        this->texture = manager.GetTexture(texturePath);
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setScale(scaleX, scaleY);
         sprite.setPosition(posX, posY);
     }
 
-    void setPosition(float x, float y)
+    void SetPosition(float x, float y)
     {
         sprite.setPosition(x, y);
     }
 
-    void setScale(float scaleX, float scaleY)
+    void SetScale(float scaleX, float scaleY)
     {
         sprite.setScale(scaleX, scaleY);
     }
 
-    float getTextureSizeX(){
+    float GetTextureSizeX(){
         return texture.getSize().x;
     }
 
-    float getTextureSizeY(){
+    float GetTextureSizeY(){
         return texture.getSize().x;
     }
 
-    void setTextureRect(const sf::IntRect &rect)
+    void SetTextureRect(const sf::IntRect &rect)
     {
         sprite.setTextureRect(rect);
     }
 
-    void restoreTextureRect()
-    {
-        sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
-    }
-
-    void setVisibility(bool visibility)
+    void SetVisibility(bool visibility)
     {
         visible = visibility;
     }
 
-    void setColor(const sf::Color &color)
+    void SetColor(const sf::Color &color)
     {
         sprite.setColor(color);
     }
 
-    sf::Uint8 getAlpha() const
+    sf::Uint8 GetAlpha() const
     {
         return sprite.getColor().a;
     }
 
-    void draw(sf::RenderWindow &window) const
+    void Draw(sf::RenderWindow &window) const
     {
         if (visible)
         {

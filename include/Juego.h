@@ -91,12 +91,12 @@ public:
             this->jugador2 = this->jugadorActual;
     }
 
-    void AsignEnemyToPlayer(int jugador)
+    void AssignEnemyToPlayer(int jugador)
     {
         if (jugador == 1)
-            this->jugador1.AsingEnemy(jugador2.GetPokemonInCombat());
+            this->jugador1.AssignEnemy(jugador2.GetPokemonInCombat());
         else
-            this->jugador2.AsingEnemy(jugador1.GetPokemonInCombat());
+            this->jugador2.AssignEnemy(jugador1.GetPokemonInCombat());
     }
 
     list<Pokemon> &GetAllPokemons()
@@ -114,14 +114,14 @@ public:
 
     void BeginCombat()
     {
-        this->jugador1.AsingPokemonInCombat(this->jugador1.GetPokemonLeader());
-        this->jugador2.AsingPokemonInCombat(this->jugador2.GetPokemonLeader());
+        this->jugador1.AssignPokemonInCombat(this->jugador1.GetPokemonLeader());
+        this->jugador2.AssignPokemonInCombat(this->jugador2.GetPokemonLeader());
     }
 
     void BeginTurn()
     {
-        this->AsignEnemyToPlayer(1);
-        this->AsignEnemyToPlayer(2);
+        this->AssignEnemyToPlayer(1);
+        this->AssignEnemyToPlayer(2);
     }
 
     EquipoPokemon GetJugador()
@@ -178,7 +178,7 @@ public:
     void ChangePokemon(string nombre)
     {
         this->jugadorActual.GetPokemonInCombat().RestartStats();
-        this->jugadorActual.AsingPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
+        this->jugadorActual.AssignPokemonInCombat((this->jugadorActual.SearchPokemon(nombre)));
     }
 
     void ApplyDamageToPokemon(int damage)

@@ -54,14 +54,14 @@ public:
             bool gameStarted = false;
             sf::Event event;
             // bucle de ventana de inicio
-            backGround.setBackGround("FondoPokemon.png", manager, window.getSize());
+            backGround.SetBackGround("FondoPokemon.png", manager, window.getSize());
             this->bucleLoadingScreen(window, gameStarted, event);
             clock.restart();
             fadeClock.restart();
             // bucle entrenadores
             gameStarted = false;
-            this->musicManager.changeMusic("./assets/music/Theme2.ogg");
-            this->backGround.setBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
+            this->musicManager.ChangeMusic("./assets/music/Theme2.ogg");
+            this->backGround.SetBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
             this->image1.setImage("RED.png", manager, 1.0f, 1.0f, 150.0f, 500.0f); //::::: entrenadores
             this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 900.0f, 600.0f); ////... entrenadores
             this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut); 
@@ -80,7 +80,7 @@ public:
             image3.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 4.2f, 3.5f, 150.0f, 600.0f);
             image4.setImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 4.0f, 3.3f, 1000.0f, 150.0f);
             fadeClock.restart();
-            musicManager.changeMusic("./assets/music/Theme1.ogg");
+            musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->bucleChooseAction(window, event, fadeClock);
         }
 
@@ -209,7 +209,7 @@ public:
                 {
                     if (button.handleEvent(event, window, choice))
                     {
-                        choiceInt = this->link.StringToNumberPokemon(choice);
+                        choiceInt = this->link.ChangeStringToNumberPokemon(choice);
                         if (this->checkPokemon(TeamChosen, choiceInt) == false)
                         {
                             text3.setString(choice);
@@ -403,18 +403,18 @@ public:
         string choice2 = "FlashCannon";
         if (choicePlayer1 == "change") {
             string choice1 = this->BucleChangePokemon(window, event, choicePlayer1, 1);
-            link.setPlayerDecision(1,2,choice1);
+            link.SetPlayerDecision(1,2,choice1);
             }
         else{
-            link.setPlayerDecision(2,1,choice1);
+            link.SetPlayerDecision(2,1,choice1);
             }
             
         if (choicePlayer2 == "change"){
-            link.setPlayerDecision(2,2,choice2);
+            link.SetPlayerDecision(2,2,choice2);
             string choice2 = this->BucleChangePokemon(window, event, choicePlayer2, 2);
             }
         else{
-            link.setPlayerDecision(2,1,choice2);
+            link.SetPlayerDecision(2,1,choice2);
             cout << "xd" << endl;
         }
     }

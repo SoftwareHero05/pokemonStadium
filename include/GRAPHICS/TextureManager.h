@@ -10,7 +10,7 @@ private:
     std::map<std::string, sf::Font> fontMap;
 public:
     // Método para obtener o cargar una fuente
-    const sf::Font& getFont(const std::string& fontPath)
+    const sf::Font& GetFont(const std::string& fontPath)
     {
         // Si la fuente ya está cargada, la devuelve
         auto it = fontMap.find("./assets/fonts/" + fontPath);
@@ -30,7 +30,7 @@ public:
     }
 
     // Método para obtener o cargar una textura
-    const sf::Texture& getTexture(const std::string& texturePath)
+    const sf::Texture& GetTexture(const std::string& texturePath)
     {
         // Si la textura ya está cargada, la devuelve
         auto it = textureMap.find("./assets/images/" + texturePath);
