@@ -58,7 +58,7 @@ public:
         visible = visibility;
     }
 
-    void setScale(float scaleX, float scaleY)
+    void SetScale(float scaleX, float scaleY)
     {
         sprite.setScale(scaleX, scaleY);
     }

@@ -99,7 +99,7 @@ public:
             this->SetText(text6, "Pokemon Fainted", 24U, 35.0f, 170.0f);
             this->SetText(text11, "x", 24U, 35.0f, 170.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
-            this->DrawBattleBegins(window,event,fadeClock);
+            this->DrawBattleBegins(window, event, fadeClock);
             this->DrawCombat(window, event, fadeClock);
             gameStarted = false;
             this->DrawEnd(window, gameStarted, event);
@@ -136,7 +136,7 @@ public:
     }
 
     void DrawTrainersScreen(sf::RenderWindow &window, bool &gameStarted, sf::Event &event,
-                             sf::Clock &clock, sf::Clock &fadeClock, bool &fadingOut)
+                            sf::Clock &clock, sf::Clock &fadeClock, bool &fadingOut)
     {
         while (window.isOpen() && !gameStarted)
         {
@@ -299,7 +299,7 @@ public:
                 a = i - 3;
             }
             button.SetButton(this->link.GetPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.GetSpecificPokemonNameOfTeamWithIndex(i));
-            button.setScale(1.3f, 1.3f);
+            button.SetScale(1.3f, 1.3f);
             buttons.push_back(button);
             i++;
             a++;
@@ -339,16 +339,16 @@ public:
         this->image1.SetImage("textbox1.png", manager, .3f, .3f, 50.0f, 10.0f);
         this->image2.SetImage("textbox1.png", manager, .3f, .3f, 280.0f, 230.0f);
         button.SetButton("attackIcon.png", manager, sf::Vector2f(320.0f, 255.0f), "attack");
-        button.setScale(1.0f, 1.0f);
+        button.SetScale(1.0f, 1.0f);
         buttons.push_back(button);
         button.SetButton("changeIcon.png", manager, sf::Vector2f(400.0f, 255.0f), "change");
-        button.setScale(.15f, .15f);
+        button.SetScale(.15f, .15f);
         buttons.push_back(button);
         button.SetButton("attackIcon.png", manager, sf::Vector2f(30.0f, 40.0f), "attack");
-        button.setScale(.25f, .25f);
+        button.SetScale(.25f, .25f);
         buttons2.push_back(button);
         button.SetButton("changeIcon.png", manager, sf::Vector2f(110.0f, 40.0f), "change");
-        button.setScale(.15f, .15f);
+        button.SetScale(.15f, .15f);
         buttons2.push_back(button);
         SetText(text1, this->link.GetPokemonActual(1), 1, 320.0f, 240.0f);
         SetText(text2, this->link.GetPokemonActual(2), 1, 320.0f, 240.0f);
@@ -387,11 +387,11 @@ public:
                     }
                 }
             }
-            this->renderCombat(window, player1);
+            this->RenderCombat(window, player1);
         }
     }
 
-    void renderCombat(sf::RenderWindow &window, bool player1)
+    void RenderCombat(sf::RenderWindow &window, bool player1)
     {
         window.clear();
         backGround.Draw(window);
@@ -512,7 +512,7 @@ public:
                 a = i - 3;
             }
             button.SetButton(this->link.GetPokemonImageDirectionWithString(pokemon, 2), manager, sf::Vector2f(x, y + a * 120.0f), this->link.GetSpecificPokemonNameOfTeamWithIndex(i));
-            button.setScale(1.3f, 1.3f);
+            button.SetScale(1.3f, 1.3f);
             buttonsPokemon.push_back(button);
             i++;
             a++;
@@ -605,35 +605,39 @@ public:
         return "";
     }
 
-    void DrawBattleBegins(sf::RenderWindow &window, sf::Event &event,sf::Clock &fadeClock){
+    void DrawBattleBegins(sf::RenderWindow &window, sf::Event &event, sf::Clock &fadeClock)
+    {
         fadeClock.restart();
         bool ended = false;
         while (window.isOpen() && !ended)
         {
             while (window.pollEvent(event))
             {
-
             }
             window.clear();
             backGround.Draw(window);
-            if(fadeClock.getElapsedTime().asSeconds() < 1.2) image6.Draw(window);
-            if(fadeClock.getElapsedTime().asSeconds() > 1.2) image4.Draw(window);
-            if(fadeClock.getElapsedTime().asSeconds() > 1.8 && fadeClock.getElapsedTime().asSeconds() < 3) image5.Draw(window);
-            if(fadeClock.getElapsedTime().asSeconds() > 3) image3.Draw(window);
-            if(fadeClock.getElapsedTime().asSeconds() > 3.5) break;
+            if (fadeClock.getElapsedTime().asSeconds() < 1.2)
+                image6.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.2)
+                image4.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.8 && fadeClock.getElapsedTime().asSeconds() < 3)
+                image5.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 3)
+                image3.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 3.5)
+                break;
             window.display();
-
         }
     }
 
     void DrawEnd(sf::RenderWindow &window, bool &gameStarted, sf::Event &event)
-    {   
+    {
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
-        backGround.SetBackGround("ending.jpg",manager,window.getSize());
+        backGround.SetBackGround("ending.jpg", manager, window.getSize());
         if (link.IsGameOver(1) == true)
             SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 50U, 600, 350);
         else
-        SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 35U, 600, 250);
+            SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 35U, 600, 250);
         SetText(text2, "Thanks for playing\nMade by\nJesus Baez 23310372\nHector", 35U, 600, 400);
         while (window.isOpen() && !gameStarted)
         {
