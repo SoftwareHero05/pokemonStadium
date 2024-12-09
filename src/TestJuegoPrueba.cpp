@@ -3,7 +3,7 @@
 
 int main(int argc, char const *argv[])
 {
-    //JuegoPrueba juego;
+    JuegoPrueba juego;
     juego.Iniciar();
     //system("cls");
    
