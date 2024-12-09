@@ -72,7 +72,7 @@ public:
         else return "POKEMONS_SPRITES/F_" + nombre + ".png";
     }
 
-    int StringToNumberPokemon(string opcion){
+    int ChangeStringToNumberPokemon(string opcion){
         if(opcion == "Lucario") return 1;
         else if(opcion == "Charizard") return 2;
         else if(opcion == "Garchomp") return 3;
@@ -109,7 +109,7 @@ public:
         return this->juego.GetJugadorSpecific(player).GetPokemonInCombat().getNombre();
     }
 
-    void setPlayerDecision(int jugador, int eleccion,string nombre){
+    void SetPlayerDecision(int jugador, int eleccion,string nombre){
         if(jugador == 1) {
             this->DPlayer1 = eleccion;
             this->OP1 = nombre;
@@ -154,17 +154,6 @@ public:
         {
             this->ExecuteMove(slowerPlayer, fasterPlayer, OpSlower);
         }
-        
-        /*if (this->juego.IsGameOver(2) == 6)
-        {
-            return false;
-        }
-        if (juego.IsGameOver(1) == 6)
-        {
-        return false;  
-        }*/
-        //this->IsPokemonFainted(1);
-        //this->IsPokemonFainted(2);
         return true;
     }
 

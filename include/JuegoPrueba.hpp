@@ -64,7 +64,7 @@ public:
             bool gameStarted = false;
             sf::Event event;
             // bucle de ventana de inicio
-            backGround.setBackGround("FondoPokemon.png", manager, window.getSize());
+            backGround.SetBackGround("FondoPokemon.png", manager, window.getSize());
             this->bucleLoadingScreen(window, gameStarted, event);
             clock.restart();
             fadeClock.restart();
@@ -76,6 +76,12 @@ public:
             this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 950, 80);
             this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
             this->image1.setImage("textbox1.png", manager, .4f, .4f, 15.0f, 300.0f);  // cuadro blanco
+            this->musicManager.ChangeMusic("./assets/music/Theme2.ogg");
+            this->backGround.SetBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
+            this->image1.setImage("RED.png", manager, 1.0f, 1.0f, 150.0f, 500.0f); //::::: entrenadores
+            this->image2.setImage("GOLD.png", manager, 1.0f, 1.0f, 900.0f, 600.0f); ////... entrenadores
+            this->bucleTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut); 
+            this->image1.setImage("textbox1.png", manager, 0.2f, 0.2f, 20.0f, 300.0f);
             this->image1.setColor(sf::Color(255, 255, 255, 255));
             this->image2.setColor(sf::Color(255, 255, 255, 255));
             clock.restart();
@@ -97,7 +103,7 @@ public:
             this->textManger(text6, "Pokemon Fainted",  24U, 600.0f, 100.0f);
             this->textManger(text11, "x", 24U, 35.0f, 170.0f);
             fadeClock.restart();
-            musicManager.changeMusic("./assets/music/Theme1.ogg");
+            musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->bucleChooseAction(window, event, fadeClock);
             gameStarted = false;
             this->bucleEnd(window, gameStarted,event);
@@ -229,7 +235,7 @@ public:
                 {
                     if (button.handleEvent(event, window, choice))
                     {
-                        choiceInt = this->link.StringToNumberPokemon(choice);
+                        choiceInt = this->link.ChangeStringToNumberPokemon(choice);
                         if (this->checkPokemon(TeamChosen, choiceInt) == false)
                         {
                             text3.setString(choice);
@@ -425,9 +431,36 @@ public:
 
     void GetChoices(sf::RenderWindow &window, sf::Event &event, string &choicePlayer1, string &choicePlayer2)
     {
+
         string choice1;
         string choice2;
         if (choicePlayer1 == "change")
+
+        string choice1 = "AuraSphere";
+        string choice2 = "FlashCannon";
+        if (choicePlayer1 == "change") {
+            string choice1 = this->BucleChangePokemon(window, event, choicePlayer1, 1);
+            link.SetPlayerDecision(1,2,choice1);
+            }
+        else{
+            link.SetPlayerDecision(2,1,choice1);
+            }
+            
+        if (choicePlayer2 == "change"){
+            link.SetPlayerDecision(2,2,choice2);
+            string choice2 = this->BucleChangePokemon(window, event, choicePlayer2, 2);
+            }
+        else{
+            link.SetPlayerDecision(2,1,choice2);
+            cout << "xd" << endl;
+        }
+    }
+
+    void BucleExecuteAction(sf::RenderWindow &window, sf::Event &event, string &choicePlayer){
+        link.ExecuteTurn();
+        bool ended = false;
+        while (window.isOpen() && !ended)
+
         {
             choice1 = this->BucleChangePokemon(window, event, 1, false);
             link.setPlayerDecision(1, 2, choice1);

@@ -11,8 +11,8 @@ public:
     BackGround(const std::string& texturePath,const sf::Vector2u& windowSize) {
     }
     
-    void setBackGround(const std::string& texturePath,SourceManager& manager,const sf::Vector2u& windowSize){
-        this->texture = manager.getTexture(texturePath);
+    void SetBackGround(const std::string& texturePath,SourceManager& manager,const sf::Vector2u& windowSize){
+        this->texture = manager.GetTexture(texturePath);
         this->sprite.setTexture(texture);
         sf::Vector2u textureSize = texture.getSize();
        if (textureSize != windowSize) {  // Escala solo si las dimensiones no coinciden
@@ -23,7 +23,7 @@ public:
         
     }
 
-    void draw(sf::RenderWindow& window) const {
+    void Draw(sf::RenderWindow& window) const {
         window.draw(sprite);
     }
 

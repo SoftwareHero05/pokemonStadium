@@ -9,7 +9,7 @@ int main(int argc, char const *argv[])
     sf::RenderWindow window(sf::VideoMode(512, 384), "SFML with Classes");
 
     try {
-        backGround.setBackGround("./assets/images/Bosque tarde - Zeo.png");
+        backGround.SetBackGround("./assets/images/Bosque tarde - Zeo.png");
         image.setImage("./assets/images/003.png", 1.0f, 1.0f, 0.2f, 70);
 
         while (window.isOpen()) { 

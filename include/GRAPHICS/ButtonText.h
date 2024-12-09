@@ -19,11 +19,11 @@ public:
         : visible(true), onClick(nullptr) {}
 
     // Configurar el botón con texto
-    void setButton(SourceManager& fontManager, const std::string& buttonText, sf::Vector2f position, sf::Vector2f size, const std::string& value)
+    void SetButton(SourceManager& fontManager, const std::string& buttonText, sf::Vector2f position, sf::Vector2f size, const std::string& value)
     {
         // Cargar la fuente
         // Configurar el texto
-        text.setFont(fontManager.getFont("pokemon-firered-leafgreen-font-recreation.ttf"));
+        text.setFont(fontManager.GetFont("pokemon-firered-leafgreen-font-recreation.ttf"));
         text.setString(buttonText);
         text.setCharacterSize(20);
         text.setFillColor(sf::Color::Black);
@@ -43,7 +43,7 @@ public:
     }
 
     // Manejar eventos del botón
-    bool handleEvent(const sf::Event& event, sf::RenderWindow& window, std::string& result)
+    bool HandleEvent(const sf::Event& event, sf::RenderWindow& window, std::string& result)
     {
         if (event.type == sf::Event::MouseButtonPressed)
         {
@@ -59,7 +59,7 @@ public:
     }
 
     // Dibujar el botón
-    void draw(sf::RenderWindow& window)
+    void Draw(sf::RenderWindow& window)
     {
         if (visible)
         {
@@ -68,22 +68,22 @@ public:
         }
     }
 
-    void setVisibility(bool visibility)
+    void SetVisibility(bool visibility)
     {
         visible = visibility;
     }
 
-    void setBackgroundColor(const sf::Color& color)
+    void SetBackgroundColor(const sf::Color& color)
     {
         background.setFillColor(color);
     }
 
-    void setTextColor(const sf::Color& color)
+    void SetTextColor(const sf::Color& color)
     {
         text.setFillColor(color);
     }
 
-    void setOnClick(const std::function<void()>& action)
+    void SetOnClick(const std::function<void()>& action)
     {
         onClick = action;
     }

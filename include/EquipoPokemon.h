@@ -37,7 +37,7 @@ public:
         this->equipo.emplace_back(pokemon);
     }
 
-    void AsingEnemy(Pokemon Enemy)
+    void AssignEnemy(Pokemon Enemy)
     {
         this->EnemyPokemon = Enemy;
     }
@@ -85,7 +85,7 @@ public:
     Pokemon GetPokemonSpecific(string nombre){
         return this->SearchPokemon(nombre);
     }
-    void AsingPokemonInCombat(Pokemon pokemon)
+    void AssignPokemonInCombat(Pokemon pokemon)
     {
         this->pokemonActual = pokemon;
     }

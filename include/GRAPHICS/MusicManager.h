@@ -5,15 +5,15 @@ class MusicManager {
 public:
     MusicManager() {}
     
-    void play() {
+    void Play() {
         music.play();
     }
 
-    void stop() {
+    void Stop() {
         music.stop();
     }
 
-    void changeMusic(const std::string& newMusicPath) {
+    void ChangeMusic(const std::string& newMusicPath) {
         music.stop(); // Detener la música actual
         if (!music.openFromFile(newMusicPath)) {
             throw std::runtime_error("Failed to load new music: " + newMusicPath);
