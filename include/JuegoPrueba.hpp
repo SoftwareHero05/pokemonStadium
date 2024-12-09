@@ -80,7 +80,7 @@ public:
             this->image1.SetImage("RED.png", manager, 1.0f, 1.0f, 150.0f, 500.0f);  //::::: entrenadores
             this->image2.SetImage("GOLD.png", manager, 1.0f, 1.0f, 900.0f, 600.0f); ////... entrenadores
             this->DrawTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
-            this->image1.SetImage("textbox1.png", manager, 0.2f, 0.2f, 20.0f, 300.0f);
+            this->image1.SetImage("textbox1.png", manager, 0.4f, 0.4f, 20.0f, 300.0f);
             this->image1.SetColor(sf::Color(255, 255, 255, 255));
             this->image2.SetColor(sf::Color(255, 255, 255, 255));
             clock.restart();
@@ -344,23 +344,23 @@ public:
         bool player1 = true;
         this->image1.SetImage("textbox1.png", manager, .3f, .3f, 100.0f, 50.0f);
         this->image2.SetImage("textbox1.png", manager, .3f, .3f, 900.0f, 600.0f);
-        button.SetButton("attackIcon.png", manager, sf::Vector2f(600.0f, 680.0f), "attack");
+        button.SetButton("attackIcon.png", manager, sf::Vector2f(980.0f, 650.0f), "attack");
         button.SetScale(0.25f, 0.25f);
         buttons.push_back(button);
-        button.SetButton("changeIcon.png", manager, sf::Vector2f(700.0f, 680.0f), "change");
+        button.SetButton("changeIcon.png", manager, sf::Vector2f(1100.0f, 650.0f), "change");
         button.SetScale(.15f, .15f);
         buttons.push_back(button);
-        button.SetButton("attackIcon.png", manager, sf::Vector2f(1100.0f, 100.0f), "attack");
+        button.SetButton("attackIcon.png", manager, sf::Vector2f(160.0f, 120.0f), "attack");
         button.SetScale(.25f, .25f);
         buttons2.push_back(button);
-        button.SetButton("changeIcon.png", manager, sf::Vector2f(1200.0f, 100.0f), "change");
+        button.SetButton("changeIcon.png", manager, sf::Vector2f(260.0f, 120.0f), "change");
         button.SetScale(.15f, .15f);
         buttons2.push_back(button);
         SetText(text1, this->link.GetPokemonActual(1), 1, 200.0f, 50.0f);
         SetText(text2, this->link.GetPokemonActual(2), 1, 900.0f, 50.0f);
-        SetText(text3, "What Will you do \nPlayer 1", 20U, 100.0f, 50.0f);
-        SetText(text4, "What Will you do \nPlayer 2", 1, 900.0f, 600.0f);
-        int player = 1;
+        SetText(text3, "What Will you do Player 2", 20U, 140.0f, 80.0f);
+        SetText(text4, "What Will you do Player 1", 20U, 950.0f, 620.0f);
+        int player = 1;                             
         bool ended = false;
         while (window.isOpen() && !ended)
         {
@@ -566,18 +566,18 @@ public:
     {
         bool ended = false;
         int i = 0, a = 0;
-        float x = 270.0f, y = 0.0f;
+        float x = 120.0f, y = 80.0f;
         string move;
         list<string> moveset = this->link.GetMoveSet(player);
         buttonsText.clear();
         for (auto &&move : moveset)
         {
-            if (i > 1)
+            if (i > 2)
             {
-                x = 400.0f;
-                a = i - 1;
+                x = 270.0f;
+                a = i - 2;
             }
-            buttonText.SetButton(manager, move, sf::Vector2f(x, y + a * 120.0f), {150, 50}, move);
+            buttonText.SetButton(manager, move, sf::Vector2f(x, y + a * 70.0f), {150, 50}, move);
             buttonsText.push_back(buttonText);
             i++;
             a++;
@@ -641,10 +641,9 @@ public:
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
         backGround.SetBackGround("ending.jpg", manager, window.getSize());
         if (link.IsGameOver(1) == true)
-            SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 50U, 600, 350);
+            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
         else
-            SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 50U, 600, 250);
-        SetText(text2, "Thanks for playing\nMade by\nJesus Baez 23310372\nHector", 50U, 600, 400);
+            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
         while (window.isOpen() && !gameStarted)
         {
 
