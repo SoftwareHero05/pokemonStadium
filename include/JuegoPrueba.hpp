@@ -99,6 +99,7 @@ public:
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // POKEMONES EN BATALLA
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
+            image9.SetImage("textBox1.png", manager, 2.0f, 1.0f, 20.0f, 500.0f);              // new
             this->SetText(text12, "", 18U, 150, 200);                                         // new
             this->SetText(text13, "", 18U, 50, 50);                                           // new
             this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 150, 200); // new
@@ -489,23 +490,30 @@ public:
         image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // pokemones conbate
         ExecuteAnimations(event, pastPokemon1, pastPokemon2);
         string choice;
-        if (this->link.IsGameOver(1) == true)
-        {
-            return false;
-        }
-
         if (link.Getjuego().GetJugadorSpecific(1).GetPokemonInCombat().GetHP() < 1)
         {
-            choice = this->DrawChangePokemon(event, 1, true);
-            this->link.ExecuteChange(1, choice);
-            this->link.Getjuego().ApplyChangesToPlayer(1);
+            DrawFaintedPokemonAnimationPlayer1(event, fadeClock, pastPokemon1);
+            image7.SetColor(sf::Color(255, 255, 255, 255));
+            if (this->link.IsGameOver(1) == true)
+            {
+                return false;
+            }
+            else
+            {
+                choice = this->DrawChangePokemon(event, 1, true);
+                this->link.ExecuteChange(1, choice);
+                this->link.Getjuego().ApplyChangesToPlayer(1);
+                text7.setString(link.GetHP(1));
+                text9.setString(link.GetPokemonActual(1));
+                image3.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 3.0f, 3.0f, 300.0f, 450.0f);
+                DrawChangeFaintedPokemonAnimationPlayer1(event, fadeClock);
+            }
         }
-        if (this->link.IsGameOver(2) == true)
-        {
-            return false;
-        }
+
         if (link.Getjuego().GetJugadorSpecific(2).GetPokemonInCombat().GetHP() < 1)
         {
+            DrawFaintedPokemonAnimationPlayer2(event, fadeClock, pastPokemon2);
+            image8.SetColor(sf::Color(255, 255, 255, 255));
             if (this->link.IsGameOver(2) == true)
             {
                 return false;
@@ -515,6 +523,10 @@ public:
                 choice = this->DrawChangePokemon(event, 2, true);
                 this->link.ExecuteChange(2, choice);
                 this->link.Getjuego().ApplyChangesToPlayer(2);
+                text8.setString(link.GetHP(2));
+                text10.setString(link.GetPokemonActual(2));
+                image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f);
+                DrawChangeFaintedPokemonAnimationPlayer2(event, fadeClock);
             }
         }
         return true;
@@ -657,22 +669,22 @@ public:
             if (fadeClock.getElapsedTime().asSeconds() < 1.2)
             {
                 image6.Draw(window);
-                window.draw(text1);
+                window.draw(text2);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 1.2)
             {
                 image4.Draw(window);
-                window.draw(text1);
+                window.draw(text2);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 1.8 && fadeClock.getElapsedTime().asSeconds() < 3)
             {
                 image5.Draw(window);
-                window.draw(text2);
+                window.draw(text1);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 3)
             {
                 image3.Draw(window);
-                window.draw(text2);
+                window.draw(text1);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 3.5)
                 break;
@@ -712,7 +724,7 @@ public:
         }
     }
 
-    void DrawChangePokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) //new
+    void DrawChangePokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) // new
     {
         text14.setString("Player One retires " + pastPokemon + "\n'WellDone " + pastPokemon + "'");
         text15.setString("Go " + link.GetPokemonActual(1));
@@ -760,7 +772,7 @@ public:
         }
     }
 
-    void DrawChangePokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) //new
+    void DrawChangePokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) // new
     {
         bool ended = false;
         fadeClock.restart();
@@ -808,11 +820,159 @@ public:
         }
     }
 
+    void DrawFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
+    {
+        bool ended = false;
+        bool fadingOut = false;
+        float elapsedFade;
+        fadeClock.restart();
+        float fadeTime = 1.0f;
+        text14.setString(pastPokemon + "fainted");
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() >= 2.0f && !fadingOut)
+            {
+                fadingOut = true;
+                fadeClock.restart();
+            }
+
+            if (fadingOut)
+            {
+                elapsedFade = fadeClock.getElapsedTime().asSeconds();
+                if (elapsedFade < fadeTime)
+                {
+                    sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
+                    image7.SetColor(sf::Color(255, 255, 255, alpha));
+                }
+                else
+                    break;
+            }
+            if (image7.GetAlpha() > 0)
+                image7.Draw(window);
+            image4.Draw(window);
+            window.draw(text14);
+            window.display();
+        }
+    }
+
+    void DrawFaintedPokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
+    {
+        bool ended = false;
+        bool fadingOut = false;
+        float elapsedFade;
+        fadeClock.restart();
+        text14.setString(pastPokemon + "fainted");
+        float fadeTime = 1.0f;
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() >= 2.0f && !fadingOut)
+            {
+                fadingOut = true;
+                fadeClock.restart();
+            }
+
+            if (fadingOut)
+            {
+                elapsedFade = fadeClock.getElapsedTime().asSeconds();
+                if (elapsedFade < fadeTime)
+                {
+                    sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
+                    image8.SetColor(sf::Color(255, 255, 255, alpha));
+                }
+                else
+                    break;
+            }
+            if (image8.GetAlpha() > 0)
+                image8.Draw(window);
+            image3.Draw(window);
+            window.draw(text14);
+            window.display();
+        }
+    }
+
     void SetText(sf::Text &text, string message, int size, float x, float y)
     {
         text.setString(message);
         text.setCharacterSize(size);
         text.setPosition(x, y);
+    }
+
+    void DrawChangeFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock)
+    {
+        text15.setString("Go " + link.GetPokemonActual(1));
+        fadeClock.restart();
+        while (window.isOpen())
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() < 1.3)
+                image5.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.3 && fadeClock.getElapsedTime().asSeconds() < 2.1)
+                image3.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 2.1)
+                break;
+            image4.Draw(window);
+            window.draw(text15);
+            window.display();
+        }
+    }
+
+    void DrawChangeFaintedPokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock)
+    {
+        text15.setString("Go " + link.GetPokemonActual(2));
+        fadeClock.restart();
+        while (window.isOpen())
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() < 1.3)
+                image6.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.3 && fadeClock.getElapsedTime().asSeconds() < 2.1)
+                image4.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 2.1)
+                break;
+            image3.Draw(window);
+            window.draw(text15);
+            window.display();
+        }
     }
 
     bool CheckFaintedPokemons(string choice, list<string> fainted)

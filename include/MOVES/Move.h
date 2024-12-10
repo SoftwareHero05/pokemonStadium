@@ -41,4 +41,12 @@ public:
 		damageDone /= 5;
 		return damageDone;
 	}
+
+	string GetEffectivenessMessage(int EnemyType1, int EnemyType2){
+		int multiplicador = EffectiveMessage(EnemyType1,EnemyType2,this->type);
+		if(multiplicador == 0) return "It had no effect whatsoever...";
+		else if(multiplicador > 1) return "It's very effective!";
+		else if(multiplicador < 1) return "It's not very effective...";
+		else "It's effective";
+	}
 }; 

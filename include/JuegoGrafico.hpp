@@ -17,7 +17,7 @@ private:
     sf::Clock clock;
     sf::Clock fadeClock;
     BackGround backGround;
-    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11,text12,text13, text14,text15; //changed
+    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15; // changed
     Image image1, image2, image3, image4, image5, image6, image7, image8, image9;
     MusicManager musicManager;
     list<ButtonText> buttonsText;
@@ -42,10 +42,10 @@ public:
         text9.setFont(font);
         text10.setFont(font);
         text11.setFont(font);
-        text12.setFont(font); //new
-        text13.setFont(font); //new
-        text14.setFont(font); //new
-        text15.setFont(font); //new
+        text12.setFont(font); // new
+        text13.setFont(font); // new
+        text14.setFont(font); // new
+        text15.setFont(font); // new
         text1.setFillColor(sf::Color(0, 0, 0, 255));
         text2.setFillColor(sf::Color(0, 0, 0, 255));
         text3.setFillColor(sf::Color(0, 0, 0, 255));
@@ -57,10 +57,10 @@ public:
         text9.setFillColor(sf::Color(0, 0, 0, 255));
         text10.setFillColor(sf::Color(0, 0, 0, 255));
         text11.setFillColor(sf::Color(0, 0, 0, 255));
-        text12.setFillColor(sf::Color(0, 0, 0, 255)); 
-        text13.setFillColor(sf::Color(0, 0, 0, 255)); 
-        text14.setFillColor(sf::Color(0, 0, 0, 255)); 
-        text15.setFillColor(sf::Color(0, 0, 0, 255)); 
+        text12.setFillColor(sf::Color(0, 0, 0, 255));
+        text13.setFillColor(sf::Color(0, 0, 0, 255));
+        text14.setFillColor(sf::Color(0, 0, 0, 255));
+        text15.setFillColor(sf::Color(0, 0, 0, 255));
     }
     ~JuegoGrafico() {}
 
@@ -99,15 +99,15 @@ public:
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.0f, 1.3f, 280.0f, 20.0f);
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
-            image9.SetImage("textBox1.png", manager, 1.0f, 2.0f, 20.0f, 600.0f); //new
+            image9.SetImage("textBox1.png", manager, 1.0f, 2.0f, 20.0f, 600.0f); // new
             this->SetText(text7, link.GetHP(1), 18U, 150, 200);
             this->SetText(text8, link.GetHP(2), 18U, 50, 50);
             this->SetText(text12, "", 18U, 150, 200);
             this->SetText(text13, "", 18U, 50, 50);
-            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 150, 200); //new
-            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 150, 200); //new
-            this->SetText(text14, "", 22U, 150, 200); //new
-            this->SetText(text15, "", 22U, 150, 200); //new
+            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 150, 200); // new
+            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 150, 200); // new
+            this->SetText(text14, "", 22U, 150, 200);                                         // new
+            this->SetText(text15, "", 22U, 150, 200);                                         // new
             this->SetText(text9, link.GetPokemonActual(1), 18U, 200, 200);
             this->SetText(text10, link.GetPokemonActual(2), 18U, 70, 50);
             this->SetText(text5, "Pokemon In Combat", 24U, 35.0f, 170.0f);
@@ -115,8 +115,8 @@ public:
             this->SetText(text11, "x", 24U, 35.0f, 170.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->DrawBattleBegins(event, fadeClock);
-            this->SetText(text1, "" , 18U, 150, 200); 
-            this->SetText(text2, "" , 18U, 50, 50); 
+            this->SetText(text1, "", 18U, 150, 200);
+            this->SetText(text2, "", 18U, 50, 50);
             this->DrawCombat(event, fadeClock);
             gameStarted = false;
             this->DrawEnd(gameStarted, event);
@@ -483,20 +483,30 @@ public:
         image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
         ExecuteAnimations(event, pastPokemon1, pastPokemon2);
         string choice;
-        if (this->link.IsGameOver(1) == true)
-            return false;
-
         if (link.Getjuego().GetJugadorSpecific(1).GetPokemonInCombat().GetHP() < 1)
         {
-            choice = this->DrawChangePokemon(event, 1, true);
-            this->link.ExecuteChange(1, choice);
-            this->link.Getjuego().ApplyChangesToPlayer(1);
+            DrawFaintedPokemonAnimationPlayer1(event, fadeClock, pastPokemon1);
+            image7.SetColor(sf::Color(255, 255, 255, 255));
+            if (this->link.IsGameOver(1) == true)
+            {
+                return false;
+            }
+            else
+            {
+                choice = this->DrawChangePokemon(event, 1, true);
+                this->link.ExecuteChange(1, choice);
+                this->link.Getjuego().ApplyChangesToPlayer(1);
+                text7.setString(link.GetHP(1));
+                text9.setString(link.GetPokemonActual(1));
+                image3.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+                DrawChangeFaintedPokemonAnimationPlayer1(event,fadeClock);
+            }
         }
-        if (this->link.IsGameOver(2) == true)
-            return false;
 
         if (link.Getjuego().GetJugadorSpecific(2).GetPokemonInCombat().GetHP() < 1)
         {
+            DrawFaintedPokemonAnimationPlayer2(event, fadeClock, pastPokemon2);
+            image8.SetColor(sf::Color(255, 255, 255, 255));
             if (this->link.IsGameOver(2) == true)
             {
                 return false;
@@ -506,6 +516,10 @@ public:
                 choice = this->DrawChangePokemon(event, 2, true);
                 this->link.ExecuteChange(2, choice);
                 this->link.Getjuego().ApplyChangesToPlayer(2);
+                text8.setString(link.GetHP(2));
+                text10.setString(link.GetPokemonActual(2));
+                image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
+                DrawChangeFaintedPokemonAnimationPlayer2(event,fadeClock);
             }
         }
         return true;
@@ -633,7 +647,7 @@ public:
         return "";
     }
 
-    void DrawBattleBegins(sf::Event &event, sf::Clock &fadeClock) //changed
+    void DrawBattleBegins(sf::Event &event, sf::Clock &fadeClock) // changed
     {
         fadeClock.restart();
         bool ended = false;
@@ -648,22 +662,22 @@ public:
             if (fadeClock.getElapsedTime().asSeconds() < 1.2)
             {
                 image6.Draw(window);
-                window.draw(text1);
+                window.draw(text2);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 1.2)
             {
                 image4.Draw(window);
-                window.draw(text1);
+                window.draw(text2);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 1.8 && fadeClock.getElapsedTime().asSeconds() < 3)
             {
                 image5.Draw(window);
-                window.draw(text2);
+                window.draw(text1);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 3)
             {
                 image3.Draw(window);
-                window.draw(text2);
+                window.draw(text1);
             }
             if (fadeClock.getElapsedTime().asSeconds() > 3.5)
                 break;
@@ -676,9 +690,9 @@ public:
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
         backGround.SetBackGround("ending.jpg", manager, window.getSize());
         if (link.IsGameOver(1) == true)
-            SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 50U, 600, 350);
+            SetText(text1, "Player one has no pokemon Left\nPlayer two wins", 50U, 600, 350);
         else
-            SetText(text1, "Player one has no pokemon Left\nPlayer 2 wins", 35U, 600, 250);
+            SetText(text1, "Player two has no pokemon Left\nPlayer one wins", 35U, 600, 250);
         SetText(text2, "Thanks for playing\nMade by\nJesus Baez 23310372\nHector", 35U, 600, 400);
         while (window.isOpen() && !gameStarted)
         {
@@ -707,7 +721,7 @@ public:
 
     void DrawChangePokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
     {
-        text14.setString("Player One retires " + pastPokemon +"\n'WellDone " + pastPokemon + "'");
+        text14.setString("Player One retires " + pastPokemon + "\n'WellDone " + pastPokemon + "'");
         text15.setString("Go " + link.GetPokemonActual(1));
         fadeClock.restart();
         while (window.isOpen())
@@ -741,7 +755,7 @@ public:
                 window.draw(text15);
                 image5.Draw(window);
             }
-             if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
             {
                 window.draw(text15);
                 image3.Draw(window);
@@ -753,11 +767,11 @@ public:
         }
     }
 
-    void DrawChangePokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock,string &pastPokemon)
+    void DrawChangePokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
     {
         bool ended = false;
         fadeClock.restart();
-        text14.setString("Player Two retires " + pastPokemon +"\n'WellDone " + pastPokemon + "'");
+        text14.setString("Player Two retires " + pastPokemon + "\n'WellDone " + pastPokemon + "'");
         text15.setString("Go " + link.GetPokemonActual(2));
         while (window.isOpen() && !ended)
         {
@@ -768,7 +782,7 @@ public:
                     window.close();
                 }
             }
-           window.clear();
+            window.clear();
             backGround.Draw(window);
             image9.Draw(window);
             if (fadeClock.getElapsedTime().asSeconds() < 1.25)
@@ -789,7 +803,7 @@ public:
                 window.draw(text15);
                 image6.Draw(window);
             }
-             if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
             {
                 window.draw(text15);
                 image4.Draw(window);
@@ -797,6 +811,154 @@ public:
             if (fadeClock.getElapsedTime().asSeconds() > 3.2)
                 break;
             image3.Draw(window);
+            window.display();
+        }
+    }
+
+    void DrawFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
+    {
+        bool ended = false;
+        bool fadingOut = false;
+        float elapsedFade;
+        fadeClock.restart();
+        float fadeTime = 1.0f;
+        text14.setString(pastPokemon + "fainted");
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() >= 2.0f && !fadingOut)
+            {
+                fadingOut = true;
+                fadeClock.restart();
+            }
+
+            if (fadingOut)
+            {
+                elapsedFade = fadeClock.getElapsedTime().asSeconds();
+                if (elapsedFade < fadeTime)
+                {
+                    sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
+                    image7.SetColor(sf::Color(255, 255, 255, alpha));
+                }
+                else
+                    break;
+            }
+            if (image7.GetAlpha() > 0)
+                image7.Draw(window);
+            image4.Draw(window);
+            window.draw(text14);
+            window.display();
+        }
+    }
+
+    void DrawFaintedPokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon)
+    {
+        bool ended = false;
+        bool fadingOut = false;
+        float elapsedFade;
+        fadeClock.restart();
+        text14.setString(pastPokemon + "fainted");
+        float fadeTime = 1.0f;
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() >= 2.0f && !fadingOut)
+            {
+                fadingOut = true;
+                fadeClock.restart();
+            }
+
+            if (fadingOut)
+            {
+                elapsedFade = fadeClock.getElapsedTime().asSeconds();
+                if (elapsedFade < fadeTime)
+                {
+                    sf::Uint8 alpha = static_cast<sf::Uint8>(255 * (1.0f - elapsedFade / fadeTime));
+                    image8.SetColor(sf::Color(255, 255, 255, alpha));
+                }
+                else
+                    break;
+            }
+            if (image8.GetAlpha() > 0)
+                image8.Draw(window);
+            image3.Draw(window);
+            window.draw(text14);
+            window.display();
+        }
+    }
+
+    void DrawChangeFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock)
+    {
+        text15.setString("Go " + link.GetPokemonActual(1));
+        fadeClock.restart();
+        while (window.isOpen())
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() < 1.3)
+                image5.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.3 && fadeClock.getElapsedTime().asSeconds() < 2.1)
+                image3.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 2.1)
+                break;
+            image4.Draw(window);
+            window.draw(text15);
+            window.display();
+        }
+    }
+
+    void DrawChangeFaintedPokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock)
+    {
+        text15.setString("Go " + link.GetPokemonActual(2));
+        fadeClock.restart();
+        while (window.isOpen())
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+           if (fadeClock.getElapsedTime().asSeconds() < 1.3)
+                image6.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 1.3 && fadeClock.getElapsedTime().asSeconds() < 2.1)
+                image4.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() > 2.1)
+                break;
+            image3.Draw(window);
+            window.draw(text15);
             window.display();
         }
     }
