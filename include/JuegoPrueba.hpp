@@ -17,8 +17,8 @@ private:
     sf::Clock clock;
     sf::Clock fadeClock;
     BackGround backGround;
-    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11;
-    Image image1, image2, image3, image4, image5, image6;
+    sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15;
+    Image image1, image2, image3, image4, image5, image6, image7, image8, image9;
     MusicManager musicManager;
     list<ButtonText> buttonsText;
     ButtonText buttonText;
@@ -42,6 +42,10 @@ public:
         text9.setFont(font);
         text10.setFont(font);
         text11.setFont(font);
+        text12.setFont(font);
+        text13.setFont(font);
+        text14.setFont(font);
+        text15.setFont(font);
         text1.setFillColor(sf::Color(0, 0, 0, 255));
         text2.setFillColor(sf::Color(0, 0, 0, 255));
         text3.setFillColor(sf::Color(0, 0, 0, 255));
@@ -53,6 +57,10 @@ public:
         text9.setFillColor(sf::Color(0, 0, 0, 255));
         text10.setFillColor(sf::Color(0, 0, 0, 255));
         text11.setFillColor(sf::Color(0, 0, 0, 255));
+        text12.setFillColor(sf::Color(0, 0, 0, 255));
+        text13.setFillColor(sf::Color(0, 0, 0, 255));
+        text14.setFillColor(sf::Color(0, 0, 0, 255));
+        text15.setFillColor(sf::Color(0, 0, 0, 255));
     }
     ~JuegoPrueba() {}
 
@@ -65,7 +73,7 @@ public:
             sf::Event event;
             // bucle de ventana de inicio
             backGround.SetBackGround("FondoPokemon.png", manager, window.getSize());
-            this->DrawLoadingScreen(window, gameStarted, event);
+            this->DrawLoadingScreen(gameStarted, event);
             clock.restart();
             fadeClock.restart();
             // bucle entrenadores
@@ -74,12 +82,7 @@ public:
             this->backGround.SetBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
             this->image1.SetImage("RED.png", manager, 0.35f, 0.25f, 150, 320);
             this->image2.SetImage("GOLD.png", manager, 1.0f, 1.0f, 950, 80);
-            this->DrawTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
-            this->image1.SetImage("textbox1.png", manager, .4f, .4f, 15.0f, 300.0f); // cuadro blanco
-            this->backGround.SetBackGround("Bosque tarde - Zeo.png", manager, window.getSize());
-            this->image1.SetImage("RED.png", manager, 1.0f, 1.0f, 150.0f, 500.0f);  //::::: entrenadores
-            this->image2.SetImage("GOLD.png", manager, 1.0f, 1.0f, 900.0f, 600.0f); ////... entrenadores
-            this->DrawTrainersScreen(window, gameStarted, event, clock, fadeClock, fadingOut);
+            this->DrawTrainersScreen(gameStarted, event, clock, fadeClock, fadingOut);
             this->image1.SetImage("textbox1.png", manager, 0.4f, 0.4f, 20.0f, 300.0f);
             this->image1.SetColor(sf::Color(255, 255, 255, 255));
             this->image2.SetColor(sf::Color(255, 255, 255, 255));
@@ -87,15 +90,21 @@ public:
             fadeClock.restart();
             // bucle chooseTeam
             gameStarted = false;
-            this->DrawChooseTeamScreen(window, event, 1);
-            this->DrawTeam(window, event, fadeClock, 1);
-            this->DrawChooseTeamScreen(window, event, 2);
-            this->DrawTeam(window, event, fadeClock, 2);
+            this->DrawChooseTeamScreen(event, 1);
+            this->DrawTeam(event, fadeClock, 1);
+            this->DrawChooseTeamScreen(event, 2);
+            this->DrawTeam(event, fadeClock, 2);
             this->link.Getjuego().BeginCombat();
             image3.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 3.0f, 3.0f, 300.0f, 450.0f); // POKEMONES EN BATALLA
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // POKEMONES EN BATALLA
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
+            this->SetText(text12, "", 18U, 150, 200);                                         // new
+            this->SetText(text13, "", 18U, 50, 50);                                           // new
+            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 150, 200); // new
+            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 150, 200); // new
+            this->SetText(text14, "", 22U, 150, 200);                                         // new
+            this->SetText(text15, "", 22U, 150, 200);                                         // new
             this->SetText(text7, link.GetHP(1), 18U, 250, 300);
             this->SetText(text8, link.GetHP(2), 18U, 950, 300);
             this->SetText(text9, link.GetPokemonActual(1), 18U, 200, 250);
@@ -104,10 +113,12 @@ public:
             this->SetText(text6, "Pokemon Fainted", 24U, 600.0f, 100.0f);
             this->SetText(text11, "x", 24U, 35.0f, 170.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
-            this->DrawBattleBegins(window, event, fadeClock);
-            this->DrawCombat(window, event, fadeClock);
+            this->DrawBattleBegins(event, fadeClock);
+            this->SetText(text1, "", 18U, 150, 200); // new
+            this->SetText(text2, "", 18U, 50, 50);   // new
+            this->DrawCombat(event, fadeClock);
             gameStarted = false;
-            this->DrawEnd(window, gameStarted, event);
+            this->DrawEnd(gameStarted, event);
         }
 
         catch (const std::exception &e)
@@ -116,7 +127,7 @@ public:
         }
     }
 
-    void DrawLoadingScreen(sf::RenderWindow &window, bool &gameStarted, sf::Event &event)
+    void DrawLoadingScreen(bool &gameStarted, sf::Event &event)
     {
         while (window.isOpen() && !gameStarted)
         {
@@ -140,7 +151,7 @@ public:
         }
     }
 
-    void DrawTrainersScreen(sf::RenderWindow &window, bool &gameStarted, sf::Event &event,
+    void DrawTrainersScreen(bool &gameStarted, sf::Event &event,
                             sf::Clock &clock, sf::Clock &fadeClock, bool &fadingOut)
     {
         while (window.isOpen() && !gameStarted)
@@ -191,7 +202,7 @@ public:
         }
     }
 
-    void DrawChooseTeamScreen(sf::RenderWindow &window, sf::Event &event, int player)
+    void DrawChooseTeamScreen(sf::Event &event, int player)
     {
         string choice = "";
         list<int> TeamChosen;
@@ -286,7 +297,7 @@ public:
         return false;
     }
 
-    void DrawTeam(sf::RenderWindow &window, sf::Event &event, sf::Clock &clock, int player)
+    void DrawTeam(sf::Event &event, sf::Clock &clock, int player)
     {
         bool ended = false;
         int i = 0, a = 0;
@@ -336,7 +347,7 @@ public:
         }
     }
 
-    void DrawCombat(sf::RenderWindow &window, sf::Event &event, sf::Clock &clock)
+    void DrawCombat(sf::Event &event, sf::Clock &clock)
     {
         buttons.clear();
         buttons2.clear();
@@ -360,7 +371,7 @@ public:
         SetText(text2, this->link.GetPokemonActual(2), 1, 900.0f, 50.0f);
         SetText(text3, "What Will you do Player 2", 20U, 140.0f, 80.0f);
         SetText(text4, "What Will you do Player 1", 20U, 950.0f, 620.0f);
-        int player = 1;                             
+        int player = 1;
         bool ended = false;
         while (window.isOpen() && !ended)
         {
@@ -385,19 +396,19 @@ public:
                     {
                         if (player1 == false)
                         {
-                            this->GetChoices(window, event, choicePlayer1, choicePlayer2);
-                            if (this->ExecuteCombat(window, event) == false)
+                            this->GetChoices(event, choicePlayer1, choicePlayer2);
+                            if (this->ExecuteCombat(event) == false)
                                 ended = true;
                             player1 = true;
                         }
                     }
                 }
             }
-            this->RenderCombat(window, player1);
+            this->RenderCombat(player1);
         }
     }
 
-    void RenderCombat(sf::RenderWindow &window, bool player1)
+    void RenderCombat(bool player1)
     {
         window.clear();
         backGround.Draw(window);
@@ -430,36 +441,53 @@ public:
         window.display();
     }
 
-    void GetChoices(sf::RenderWindow &window, sf::Event &event, string &choicePlayer1, string &choicePlayer2)
+    void GetChoices(sf::Event &event, string &choicePlayer1, string &choicePlayer2)
     {
         string choice1;
         string choice2;
         if (choicePlayer1 == "change")
         {
-            choice1 = this->DrawChangePokemon(window, event, 1, false);
+            choice1 = this->DrawChangePokemon(event, 1, false);
             link.SetPlayerDecision(1, 2, choice1);
         }
         else
         {
-            choice1 = this->DrawChooseMove(window, event, 1);
+            choice1 = this->DrawChooseMove(event, 1);
             link.SetPlayerDecision(1, 1, choice1);
         }
 
         if (choicePlayer2 == "change")
         {
-            choice2 = this->DrawChangePokemon(window, event, 2, false);
+            choice2 = this->DrawChangePokemon(event, 2, false);
             link.SetPlayerDecision(2, 2, choice2);
         }
         else
         {
-            choice2 = this->DrawChooseMove(window, event, 2);
+            choice2 = this->DrawChooseMove(event, 2);
             link.SetPlayerDecision(2, 1, choice2);
         }
     }
 
-    bool ExecuteCombat(sf::RenderWindow &window, sf::Event &event)
+    bool ExecuteCombat(sf::Event &event)
     {
+        // new de aqui
+        string pastPokemon1 = this->link.GetPokemonActual(1);
+        string pastPokemon2 = this->link.GetPokemonActual(2);
+        image7.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon1, 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+        image8.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon2, 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
+        text1.setString(link.GetHP(1));
+        text2.setString(link.GetHP(2));
+        text12.setString(link.GetPokemonActual(1));
+        text13.setString(link.GetPokemonActual(2));
+        // pa aca
         link.ExecuteTurn();
+        text7.setString(link.GetHP(1));
+        text8.setString(link.GetHP(2));
+        text9.setString(link.GetPokemonActual(1));
+        text10.setString(link.GetPokemonActual(2));
+        image3.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 3.0f, 3.0f, 300.0f, 450.0f); // pokemones conbate
+        image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // pokemones conbate
+        ExecuteAnimations(event, pastPokemon1, pastPokemon2);
         string choice;
         if (this->link.IsGameOver(1) == true)
         {
@@ -468,7 +496,7 @@ public:
 
         if (link.Getjuego().GetJugadorSpecific(1).GetPokemonInCombat().GetHP() < 1)
         {
-            choice = this->DrawChangePokemon(window, event, 1, true);
+            choice = this->DrawChangePokemon(event, 1, true);
             this->link.ExecuteChange(1, choice);
             this->link.Getjuego().ApplyChangesToPlayer(1);
         }
@@ -484,21 +512,24 @@ public:
             }
             else
             {
-                choice = this->DrawChangePokemon(window, event, 2, true);
+                choice = this->DrawChangePokemon(event, 2, true);
                 this->link.ExecuteChange(2, choice);
                 this->link.Getjuego().ApplyChangesToPlayer(2);
             }
         }
-        text7.setString(link.GetHP(1));
-        text8.setString(link.GetHP(2));
-        text9.setString(link.GetPokemonActual(1));
-        text10.setString(link.GetPokemonActual(2));
-        image3.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 3.0f, 3.0f, 300.0f, 450.0f); // pokemones conbate
-        image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // pokemones conbate
         return true;
     }
+    // new
+    void ExecuteAnimations(sf::Event &event, string &pastPokemon1, string &pastPokemon2) // new
+    {
+        if (link.GetDecisionPlayer(1) != 1)
+            DrawChangePokemonAnimationPlayer1(event, fadeClock, pastPokemon1);
 
-    string DrawChangePokemon(sf::RenderWindow &window, sf::Event &event, int player, bool isFainted)
+        if (link.GetDecisionPlayer(2) != 1)
+            DrawChangePokemonAnimationPlayer2(event, fadeClock, pastPokemon2);
+    }
+
+    string DrawChangePokemon(sf::Event &event, int player, bool isFainted)
     {
         bool ended = false;
         int state = 0;
@@ -562,7 +593,7 @@ public:
         return "";
     }
 
-    string DrawChooseMove(sf::RenderWindow &window, sf::Event &event, int player)
+    string DrawChooseMove(sf::Event &event, int player)
     {
         bool ended = false;
         int i = 0, a = 0;
@@ -611,7 +642,7 @@ public:
         return "";
     }
 
-    void DrawBattleBegins(sf::RenderWindow &window, sf::Event &event, sf::Clock &fadeClock)
+    void DrawBattleBegins(sf::Event &event, sf::Clock &fadeClock) // changed
     {
         fadeClock.restart();
         bool ended = false;
@@ -622,21 +653,34 @@ public:
             }
             window.clear();
             backGround.Draw(window);
+            image9.Draw(window);
             if (fadeClock.getElapsedTime().asSeconds() < 1.2)
+            {
                 image6.Draw(window);
+                window.draw(text1);
+            }
             if (fadeClock.getElapsedTime().asSeconds() > 1.2)
+            {
                 image4.Draw(window);
+                window.draw(text1);
+            }
             if (fadeClock.getElapsedTime().asSeconds() > 1.8 && fadeClock.getElapsedTime().asSeconds() < 3)
+            {
                 image5.Draw(window);
+                window.draw(text2);
+            }
             if (fadeClock.getElapsedTime().asSeconds() > 3)
+            {
                 image3.Draw(window);
+                window.draw(text2);
+            }
             if (fadeClock.getElapsedTime().asSeconds() > 3.5)
                 break;
             window.display();
         }
     }
 
-    void DrawEnd(sf::RenderWindow &window, bool &gameStarted, sf::Event &event)
+    void DrawEnd(bool &gameStarted, sf::Event &event)
     {
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
         backGround.SetBackGround("ending.jpg", manager, window.getSize());
@@ -664,6 +708,102 @@ public:
             backGround.Draw(window);
             window.draw(text1);
             window.draw(text2);
+            window.display();
+        }
+    }
+
+    void DrawChangePokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) //new
+    {
+        text14.setString("Player One retires " + pastPokemon + "\n'WellDone " + pastPokemon + "'");
+        text15.setString("Go " + link.GetPokemonActual(1));
+        fadeClock.restart();
+        while (window.isOpen())
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() < 1.25)
+            {
+                window.draw(text14);
+                image7.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 1.25 && fadeClock.getElapsedTime().asSeconds() < 2.0)
+            {
+                window.draw(text14);
+                image5.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 2.0 && fadeClock.getElapsedTime().asSeconds() < 2.4)
+                window.draw(text15);
+
+            if (fadeClock.getElapsedTime().asSeconds() > 2.4 && fadeClock.getElapsedTime().asSeconds() < 3.2)
+            {
+                window.draw(text15);
+                image5.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
+            {
+                window.draw(text15);
+                image3.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2)
+                break;
+            image8.Draw(window);
+            window.display();
+        }
+    }
+
+    void DrawChangePokemonAnimationPlayer2(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon) //new
+    {
+        bool ended = false;
+        fadeClock.restart();
+        text14.setString("Player Two retires " + pastPokemon + "\n'WellDone " + pastPokemon + "'");
+        text15.setString("Go " + link.GetPokemonActual(2));
+        while (window.isOpen() && !ended)
+        {
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            window.clear();
+            backGround.Draw(window);
+            image9.Draw(window);
+            if (fadeClock.getElapsedTime().asSeconds() < 1.25)
+            {
+                window.draw(text14);
+                image8.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 1.25 && fadeClock.getElapsedTime().asSeconds() < 2.0)
+            {
+                window.draw(text14);
+                image6.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 2.0 && fadeClock.getElapsedTime().asSeconds() < 2.4)
+                window.draw(text15);
+
+            if (fadeClock.getElapsedTime().asSeconds() > 2.4 && fadeClock.getElapsedTime().asSeconds() < 3.2)
+            {
+                window.draw(text15);
+                image6.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2 && fadeClock.getElapsedTime().asSeconds() < 4.1)
+            {
+                window.draw(text15);
+                image4.Draw(window);
+            }
+            if (fadeClock.getElapsedTime().asSeconds() > 3.2)
+                break;
+            image3.Draw(window);
             window.display();
         }
     }

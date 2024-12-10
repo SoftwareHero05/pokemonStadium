@@ -57,10 +57,10 @@ public:
         text9.setFillColor(sf::Color(0, 0, 0, 255));
         text10.setFillColor(sf::Color(0, 0, 0, 255));
         text11.setFillColor(sf::Color(0, 0, 0, 255));
-        text12.setFillColor(sf::Color(0, 0, 0, 255)); //new
-        text13.setFillColor(sf::Color(0, 0, 0, 255)); //new
-        text14.setFillColor(sf::Color(0, 0, 0, 255)); //new
-        text15.setFillColor(sf::Color(0, 0, 0, 255)); //new
+        text12.setFillColor(sf::Color(0, 0, 0, 255)); 
+        text13.setFillColor(sf::Color(0, 0, 0, 255)); 
+        text14.setFillColor(sf::Color(0, 0, 0, 255)); 
+        text15.setFillColor(sf::Color(0, 0, 0, 255)); 
     }
     ~JuegoGrafico() {}
 
@@ -115,8 +115,8 @@ public:
             this->SetText(text11, "x", 24U, 35.0f, 170.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->DrawBattleBegins(event, fadeClock);
-            this->SetText(text1, "" , 18U, 150, 200); //new
-            this->SetText(text2, "" , 18U, 50, 50); //new
+            this->SetText(text1, "" , 18U, 150, 200); 
+            this->SetText(text2, "" , 18U, 50, 50); 
             this->DrawCombat(event, fadeClock);
             gameStarted = false;
             this->DrawEnd(gameStarted, event);
