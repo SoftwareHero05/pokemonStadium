@@ -198,21 +198,9 @@ public:
         else return false;
     }
 
-
-
-    // void IsPokemonFainted(int jugador)
-    // {
-    //     this->juego.ChangePlayer(jugador);
-    //     if (juego.GetJugadorActual().GetPokemonInCombat().GetHP() < 1)
-    //     {
-    //         cout << this->juego.GetJugadorActual().GetPokemonInCombat().getNombre() << " ha sido debilitado" << endl;
-    //         cout << "escoga otro pokemon" << endl;
-    //         this->ExecuteChange(jugador, this->PrepareDesicion(2, jugador));
-    //         this->juego.ApplyChangesToPlayer(jugador);
-    //         system("pause");
-    //     }
-    // }
-
-
+    int GetDecisionPlayer(int player){
+        if(player == 1) return this->DPlayer1;
+        else return this->DPlayer2;
+    }
 
 };
