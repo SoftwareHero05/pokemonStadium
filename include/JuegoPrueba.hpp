@@ -99,20 +99,20 @@ public:
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // POKEMONES EN BATALLA
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
-            image9.SetImage("textBox1.png", manager, 2.0f, 1.0f, 20.0f, 500.0f);              // new
-            this->SetText(text12, "", 18U, 150, 200);                                         // new
-            this->SetText(text13, "", 18U, 50, 50);                                           // new
-            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 150, 200); // new
-            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 150, 200); // new
-            this->SetText(text14, "", 22U, 150, 200);                                         // new
-            this->SetText(text15, "", 22U, 150, 200);                                         // new
-            this->SetText(text7, link.GetHP(1), 18U, 250, 300);
-            this->SetText(text8, link.GetHP(2), 18U, 950, 300);
-            this->SetText(text9, link.GetPokemonActual(1), 18U, 200, 250);
-            this->SetText(text10, link.GetPokemonActual(2), 18U, 900, 250);
-            this->SetText(text5, "Pokemon In Combat", 24U, 600.0f, 50.0f);
-            this->SetText(text6, "Pokemon Fainted", 24U, 600.0f, 100.0f);
-            this->SetText(text11, "x", 24U, 35.0f, 170.0f);
+            image9.SetImage("textBox1.png", manager, .4f, .4f, 800.0f, 500.0f);              
+            this->SetText(text12, "", 18U, 150, 200);                                         
+            this->SetText(text13, "", 18U, 50, 50);                                           
+            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 320, 710); 
+            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 850, 150); 
+            this->SetText(text14, "", 25U, 910, 600);  //textos que van dentro de la caja   20U, 950.0f, 620.0f                                    
+            this->SetText(text15, "", 25U, 910, 600);  //textos que van dentro de la caja                                      
+            this->SetText(text7, link.GetHP(1), 22U, 350, 440);   //vida del primerp
+            this->SetText(text8, link.GetHP(2), 22U, 950, 150);   //vida del segundo
+            this->SetText(text9, link.GetPokemonActual(1), 22U, 400, 440);  //nombre del pokemon 1
+            this->SetText(text10, link.GetPokemonActual(2), 22U, 1000, 150); //nombre del pokemon 2
+            this->SetText(text5, "Pokemon In Combat", 24U, 900.0f, 690.0f);
+            this->SetText(text6, "Pokemon Fainted", 24U, 950.0f, 620.0f);
+            this->SetText(text11, "x", 24U, 890.0f, 600.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->DrawBattleBegins(event, fadeClock);
             this->SetText(text1, "", 18U, 150, 200); // new
@@ -474,8 +474,8 @@ public:
         // new de aqui
         string pastPokemon1 = this->link.GetPokemonActual(1);
         string pastPokemon2 = this->link.GetPokemonActual(2);
-        image7.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon1, 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
-        image8.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon2, 2), manager, 2.2f, 1.5f, 280.0f, 20.0f);
+        image7.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon1, 1), manager, 3.0f, 3.0f, 300.0f, 450.0f);
+        image8.SetImage(this->link.GetPokemonImageDirectionWithString(pastPokemon2, 2), manager, 3.0f, 3.0f, 850.0f, 150.0f);
         text1.setString(link.GetHP(1));
         text2.setString(link.GetHP(2));
         text12.setString(link.GetPokemonActual(1));
