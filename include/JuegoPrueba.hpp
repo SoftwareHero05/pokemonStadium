@@ -99,7 +99,7 @@ public:
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // POKEMONES EN BATALLA
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
-            image9.SetImage("textBox1.png", manager, .4f, .4f, 800.0f, 500.0f);              
+            image9.SetImage("textBox1.png", manager, .43f, .4f, 800.0f, 500.0f);              
             this->SetText(text12, "", 18U, 150, 200);                                         
             this->SetText(text13, "", 18U, 50, 50);                                           
             this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 320, 710); 
@@ -111,7 +111,7 @@ public:
             this->SetText(text9, link.GetPokemonActual(1), 22U, 400, 440);  //nombre del pokemon 1
             this->SetText(text10, link.GetPokemonActual(2), 22U, 1000, 150); //nombre del pokemon 2
             this->SetText(text5, "Pokemon In Combat", 24U, 900.0f, 690.0f);
-            this->SetText(text6, "Pokemon Fainted", 24U, 950.0f, 620.0f);
+            this->SetText(text6, "Pokemon Fainted", 24U, 900.0f, 690.0f);
             this->SetText(text11, "x", 24U, 890.0f, 600.0f);
             musicManager.ChangeMusic("./assets/music/Theme1.ogg");
             this->DrawBattleBegins(event, fadeClock);
@@ -368,8 +368,6 @@ public:
         button.SetButton("changeIcon.png", manager, sf::Vector2f(260.0f, 120.0f), "change");
         button.SetScale(.15f, .15f);
         buttons2.push_back(button);
-        SetText(text1, this->link.GetPokemonActual(1), 1, 200.0f, 50.0f);
-        SetText(text2, this->link.GetPokemonActual(2), 1, 900.0f, 50.0f);
         SetText(text3, "What Will you do Player 2", 20U, 140.0f, 80.0f);
         SetText(text4, "What Will you do Player 1", 20U, 950.0f, 620.0f);
         int player = 1;
@@ -416,7 +414,6 @@ public:
         if (player1 == true)
         {
             image2.Draw(window);
-            window.draw(text2);
             window.draw(text4);
             for (auto &actions : buttons)
             {
@@ -427,7 +424,6 @@ public:
         {
             image1.Draw(window);
             window.draw(text3);
-            window.draw(text4);
             for (auto &actions : buttons2)
             {
                 actions.draw(window);
@@ -575,7 +571,7 @@ public:
         string pokemonActual = this->link.GetPokemonActual(player);
         list<string> team = this->link.GetTeamString(player);
         list<string> fainted = this->link.GetFaintedPokemon(player);
-        text11.setString(pokemonActual + "was fainted");
+        text11.setString(pokemonActual + " was fainted");
         buttonsPokemon.clear();
         for (auto &&pokemon : team)
         {
@@ -721,9 +717,9 @@ public:
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
         backGround.SetBackGround("ending.jpg", manager, window.getSize());
         if (link.IsGameOver(1) == true)
-            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
+            SetText(text1, "Player one has no pokemon Left Player two wins", 20U, 400, 500);
         else
-            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
+            SetText(text1, "Player two  has no pokemon Left Player one wins", 20U, 400, 500);
         while (window.isOpen() && !gameStarted)
         {
 
@@ -853,7 +849,7 @@ public:
         float fadeTime = 1.0f;
         if (changed == true)
         {
-            image7.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+            image7.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(1), 1), manager, 3.0f, 3.0f, 300.0f, 450.0f);
             text14.setString(link.GetPokemonActual(1) + " fainted");
         }
         else
@@ -903,7 +899,7 @@ public:
         fadeClock.restart();
         if (changed == true)
         {
-            image8.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 2.2f, 1.5f, 70.0f, 210.0f);
+            image8.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f);
             text14.setString(link.GetPokemonActual(2) + " fainted");
         }
         else
