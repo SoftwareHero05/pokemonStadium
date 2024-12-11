@@ -6,6 +6,7 @@
 #include <GRAPHICS/MusicManager.h>
 #include <GRAPHICS/Image.h>
 #include <GRAPHICS/ButtonText.h>
+#include <GRAPHICS/SoundManager.h>
 #include <sstream>
 class JuegoPrueba
 {
@@ -17,6 +18,7 @@ private:
     sf::Clock clock;
     sf::Clock fadeClock;
     BackGround backGround;
+    SoundManager sound;
     sf::Text text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, text15;
     Image image1, image2, image3, image4, image5, image6, image7, image8, image9;
     MusicManager musicManager;
@@ -61,6 +63,8 @@ public:
         text13.setFillColor(sf::Color(0, 0, 0, 255));
         text14.setFillColor(sf::Color(0, 0, 0, 255));
         text15.setFillColor(sf::Color(0, 0, 0, 255));
+        sound.SetLoop(false);
+        sound.SetVolume(50.0f);
     }
     ~JuegoPrueba() {}
 
@@ -721,9 +725,9 @@ public:
         musicManager.ChangeMusic("./assets/music/victoryBattle.ogg");
         backGround.SetBackGround("ending.jpg", manager, window.getSize());
         if (link.IsGameOver(1) == true)
-            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
+            SetText(text1, "Player one has no pokemon Left Player two wins", 20U, 400, 500);
         else
-            SetText(text1, "Player one has no pokemon Left Player 2 wins", 20U, 400, 500);
+            SetText(text1, "Player two has no pokemon Left Player one wins", 20U, 400, 500);
         while (window.isOpen() && !gameStarted)
         {
 
