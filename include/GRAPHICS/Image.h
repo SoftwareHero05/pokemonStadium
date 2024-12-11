@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "TextureManager.h"
+#include "SourceManager.h"
 class Image
 {
 public:
     Image() {}
-    ~Image(){}
-    void SetImage(const std::string &texturePath, SourceManager& manager, float scaleX , float scaleY , float posX, float posY)
+    ~Image() {}
+    void SetImage(const std::string &texturePath, SourceManager &manager, float scaleX, float scaleY, float posX, float posY)
     {
         this->visible = true;
         this->texture = manager.GetTexture(texturePath);
@@ -26,11 +26,13 @@ public:
         sprite.setScale(scaleX, scaleY);
     }
 
-    float GetTextureSizeX(){
+    float GetTextureSizeX()
+    {
         return texture.getSize().x;
     }
 
-    float GetTextureSizeY(){
+    float GetTextureSizeY()
+    {
         return texture.getSize().x;
     }
 

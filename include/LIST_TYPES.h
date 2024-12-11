@@ -172,8 +172,9 @@ float T_ELECTRIC_effectiveness(int defender)
 		return 1;
 }
 
-float T_NORMAL_effectiviness(int defender){
-	
+float T_NORMAL_effectiviness(int defender)
+{
+
 	if (defender == ROCK || defender == STEEL)
 		return .5;
 	else if (defender == GHOST)

@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <string>
-#include "TextureManager.h"
+#include "SourceManager.h"
 class ButtonImage
 {
 private:
@@ -14,11 +14,11 @@ private:
 
 public:
     // Configurar el botón con un valor de retorno
-    ButtonImage(){}
-    void SetButton(const std::string& texturePath,SourceManager& textureManager, sf::Vector2f position, const std::string& value)
+    ButtonImage() {}
+    void SetButton(const std::string &texturePath, SourceManager &textureManager, sf::Vector2f position, const std::string &value)
     {
 
-        const sf::Texture& texture = textureManager.GetTexture(texturePath);
+        const sf::Texture &texture = textureManager.GetTexture(texturePath);
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
         sprite.setPosition(position);
@@ -29,7 +29,7 @@ public:
     }
 
     // Manejar eventos del botón
-    bool handleEvent(const sf::Event& event, sf::RenderWindow& window, std::string& result)
+    bool handleEvent(const sf::Event &event, sf::RenderWindow &window, std::string &result)
     {
         if (event.type == sf::Event::MouseButtonPressed)
         {
@@ -37,15 +37,16 @@ public:
             if (sprite.getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
                 result = returnValue; // Retorna el valor asociado
-                if (onClick) onClick(); // Ejecuta la acción si está definida
-                return true; // Indica que el botón fue presionado
+                if (onClick)
+                    onClick(); // Ejecuta la acción si está definida
+                return true;   // Indica que el botón fue presionado
             }
         }
         return false; // No se presionó este botón
     }
 
     // Dibujar el botón
-    void draw(sf::RenderWindow& window)
+    void draw(sf::RenderWindow &window)
     {
         if (visible)
         {

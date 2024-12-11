@@ -4,10 +4,10 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    JuegoConsola juegoConsola;  
-    
+    JuegoConsola juegoConsola;
+
     juegoConsola.Start();
-   
+
     system("pause");
     system("cls");
     /*

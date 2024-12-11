@@ -1,7 +1,7 @@
 #pragma once
 #include <Bridge.h>
 #include <GRAPHICS/BackGround.h>
-#include <GRAPHICS/TextureManager.h>
+#include <GRAPHICS/SourceManager.h>
 #include <GRAPHICS/ButtonImage.h>
 #include <GRAPHICS/MusicManager.h>
 #include <GRAPHICS/Image.h>

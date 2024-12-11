@@ -24,7 +24,8 @@ public:
 	// constructor sin movimientos
 	Pokemon(int Hp, int Atk, int Def, int SAtk, int SDef, int Speed,
 			int id, string nombre, int Type1, int Type2) : Pokemon(Hp, Atk, Def, SAtk, SDef, Speed, list<Move>(), id, nombre, Type1, Type2)
-	{}
+	{
+	}
 	// constructor vacio
 	Pokemon() {}
 	// Destructor virtual para hacer que la clase sea polimórfica
@@ -42,7 +43,6 @@ public:
 		this->Speed = this->BSpeed;
 	}
 
-
 	list<Move> GetMoveSet()
 	{
 		return this->moves;
@@ -53,25 +53,31 @@ public:
 		this->moves.emplace_back(move);
 	}
 
-	Move SearchMove(string nombre) {
-    for (auto& move : this->moves) { 
-         if (move.GetMoveName() == nombre) { 
-                return move;
-            }
-        }
+	Move SearchMove(string nombre)
+	{
+		for (auto &move : this->moves)
+		{
+			if (move.GetMoveName() == nombre)
+			{
+				return move;
+			}
+		}
 		return AuraSphere();
-    }
+	}
 
-	bool IsMoveInMoveSet(string nombre) {
-    for (auto& move : this->moves) { 
-         if (move.GetMoveName() == nombre) { 
-                return true;
-            }
-        }
-        return false;
-    }
+	bool IsMoveInMoveSet(string nombre)
+	{
+		for (auto &move : this->moves)
+		{
+			if (move.GetMoveName() == nombre)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
-	int ExecuteMoveChosen(string nombre, Pokemon Enemy)
+	int ExecuteMoveChosen(string nombre, Pokemon enemy)
 	{
 		if (nombre == "DragonDance" || nombre == "NastyPlot" || nombre == "CalmMind" || nombre == "Synthesis" || nombre == "Curse")
 		{
@@ -82,17 +88,23 @@ public:
 		{
 			this->chosen = this->SearchMove(nombre);
 			return chosen.ExecuteMove(this->getType1(), this->getType2(),
-									  Enemy.getType1(), Enemy.getType2(), this->GetAtk(), this->GetSAtk(),
-									  Enemy.GetDef(), Enemy.GetSDef());
+									  enemy.getType1(), enemy.getType2(), this->GetAtk(), this->GetSAtk(),
+									  enemy.GetDef(), enemy.GetSDef());
 		}
 	}
 
-	void ExecuteBoostMove(string nombre){
-		if(nombre == "DragonDance") this->MoveDragonDance();
-		else if(nombre == "CalmMind") this->MoveCalmMind();
-		else if(nombre == "NastyPlot") this->MoveNastyPlot();
-		else if(nombre == "Synthesis") this->MoveSynthesis();
-		else if(nombre == "Curse") this->MoveCurse();
+	void ExecuteBoostMove(string nombre)
+	{
+		if (nombre == "DragonDance")
+			this->MoveDragonDance();
+		else if (nombre == "CalmMind")
+			this->MoveCalmMind();
+		else if (nombre == "NastyPlot")
+			this->MoveNastyPlot();
+		else if (nombre == "Synthesis")
+			this->MoveSynthesis();
+		else if (nombre == "Curse")
+			this->MoveCurse();
 	}
 
 	int GetHP()
@@ -151,36 +163,42 @@ public:
 	void heal50Percent()
 	{
 		this->Hp += (this->BHp * .5);
-		if (this->Hp > this->BHp) this->Hp = this->BHp;
+		if (this->Hp > this->BHp)
+			this->Hp = this->BHp;
 	}
-	void ApplyDamageToPokemon(int damage){
+	void ApplyDamageToPokemon(int damage)
+	{
 		this->Hp -= damage;
 	}
 
-	void MoveDragonDance(){
+	void MoveDragonDance()
+	{
 		this->boostAtk();
 		this->boostSpeed();
 	}
-	void MoveCalmMind(){
+	void MoveCalmMind()
+	{
 		this->boostSAtk();
 		this->boostSDef();
 	}
-	void MoveNastyPlot(){
+	void MoveNastyPlot()
+	{
 		this->boostSAtk();
 		this->boostSAtk();
 	}
-	void MoveSynthesis(){
+	void MoveSynthesis()
+	{
 		this->heal50Percent();
-		
 	}
-	void MoveCurse(){
+	void MoveCurse()
+	{
 		this->boostAtk();
 		this->boostDef();
 	}
 
-	string GetEffectivenessMessage(string nombre, Pokemon Enemy)
+	string GetEffectivenessMessage(string nombre, Pokemon enemy)
 	{
-		 this->chosen = this->SearchMove(nombre);
-		 return this->chosen.GetEffectivenessMessage(Enemy.getType1(),Enemy.getType2());
+		this->chosen = this->SearchMove(nombre);
+		return this->chosen.GetEffectivenessMessage(enemy.getType1(), enemy.getType2());
 	}
 };

@@ -1,7 +1,7 @@
 #pragma once
 #include <Bridge.h>
 #include <GRAPHICS/BackGround.h>
-#include <GRAPHICS/TextureManager.h>
+#include <GRAPHICS/SourceManager.h>
 #include <GRAPHICS/ButtonImage.h>
 #include <GRAPHICS/MusicManager.h>
 #include <GRAPHICS/Image.h>
@@ -99,17 +99,17 @@ public:
             image4.SetImage(this->link.GetPokemonImageDirectionWithString(this->link.GetPokemonActual(2), 2), manager, 3.0f, 3.0f, 850.0f, 150.0f); // POKEMONES EN BATALLA
             image5.SetImage("pokeball.png", manager, 1.0f, 1.3f, 80.0f, 220.0f);
             image6.SetImage("pokeball.png", manager, 1.0f, 1.3f, 280.0f, 20.0f);
-            image9.SetImage("textBox1.png", manager, .4f, .4f, 800.0f, 500.0f);              
-            this->SetText(text12, "", 18U, 150, 200);                                         
-            this->SetText(text13, "", 18U, 50, 50);                                           
-            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 320, 710); 
-            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 850, 150); 
-            this->SetText(text14, "", 25U, 910, 600);  //textos que van dentro de la caja   20U, 950.0f, 620.0f                                    
-            this->SetText(text15, "", 25U, 910, 600);  //textos que van dentro de la caja                                      
-            this->SetText(text7, link.GetHP(1), 22U, 350, 440);   //vida del primerp
-            this->SetText(text8, link.GetHP(2), 22U, 950, 150);   //vida del segundo
-            this->SetText(text9, link.GetPokemonActual(1), 22U, 400, 440);  //nombre del pokemon 1
-            this->SetText(text10, link.GetPokemonActual(2), 22U, 1000, 150); //nombre del pokemon 2
+            image9.SetImage("textBox1.png", manager, .4f, .4f, 800.0f, 500.0f);
+            this->SetText(text12, "", 18U, 150, 200);
+            this->SetText(text13, "", 18U, 50, 50);
+            this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 320, 710);
+            this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 850, 150);
+            this->SetText(text14, "", 25U, 910, 600);                        // textos que van dentro de la caja   20U, 950.0f, 620.0f
+            this->SetText(text15, "", 25U, 910, 600);                        // textos que van dentro de la caja
+            this->SetText(text7, link.GetHP(1), 22U, 350, 440);              // vida del primerp
+            this->SetText(text8, link.GetHP(2), 22U, 950, 150);              // vida del segundo
+            this->SetText(text9, link.GetPokemonActual(1), 22U, 400, 440);   // nombre del pokemon 1
+            this->SetText(text10, link.GetPokemonActual(2), 22U, 1000, 150); // nombre del pokemon 2
             this->SetText(text5, "Pokemon In Combat", 24U, 900.0f, 690.0f);
             this->SetText(text6, "Pokemon Fainted", 24U, 950.0f, 620.0f);
             this->SetText(text11, "x", 24U, 890.0f, 600.0f);
@@ -497,7 +497,7 @@ public:
                 support = true;
             else
                 support = false;
-            DrawFaintedPokemonAnimationPlayer1(event, fadeClock, pastPokemon1,support);
+            DrawFaintedPokemonAnimationPlayer1(event, fadeClock, pastPokemon1, support);
             image7.SetColor(sf::Color(255, 255, 255, 255));
             if (this->link.IsGameOver(1) == true)
             {
@@ -516,12 +516,12 @@ public:
         }
 
         if (link.Getjuego().GetJugadorSpecific(2).GetPokemonInCombat().GetHP() < 1)
-        {   
+        {
             if (link.GetDecisionPlayer(2) != 1)
                 support = true;
             else
                 support = false;
-            DrawFaintedPokemonAnimationPlayer2(event, fadeClock, pastPokemon2,support);
+            DrawFaintedPokemonAnimationPlayer2(event, fadeClock, pastPokemon2, support);
             image8.SetColor(sf::Color(255, 255, 255, 255));
             if (this->link.IsGameOver(2) == true)
             {
@@ -844,7 +844,7 @@ public:
         }
     }
 
-    void DrawFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon,bool changed)
+    void DrawFaintedPokemonAnimationPlayer1(sf::Event &event, sf::Clock &fadeClock, string &pastPokemon, bool changed)
     {
         bool ended = false;
         bool fadingOut = false;
@@ -946,7 +946,7 @@ public:
         }
     }
 
-     void DrawMoveMessage(sf::Event &event, sf::Clock &fadeClock, string pokemon, int player)
+    void DrawMoveMessage(sf::Event &event, sf::Clock &fadeClock, string pokemon, int player)
     {
         string supportString = link.GetMoveName(player);
         text14.setString(pokemon + " uses: " + supportString);
