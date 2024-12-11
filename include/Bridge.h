@@ -250,4 +250,15 @@ public:
         else
             return false;
     }
+
+    string GetMoveName(int player){
+        if(player == 1) return this->OP1;
+        else return this->OP2;
+    }
+
+    string GetMoveEffectivenes(int User,string nombre){
+        this->juego.ChangePlayer(User);
+        return this->juego.GetEffectivenesMessage(nombre);
+    }
+
 };

@@ -109,4 +109,13 @@ public:
         this->pokemonActual.ApplyDamageToPokemon(damage);
         this->ApplyDamageToSpecifiPokemon(this->pokemonActual.getNombre(), damage);
     }
+
+    string GetEffectivenessMessage(string nombre)
+    {
+        this->IsMove = this->pokemonActual.IsMoveInMoveSet(nombre);
+        if (this->IsMove == true)
+            return this->pokemonActual.GetEffectivenessMessage(nombre,this->EnemyPokemon);
+        else
+            return "";
+    }
 };

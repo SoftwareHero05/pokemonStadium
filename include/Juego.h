@@ -199,4 +199,9 @@ public:
         }
         return i;
     }
+
+    string GetEffectivenesMessage(string nombre)
+    {
+        return this->jugadorActual.GetEffectivenessMessage(nombre);
+    }
 };

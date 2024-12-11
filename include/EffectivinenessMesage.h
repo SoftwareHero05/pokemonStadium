@@ -2,7 +2,7 @@
 #include <MOVES/Move.h>
 #include <Definer.h>
 
-float EffectiveMessage(int Type1,int Type2, int TypeAttack){
+float EffectivenessManager(int Type1,int Type2, int TypeAttack){
 float multiplier = 1;
     switch (TypeAttack)
     {

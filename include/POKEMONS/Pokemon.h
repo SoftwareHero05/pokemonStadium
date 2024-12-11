@@ -177,4 +177,10 @@ public:
 		this->boostAtk();
 		this->boostDef();
 	}
+
+	string GetEffectivenessMessage(string nombre, Pokemon Enemy)
+	{
+		 this->chosen = this->SearchMove(nombre);
+		 return this->chosen.GetEffectivenessMessage(Enemy.getType1(),Enemy.getType2());
+	}
 };

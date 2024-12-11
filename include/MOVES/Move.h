@@ -35,7 +35,7 @@ public:
 			damageDone = UserAtk + potencia - EnemyDef;
 		else
 			damageDone = UserSAtk + potencia - EnemySDef;
-		damageDone *= EffectiveMessage(EnemyType1, EnemyType2, this->type);
+		damageDone *= EffectivenessManager(EnemyType1, EnemyType2, this->type);
 		if (damageDone < 0)
 			damageDone = 0;
 		damageDone /= 5;
@@ -43,10 +43,11 @@ public:
 	}
 
 	string GetEffectivenessMessage(int EnemyType1, int EnemyType2){
-		int multiplicador = EffectiveMessage(EnemyType1,EnemyType2,this->type);
+		float multiplicador = EffectivenessManager(EnemyType1,EnemyType2,this->type);
 		if(multiplicador == 0) return "It had no effect whatsoever...";
 		else if(multiplicador > 1) return "It's very effective!";
 		else if(multiplicador < 1) return "It's not very effective...";
-		else "It's effective";
+		else return "It's effective";
+
 	}
 }; 
