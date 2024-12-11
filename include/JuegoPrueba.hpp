@@ -104,8 +104,8 @@ public:
             this->SetText(text13, "", 18U, 50, 50);                                           
             this->SetText(text1, "Player 1 Sends" + link.GetPokemonActual(1), 22U, 320, 710); 
             this->SetText(text2, "Player 2 Sends" + link.GetPokemonActual(2), 22U, 850, 150); 
-            this->SetText(text14, "", 25U, 910, 600);  //textos que van dentro de la caja   20U, 950.0f, 620.0f                                    
-            this->SetText(text15, "", 25U, 910, 600);  //textos que van dentro de la caja                                      
+            this->SetText(text14, "", 25U, 830, 600);  //textos que van dentro de la caja   20U, 950.0f, 620.0f                                    
+            this->SetText(text15, "", 25U, 830, 600);  //textos que van dentro de la caja                                      
             this->SetText(text7, link.GetHP(1), 22U, 350, 440);   //vida del primerp
             this->SetText(text8, link.GetHP(2), 22U, 950, 150);   //vida del segundo
             this->SetText(text9, link.GetPokemonActual(1), 22U, 400, 440);  //nombre del pokemon 1
