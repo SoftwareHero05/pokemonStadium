@@ -1,65 +1,57 @@
-# EjemplosJuego
+# Pokemon Flash
 
-El proyecto esta desarrollado sobre MinGW64 utilizando Msys2
-y como editor se esta utilizando Visual Studio Code
+This project is a simple implementation  of the system of combats of Pokemon, using C++ and the library SMFL. This game is about two Pokemon Teams battling each other, each one is made of 6 different pokemons that can be chosen from 10 different options, once the teams are made, the battle begins where two options can be took, attack or change pokemon.
+Battle until one of the teams runs out of Pokemons!!!!.
 
-## Como ejecutar los ejemplos
+## Structure of the Project
 
-Instalar todas las dependencias descritas abajo y dentro de una terminal de vscode ejecutar:
+The project is structured as follows:
 
-> make run'NombreEjecutable'
+- **bin**: Contains the binary files generated after compiling the code.
+- **docs**: Stores project documentation.
+- **include**: Contains the header files (.h and .hpp) for each class in the project.
+- **src**: Contains the source files (.cpp) of the project.
+- **Makefile**: Makefile to compile and run the project.
+- **assets**: Cotains all the images, music, sounds etc, that the project uses.
 
-Por ejemplo para ejecutar '00_Ventana.cpp' correr el comando en la terminal de vscode:
+## Diagrama de Clases
 
-> make run00_Ventana
+El diagrama de clases del proyecto incluye las siguientes clases:
 
+- **PokemonFlash**: Represents the visual part of the game, draws sprites, animations, sounds, music etc, it's what the player sees and interacts with.
+- **Bridge**: Represents what connects the class PokemonFlash with the rest of classes, also helps PokemonFlash with other stuff, like gettins PokemonsDirections.
+- **JuegoConsola**: Represents that class when you can play the game but on the console, it's used to test changes made in the other classes.
+- **Juego**: Represents the class that contains the logic of the game, like the two PokemonsTeams, hp, execute Moves, execute Changes etc.
+- **EquipoPokemon**: Represents the logic that contains the logic of a Pokemon Team, like knowing who is the pokemon who is figthing, who is fainted, who is the enemy, etc.
+- **Pokemon**: Represents the logic of a single Pokemon, like his name, his move set, his hp, etc.
 
-## Programas necesarios
+- **Pokemon**: Represents the logic of a single Pokemon, like his name, his move set, his hp, etc.
 
-### Visual estudio code
-Descargar e instalar vscode en el siguiente [Enlace.](https://code.visualstudio.com/)
-
-### MSYS2 (Windows)
-
-Instalar Msys2 usando el siguiente [Enlace.](https://github.com/msys2/msys2-installer/releases/download/2023-05-26/msys2-x86_64-20230526.exe)
-
-No modificar ningua opcion al momento de intalacion o podrian variar las configuraciones.
-
-Una vez instalado es necesario agregar los siguientes directorios al path de windows y reiniciar.
-
-> C:\msys64\mingw64\bin
-
-> C:\msys64\usr\bin
-
-### Github Desktop
-Cliente de escritorio para clonar el repositorio, descargar usando el siguiente [enlace](https://desktop.github.com/).
-
-### Git
-Para poder realizar commits de vscode es necesario tener instalado Git, descargarlo del siguiente [enlace](https://git-scm.com/).
+- **Move**: Represents the logic of a single Moven, his potency, his tipe, agains what is effective and what not, etc.
 
 
-## Librerias utilizadas (Msys2)
 
-Ejecutar los siguientes comandos en la terminal de msys2 para instalar las dependencias necesarias
+## Members:
 
-### DevTools
-Compiladores y herramientas necesarias para el desarrollo.
+    Jesus Antonio Baez Ortega 23310372
+    Hector Castañeda
+   
 
-https://code.visualstudio.com/docs/cpp/config-mingw
-> pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+## Compiling and Running
 
-### SFML
-https://packages.msys2.org/package/mingw-w64-x86_64-sfml
-> pacman -S mingw-w64-x86_64-sfml
+To compile the project, run the following command in the terminal:
 
-### Box2D simulaciones de fisica - C++
-https://box2d.org/documentation/
-https://packages.msys2.org/package/mingw-w64-x86_64-box2d?repo=mingw64
-pacman -S mingw-w64-x86_64-box2d
+make runTestPokemonFlash
 
-## Complementos necesarios VSCode
+if it doesn't work, run
 
-- Material Icon
-- C/C++
-- PlantUML
-- GitGraph
+make clean
+make runmain
+
+You can test other parts of the Project, for that, 
+write Make and next run + the name of the .cpp file, 
+example: make runTestJugador
+
+# Screenshots
+![alt text](PokemonFlash1.jfif)
+![alt text](PokemonFlash2.jfif)
