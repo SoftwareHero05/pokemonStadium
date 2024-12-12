@@ -82,7 +82,8 @@ public:
         return this->pokemonActual;
     }
 
-    Pokemon GetPokemonSpecific(string nombre){
+    Pokemon GetPokemonSpecific(string nombre)
+    {
         return this->SearchPokemon(nombre);
     }
     void AssignPokemonInCombat(Pokemon pokemon)
@@ -114,7 +115,7 @@ public:
     {
         this->IsMove = this->pokemonActual.IsMoveInMoveSet(nombre);
         if (this->IsMove == true)
-            return this->pokemonActual.GetEffectivenessMessage(nombre,this->EnemyPokemon);
+            return this->pokemonActual.GetEffectivenessMessage(nombre, this->EnemyPokemon);
         else
             return "";
     }

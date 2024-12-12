@@ -12,10 +12,10 @@ private:
     list<string> stringMoveSet;
     list<string> stringFainted;
     Juego juego;
-    int DPlayer1, DPlayer2;
-    string OP1, OP2, pokemonName;
+    int dPlayer1, dPlayer2;
+    string oP1, oP2, pokemonName;
     int fasterPlayer, slowerPlayer;
-    string OPfaster, OpSlower;
+    string oPfaster, opSlower;
 
 public:
     Bridge()
@@ -140,26 +140,26 @@ public:
     {
         if (jugador == 1)
         {
-            this->DPlayer1 = eleccion;
-            this->OP1 = nombre;
+            this->dPlayer1 = eleccion;
+            this->oP1 = nombre;
         }
         else
         {
-            this->DPlayer2 = eleccion;
-            this->OP2 = nombre;
+            this->dPlayer2 = eleccion;
+            this->oP2 = nombre;
         }
     }
 
     bool ExecuteTurn()
     {
-        if (this->DPlayer1 != 1)
+        if (this->dPlayer1 != 1)
         {
-            this->ExecuteChange(1, OP1);
+            this->ExecuteChange(1, oP1);
             this->juego.ApplyChangesToPlayer(1);
         }
-        if (this->DPlayer2 != 1)
+        if (this->dPlayer2 != 1)
         {
-            this->ExecuteChange(2, OP2);
+            this->ExecuteChange(2, oP2);
             this->juego.ApplyChangesToPlayer(2);
         }
         this->juego.BeginTurn();
@@ -167,36 +167,36 @@ public:
         {
             this->fasterPlayer = 1;
             this->slowerPlayer = 2;
-            this->OPfaster = this->OP1;
-            this->OpSlower = this->OP2;
+            this->oPfaster = this->oP1;
+            this->opSlower = this->oP2;
         }
         else
         {
             this->fasterPlayer = 2;
             this->slowerPlayer = 1;
-            this->OPfaster = this->OP2;
-            this->OpSlower = this->OP1;
+            this->oPfaster = this->oP2;
+            this->opSlower = this->oP1;
         }
 
-        this->ExecuteMove(fasterPlayer, slowerPlayer, OPfaster);
+        this->ExecuteMove(fasterPlayer, slowerPlayer, oPfaster);
         juego.ChangePlayer(slowerPlayer);
         if (this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() > 0)
         {
-            this->ExecuteMove(slowerPlayer, fasterPlayer, OpSlower);
+            this->ExecuteMove(slowerPlayer, fasterPlayer, opSlower);
         }
         return true;
     }
 
-    void ExecuteChange(int User, string nombre)
+    void ExecuteChange(int user, string nombre)
     {
-        this->juego.ChangePlayer(User);
+        this->juego.ChangePlayer(user);
         this->juego.ChangePokemon(nombre);
     }
 
-    void ExecuteMove(int User, int Enemy, string nombre)
+    void ExecuteMove(int user, int enemy, string nombre)
     {
-        this->juego.ChangePlayer(User);
-        this->juego.ExecuteMoveChosen(nombre, Enemy, User);
+        this->juego.ChangePlayer(user);
+        this->juego.ExecuteMoveChosen(nombre, enemy, user);
     }
 
     string GetHP(int jugador)
@@ -238,9 +238,9 @@ public:
     int GetDecisionPlayer(int player)
     {
         if (player == 1)
-            return this->DPlayer1;
+            return this->dPlayer1;
         else
-            return this->DPlayer2;
+            return this->dPlayer2;
     }
 
     bool IsPlayer1Faster()
@@ -251,14 +251,17 @@ public:
             return false;
     }
 
-    string GetMoveName(int player){
-        if(player == 1) return this->OP1;
-        else return this->OP2;
+    string GetMoveName(int player)
+    {
+        if (player == 1)
+            return this->oP1;
+        else
+            return this->oP2;
     }
 
-    string GetMoveEffectivenes(int User,string nombre){
-        this->juego.ChangePlayer(User);
+    string GetMoveEffectivenes(int user, string nombre)
+    {
+        this->juego.ChangePlayer(user);
         return this->juego.GetEffectivenesMessage(nombre);
     }
-
 };

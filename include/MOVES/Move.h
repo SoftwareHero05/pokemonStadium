@@ -2,26 +2,29 @@
 #include <Definer.h>
 #include "LIST_TYPES.h"
 #include <EffectivinenessMesage.h>
-//#include <POKEMONS/Pokemon.h>
-class Move{
+// #include <POKEMONS/Pokemon.h>
+class Move
+{
 
 protected:
 	int id;
 	string nombre;
 	int potencia;
 	int type;
-	bool category;//1 = Fisico //2 = Especial // 3 = Boost
+	bool category; // 1 = Fisico //2 = Especial // 3 = Boost
 
 public:
 	Move() {}
-	Move(int potencia, int type, bool category,int id,string nombre) {
+	Move(int potencia, int type, bool category, int id, string nombre)
+	{
 		this->potencia = potencia;
 		this->type = type;
 		this->category = category;
 		this->id = id;
 		this->nombre = nombre;
 	}
-	string GetMoveName(){
+	string GetMoveName()
+	{
 		return this->nombre;
 	}
 
@@ -42,12 +45,16 @@ public:
 		return damageDone;
 	}
 
-	string GetEffectivenessMessage(int EnemyType1, int EnemyType2){
-		float multiplicador = EffectivenessManager(EnemyType1,EnemyType2,this->type);
-		if(multiplicador == 0) return "It had no effect whatsoever...";
-		else if(multiplicador > 1) return "It's very effective!";
-		else if(multiplicador < 1) return "It's not very effective...";
-		else return "It's effective";
-
+	string GetEffectivenessMessage(int EnemyType1, int EnemyType2)
+	{
+		float multiplicador = EffectivenessManager(EnemyType1, EnemyType2, this->type);
+		if (multiplicador == 0)
+			return "It had no effect whatsoever...";
+		else if (multiplicador > 1)
+			return "It's very effective!";
+		else if (multiplicador < 1)
+			return "It's not very effective...";
+		else
+			return "It's effective";
 	}
-}; 
+};

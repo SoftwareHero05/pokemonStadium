@@ -2,12 +2,14 @@
 #include <map>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class SourceManager
 {
 private:
     std::map<std::string, sf::Texture> textureMap;
     std::map<std::string, sf::Font> fontMap;
+    std::map<std::string, sf::SoundBuffer> soundMap;
 public:
     // Método para obtener o cargar una fuente
     const sf::Font& GetFont(const std::string& fontPath)
@@ -47,6 +49,25 @@ public:
         }
         textureMap[texturePath] = std::move(texture);
         return textureMap[texturePath];
+    }
+
+    const sf::SoundBuffer& GetSound(const std::string& soundPath)
+    {
+        // Si la textura ya está cargada, la devuelve
+        auto it = soundMap.find("./assets/sounds/" + soundPath);
+        if (it != soundMap.end())
+        {
+            return it->second;
+        }
+
+        // Si no, la carga y la almacena
+        sf::SoundBuffer sound;
+        if (!sound.loadFromFile("./assets/sounds/" + soundPath))
+        {
+            throw std::runtime_error("Failed to load texture: " + soundPath);
+        }
+        soundMap[soundPath] = std::move(sound);
+        return soundMap[soundPath];
     }
 
 

@@ -8,10 +8,10 @@ private:
     list<Pokemon> equipoActual;
     list<Move> moveSetActual;
     Juego juego;
-    int DPlayer1, DPlayer2;
-    string OP1, OP2, pokemonName;
+    int dPlayer1, dPlayer2;
+    string oP1, oP2, pokemonName;
     int fasterPlayer, slowerPlayer;
-    string OPfaster, OpSlower;
+    string oPFaster, oPSlower;
 
 public:
     JuegoConsola()
@@ -29,15 +29,16 @@ public:
         while (true)
         {
             this->juego.BeginTurn();
-            DPlayer1 = this->GetPlayerDesicion(1, 2);
-            DPlayer2 = this->GetPlayerDesicion(2, 1);
-            this->OP1 = this->PrepareDesicion(this->DPlayer1, 1);
+            dPlayer1 = this->GetPlayerDesicion(1, 2);
+            dPlayer2 = this->GetPlayerDesicion(2, 1);
+            this->oP1 = this->PrepareDesicion(this->dPlayer1, 1);
             system("pause");
             system("cls");
-            this->OP2 = this->PrepareDesicion(this->DPlayer2, 2);
+            this->oP2 = this->PrepareDesicion(this->dPlayer2, 2);
             system("pause");
             system("cls");
-            if(this->ExecuteTurn() == false)  break;
+            if (this->ExecuteTurn() == false)
+                break;
             system("pause");
             system("cls");
         }
@@ -84,15 +85,15 @@ public:
         system("cls");
     }
 
-    int GetPlayerDesicion(int User, int Enemy)
+    int GetPlayerDesicion(int user, int enemy)
     {
         int desicion;
-        this->juego.ChangePlayer(User);
+        this->juego.ChangePlayer(user);
         cout << "Pokemon Actual: ";
-        this->PrintPokemon(User);
-        this->juego.ChangePlayer(Enemy);
+        this->PrintPokemon(user);
+        this->juego.ChangePlayer(enemy);
         cout << "Pokemon Enemigo: ";
-        this->PrintPokemon(Enemy);
+        this->PrintPokemon(enemy);
         cout << "1-Atacar" << endl;
         cout << "Otro numbero-Cambiar de pokemon" << endl;
         cin >> desicion;
@@ -101,16 +102,16 @@ public:
         return desicion;
     }
 
-   bool ExecuteTurn()
+    bool ExecuteTurn()
     {
-        if (this->DPlayer1 != 1)
+        if (this->dPlayer1 != 1)
         {
-            this->ExecuteChange(1, OP1);
+            this->ExecuteChange(1, oP1);
             this->juego.ApplyChangesToPlayer(1);
         }
-        if (this->DPlayer2 != 1)
+        if (this->dPlayer2 != 1)
         {
-            this->ExecuteChange(2, OP2);
+            this->ExecuteChange(2, oP2);
             this->juego.ApplyChangesToPlayer(2);
         }
         this->juego.BeginTurn();
@@ -118,21 +119,21 @@ public:
         {
             this->fasterPlayer = 1;
             this->slowerPlayer = 2;
-            this->OPfaster = this->OP1;
-            this->OpSlower = this->OP2;
+            this->oPFaster = this->oP1;
+            this->oPSlower = this->oP2;
         }
         else
         {
             this->fasterPlayer = 2;
             this->slowerPlayer = 1;
-            this->OPfaster = this->OP2;
-            this->OpSlower = this->OP1;
+            this->oPFaster = this->oP2;
+            this->oPSlower = this->oP1;
         }
-        this->ExecuteMove(fasterPlayer, slowerPlayer, OPfaster);
+        this->ExecuteMove(fasterPlayer, slowerPlayer, oPFaster);
         juego.ChangePlayer(slowerPlayer);
         if (this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() > 0)
         {
-            this->ExecuteMove(slowerPlayer, fasterPlayer, OpSlower);
+            this->ExecuteMove(slowerPlayer, fasterPlayer, oPSlower);
         }
         if (this->juego.IsGameOver(2) == 6)
         {
@@ -141,8 +142,8 @@ public:
         }
         if (juego.IsGameOver(1) == 6)
         {
-        cout << "Jugador 1 ya no tiene pokemons, Jugador 2 gana" << endl;
-        return false;  
+            cout << "Jugador 1 ya no tiene pokemons, Jugador 2 gana" << endl;
+            return false;
         }
         this->IsPokemonFainted(1);
         this->IsPokemonFainted(2);
@@ -150,16 +151,16 @@ public:
         return true;
     }
 
-    string PrepareDesicion(int desicion, int User)
+    string PrepareDesicion(int desicion, int user)
     {
         int chosen;
-        this->juego.ChangePlayer(User);
+        this->juego.ChangePlayer(user);
         this->pokemonName = this->juego.GetJugadorActual().GetPokemonInCombat().getNombre();
         if (desicion == 1)
         {
             do
             {
-                this->ShowMoveSet(User);
+                this->ShowMoveSet(user);
                 cin >> chosen;
             } while (chosen < 1 || chosen > 4);
             return juego.ConvertNumberToStringMove(chosen);
@@ -168,7 +169,7 @@ public:
         {
             do
             {
-                this->ShowTeam(User);
+                this->ShowTeam(user);
                 cin >> chosen;
                 pokemonName = juego.ConvertNumberToStringPokemon(chosen);
                 if (this->juego.GetJugadorActual().GetPokemonSpecific(pokemonName).GetHP() < 1)
@@ -188,21 +189,21 @@ public:
         }
     }
 
-    void ExecuteChange(int User, string nombre)
+    void ExecuteChange(int user, string nombre)
     {
-        this->juego.ChangePlayer(User);
+        this->juego.ChangePlayer(user);
         this->juego.ChangePokemon(nombre);
     }
 
-    void ExecuteMove(int User, int Enemy, string nombre)
+    void ExecuteMove(int user, int enemy, string nombre)
     {
-        this->juego.ChangePlayer(User);
-        this->juego.ExecuteMoveChosen(nombre, Enemy, User);
+        this->juego.ChangePlayer(user);
+        this->juego.ExecuteMoveChosen(nombre, enemy, user);
     }
 
     void ShowMoveSet(int jugador)
     {
-        cout<<"Jugador: "<<jugador<<endl;
+        cout << "Jugador: " << jugador << endl;
         moveSetActual = juego.GetJugadorActual().GetPokemonInCombat().GetMoveSet();
         int i = 0;
         for (auto &moveset : moveSetActual)
@@ -215,7 +216,7 @@ public:
 
     void ShowTeam(int jugador)
     {
-        cout<<"Jugador: "<<jugador<<endl;
+        cout << "Jugador: " << jugador << endl;
         int i = 0;
         equipoActual = juego.GetJugadorActual().GetTeam();
         for (auto &pokemon : equipoActual)
@@ -232,8 +233,7 @@ public:
         this->juego.ChangePlayer(jugador);
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().getNombre() << "---HP: ";
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetHP() << endl;
-        //this->PrintPokemonStats(jugador);
-        
+        // this->PrintPokemonStats(jugador);
     }
 
     void PrintPokemonStats(int jugador)
@@ -244,7 +244,6 @@ public:
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetSDef() << endl;
         cout << this->juego.GetJugadorActual().GetPokemonInCombat().GetSpeed() << endl;
     }
-
 
     void IsPokemonFainted(int jugador)
     {

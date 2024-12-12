@@ -191,11 +191,13 @@ public:
         return this->jugadorActual;
     }
 
-    int IsGameOver(int jugador){
+    int IsGameOver(int jugador)
+    {
         int i = 0;
         for (auto &team : this->GetJugadorSpecific(jugador).GetTeam())
-        { 
-            if(team.GetHP() < 1) i++;
+        {
+            if (team.GetHP() < 1)
+                i++;
         }
         return i;
     }
