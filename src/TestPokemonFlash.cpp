@@ -1,9 +1,9 @@
-#include <JuegoPrueba.hpp>
+#include <PokemonFlash.hpp>
 #include <iostream>
 
 int main(int argc, char const *argv[])
 {
-    JuegoPrueba juego;
+    PokemonFlash juego;
     juego.Iniciar();
     //system("cls");
    

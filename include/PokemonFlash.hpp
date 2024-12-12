@@ -8,7 +8,7 @@
 #include <GRAPHICS/ButtonText.h>
 #include <GRAPHICS/SoundManager.h>
 #include <sstream>
-class JuegoPrueba
+class PokemonFlash
 {
 private:
     SourceManager manager;
@@ -28,7 +28,7 @@ private:
     ButtonImage button;
 
 public:
-    JuegoPrueba() : window(sf::VideoMode(1354, 770), "SFML with Classes")
+    PokemonFlash() : window(sf::VideoMode(1354, 770), "SFML with Classes")
 
     {
         // Aquí puedes inicializar otros miembros si es necesario
@@ -66,7 +66,7 @@ public:
         sound.SetLoop(false);
         sound.SetVolume(50.0f);
     }
-    ~JuegoPrueba() {}
+    ~PokemonFlash() {}
 
     void Iniciar()
     {
