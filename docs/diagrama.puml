@@ -1,204 +1,248 @@
 @startuml diagrama
 
-  class JuegoPrueba{
- - link: GameLink (dependencia con la lógica del juego)     
- - buttonsPokemon: List<Button>                             
- - buttonsText: List<ButtonText>                             
- - window: sf::RenderWindow                                  
- - imageX: List<Image>                                       
- - textX: List<sf::Text>                                     
- - backGround: Background                                    
- - musicManager: MusicManager                                
+class JuegoPrueba {
+ - link: GameLink (dependencia con la lógica del juego)
+ - buttonsPokemon: List<Button>
+ - buttonsText: List<ButtonText>
+ - window: sf::RenderWindow
+ - imageX: List<Image>
+ - textX: List<sf::Text>
+ - backGround: Background
+ - musicManager: MusicManager
 
- + ExecuteAnimations(event: sf::Event, pastPokemon1: string, pastPokemon2: string) 
- + DrawChangePokemon(event: sf::Event, player: int, isFainted: bool) 
- + DrawChooseMove(event: sf::Event, player: int)            
- + DrawBattleBegins(event: sf::Event, fadeClock: sf::Clock) 
- + DrawEnd(gameStarted: bool, event: sf::Event)             
- + DrawChangePokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string) 
- + DrawChangePokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string) 
- + DrawFaintedPokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string, changed: bool) 
- + DrawFaintedPokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string, changed: bool) 
- + DrawMoveMessage(event: sf::Event, fadeClock: sf::Clock, pokemon: string, player: int) 
- + SetText(text: sf::Text, message: string, size: int, x: float, y: float) 
- + DrawChangeFaintedPokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock) 
- + DrawChangeFaintedPokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock) 
- + CheckFaintedPokemons(choice: string, fainted: List<string>) 
+ + ExecuteAnimations(event: sf::Event, pastPokemon1: string, pastPokemon2: string)
+ + DrawChangePokemon(event: sf::Event, player: int, isFainted: bool)
+ + DrawChooseMove(event: sf::Event, player: int)
+ + DrawBattleBegins(event: sf::Event, fadeClock: sf::Clock)
+ + DrawEnd(gameStarted: bool, event: sf::Event)
+ + DrawChangePokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string)
+ + DrawChangePokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string)
+ + DrawFaintedPokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string, changed: bool)
+ + DrawFaintedPokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock, pastPokemon: string, changed: bool)
+ + DrawMoveMessage(event: sf::Event, fadeClock: sf::Clock, pokemon: string, player: int)
+ + SetText(text: sf::Text, message: string, size: int, x: float, y: float)
+ + DrawChangeFaintedPokemonAnimationPlayer1(event: sf::Event, fadeClock: sf::Clock)
+ + DrawChangeFaintedPokemonAnimationPlayer2(event: sf::Event, fadeClock: sf::Clock)
+ + CheckFaintedPokemons(choice: string, fainted: List<string>)
  + isBoostingMoveMessage(nombre: string): string
 }
 
-class Move{
-    - id: int      
-    - nombre: string 
-    - potencia: int 
-    - type: int     
-    - category: bool
+class Move {
+ - id: int
+ - nombre: string
+ - potencia: int
+ - type: int
+ - category: bool
 
-    + Move()       
-    + Move(potencia: int, type: int, category: bool, id: int, nombre: string) 
-    + GetMoveName(): string 
-    + ExecuteMove(UserType1: int, UserType2: int, EnemyType1: int, EnemyType2: int, UserAtk: int, UserSAtk: int, EnemyDef: int, EnemySDef: int): int 
+ + Move()
+ + Move(potencia: int, type: int, category: bool, id: int, nombre: string)
+ + GetMoveName(): string
+ + ExecuteMove(UserType1: int, UserType2: int, EnemyType1: int, EnemyType2: int, UserAtk: int, UserSAtk: int, EnemyDef: int, EnemySDef: int): int
 }
 
-class Pokemon{
-    - iD: int      
-    - nombre: string 
-    - Hp: int       
-    - Atk: int      
-    - Def: int      
-    - SAtk: int     
-    - SDef: int     
-    - Speed: int    
-    - Type1: int    
-    - Type2: int    
-    - BAtk: int     
-    - BDef: int     
-    - BSAtk: int    
-    - BSDef: int    
-    - BSpeed: int   
-    - BHp: int      
-    - moves: list<Move> 
-    - chosen: Move  
+class Pokemon {
+ - iD: int
+ - nombre: string
+ - Hp: int
+ - Atk: int
+ - Def: int
+ - SAtk: int
+ - SDef: int
+ - Speed: int
+ - Type1: int
+ - Type2: int
+ - BAtk: int
+ - BDef: int
+ - BSAtk: int
+ - BSDef: int
+ - BSpeed: int
+ - BHp: int
+ - moves: list<Move>
+ - chosen: Move
 
-    + Pokemon()    
-    + Pokemon(Hp: int, Atk: int, Def: int, SAtk: int, SDef: int, Speed: int, id: int, nombre: string, Type1: int, Type2: int) 
-    + AddMove(move: Move): void 
-    + ExecuteMoveChosen(nombre: string, Enemy: Pokemon): int 
-    + ExecuteBoostMove(nombre: string): void 
-    + RestartStats(): void 
-    + boostAtk(): void 
-    + boostDef(): void 
-    + boostSAtk(): void 
-    + boostSDef(): void 
-    + boostSpeed(): void 
-    + heal50Percent(): void 
-    + ApplyDamageToPokemon(damage: int): void 
-    + MoveDragonDance(): void 
-    + MoveCalmMind(): void 
-    + MoveNastyPlot(): void 
-    + MoveSynthesis(): void 
-    + MoveCurse(): void 
+ + Pokemon()
+ + Pokemon(Hp: int, Atk: int, Def: int, SAtk: int, SDef: int, Speed: int, id: int, nombre: string, Type1: int, Type2: int)
+ + AddMove(move: Move): void
+ + ExecuteMoveChosen(nombre: string, Enemy: Pokemon): int
+ + ExecuteBoostMove(nombre: string): void
+ + RestartStats(): void
+ + boostAtk(): void
+ + boostDef(): void
+ + boostSAtk(): void
+ + boostSDef(): void
+ + boostSpeed(): void
+ + heal50Percent(): void
+ + ApplyDamageToPokemon(damage: int): void
+ + MoveDragonDance(): void
+ + MoveCalmMind(): void
+ + MoveNastyPlot(): void
+ + MoveSynthesis(): void
+ + MoveCurse(): void
 }
 
-class MoveGraphic{
-    - texture: sf::Texture
-    - sprite: sf::Sprite
-    - active: bool
-    - objetivoX: float
-    - objetivoY: float
+class MoveGraphic {
+ - texture: sf::Texture
+ - sprite: sf::Sprite
+ - active: bool
+ - objetivoX: float
+ - objetivoY: float
 
-    + MoveGraphic()
-    + MoveGraphic(texturePath: std::string, startX: float, startY: float, scaleX: float, scaleY: float)
-    + lanzar(startX: float, startY: float, targetX: float, targetY: float): void
-    + actualizar(velocidad: float): void
-    + draw(window: sf::RenderWindow): void
-    + estaActivo(): bool
+ + MoveGraphic()
+ + MoveGraphic(texturePath: std::string, startX: float, startY: float, scaleX: float, scaleY: float)
+ + lanzar(startX: float, startY: float, targetX: float, targetY: float): void
+ + actualizar(velocidad: float): void
+ + draw(window: sf::RenderWindow): void
+ + estaActivo(): bool
 }
 
-class GameWindow{
- - window: sf::RenderWindow 
+class GameWindow {
+ - window: sf::RenderWindow
 
- + GameWindow(width: int, height: int, title: string) 
- + isOpen(): bool                                  
- + close(): void                                  
- + clear(): void                                  
- + display(): void                                
- + draw(shape: sf::Shape&): void                  
- + pollEvent(event: sf::Event&): bool             
- + getSize(): sf::Vector2u  
+ + GameWindow(width: int, height: int, title: string)
+ + isOpen(): bool
+ + close(): void
+ + clear(): void
+ + display(): void
+ + draw(shape: sf::Shape&): void
+ + pollEvent(event: sf::Event&): bool
+ + getSize(): sf::Vector2u
 }
 
-class EquipoPokemon{
- - equipo: list<Pokemon>       
- - pokemonActual: Pokemon      
- - IsMove: bool                
- - IsAtacking: bool            
- - EnemyPokemon: Pokemon       
+class EquipoPokemon {
+ - equipo: list<Pokemon>
+ - pokemonActual: Pokemon
+ - IsMove: bool
+ - IsAtacking: bool
+ - EnemyPokemon: Pokemon
 
- + EquipoPokemon()             
- + ~EquipoPokemon()            
- + GetTeam(): list<Pokemon>&   
- + AddPokemon(pokemon: Pokemon): void 
- + AsingEnemy(Enemy: Pokemon): void   
- + SearchPokemon(nombre: string): Pokemon 
- + ApplyDamageToSpecifiPokemon(nombre: string, damage: int): void 
- + IsPokemonInTeam(nombre: string): bool 
- + GetPokemonInCombat(): Pokemon 
- + GetPokemonSpecific(nombre: string): Pokemon 
- + AsingPokemonInCombat(pokemon: Pokemon): void 
- + GetPokemonLeader(): Pokemon 
- + ExecuteMoveChosen(nombre: string): int 
- + ApplyDamageToPokemon(damage: int): void 
+ + EquipoPokemon()
+ + ~EquipoPokemon()
+ + GetTeam(): list<Pokemon>&
+ + AddPokemon(pokemon: Pokemon): void
+ + AsingEnemy(Enemy: Pokemon): void
+ + SearchPokemon(nombre: string): Pokemon
+ + ApplyDamageToSpecifiPokemon(nombre: string, damage: int): void
+ + IsPokemonInTeam(nombre: string): bool
+ + GetPokemonInCombat(): Pokemon
+ + GetPokemonSpecific(nombre: string): Pokemon
+ + AsingPokemonInCombat(pokemon: Pokemon): void
+ + GetPokemonLeader(): Pokemon
+ + ExecuteMoveChosen(nombre: string): int
+ + ApplyDamageToPokemon(damage: int): void
 }
 
-class Juego{
- - jugador1: EquipoPokemon           
- - jugador2: EquipoPokemon           
- - jugadorActual: EquipoPokemon      
- - pokemons: list<Pokemon>           
- - moveSetActual: list<Move>         
- - moveSetActualNames: list<string>  
- - pokemon: Pokemon                  
- - equipoActual: list<Pokemon>       
- - equipoActualNames: list<string>   
+class Juego {
+ - jugador1: EquipoPokemon
+ - jugador2: EquipoPokemon
+ - jugadorActual: EquipoPokemon
+ - pokemons: list<Pokemon>
+ - moveSetActual: list<Move>
+ - moveSetActualNames: list<string>
+ - pokemon: Pokemon
+ - equipoActual: list<Pokemon>
+ - equipoActualNames: list<string>
 
- + Juego()                            
- + ~Juego()                           
- + CreatePokemon(opcion: int): Pokemon   
- + AddPokemonToPlayer(opcion: Pokemon): void  
- + CanAddPokemonToPlayer(opcion: int): bool   
- + ChangePlayer(jugador: int): void  
- + ApplyChangesToPlayer(jugador: int): void   
- + AsignEnemyToPlayer(jugador: int): void     
- + GetAllPokemons(): list<Pokemon>&  
- + GetTeamSpefic(jugador: int): list<Pokemon>& 
- + BeginCombat(): void                
- + BeginTurn(): void                  
- + GetJugador(): EquipoPokemon       
- + GetJugadorSpecific(jugador: int): EquipoPokemon 
- + ExecuteMoveChosen(nombre: string, Enemy: int, User: int): void 
- + ConvertNumberToStringMove(number: int): string  
- + ConvertNumberToStringPokemon(number: int): string  
- + ChangePokemon(nombre: string): void 
- + ApplyDamageToPokemon(damage: int): void 
- + GetJugadorActual(): EquipoPokemon 
- + IsGameOver(jugador: int): int 
+ + Juego()
+ + ~Juego()
+ + CreatePokemon(opcion: int): Pokemon
+ + AddPokemonToPlayer(opcion: Pokemon): void
+ + CanAddPokemonToPlayer(opcion: int): bool
+ + ChangePlayer(jugador: int): void
+ + ApplyChangesToPlayer(jugador: int): void
+ + AsignEnemyToPlayer(jugador: int): void
+ + GetAllPokemons(): list<Pokemon>&
+ + GetTeamSpefic(jugador: int): list<Pokemon>&
+ + BeginCombat(): void
+ + BeginTurn(): void
+ + GetJugador(): EquipoPokemon
+ + GetJugadorSpecific(jugador: int): EquipoPokemon
+ + ExecuteMoveChosen(nombre: string, Enemy: int, User: int): void
+ + ConvertNumberToStringMove(number: int): string
+ + ConvertNumberToStringPokemon(number: int): string
+ + ChangePokemon(nombre: string): void
+ + ApplyDamageToPokemon(damage: int): void
+ + GetJugadorActual(): EquipoPokemon
+ + IsGameOver(jugador: int): int
 }
 
-class JuegoConsola{
- - pokemons: list<Pokemon>                     
- - equipoActual: list<Pokemon>                 
- - moveSetActual: list<Move>                   
- - juego: Juego                                
- - DPlayer1: int                               
- - DPlayer2: int                               
- - OP1: string                                 
- - OP2: string                                 
- - pokemonName: string                          
- - fasterPlayer: int                            
- - slowerPlayer: int                            
- - OPfaster: string                            
- - OpSlower: string                            
+class JuegoConsola {
+ - pokemons: list<Pokemon>
+ - equipoActual: list<Pokemon>
+ - moveSetActual: list<Move>
+ - juego: Juego
+ - DPlayer1: int
+ - DPlayer2: int
+ - OP1: string
+ - OP2: string
+ - pokemonName: string
+ - fasterPlayer: int
+ - slowerPlayer: int
+ - OPfaster: string
+ - OpSlower: string
 
- + JuegoConsola()                              
- + ~JuegoConsola()                             
- + Start(): void                               
- + PrintPokemonNames(): void                   
- + ChooseTeam(jugador: int): void              
- + GetPlayerDesicion(User: int, Enemy: int): int 
- + ExecuteTurn(): bool                         
- + PrepareDesicion(desicion: int, User: int): string 
- + ExecuteChange(User: int, nombre: string): void 
- + ExecuteMove(User: int, Enemy: int, nombre: string): void 
- + ShowMoveSet(jugador: int): void             
- + ShowTeam(jugador: int): void                
- + PrintPokemon(jugador: int): void            
- + PrintPokemonStats(jugador: int): void       
- + IsPokemonFainted(jugador: int): void     
+ + JuegoConsola()
+ + ~JuegoConsola()
+ + Start(): void
+ + PrintPokemonNames(): void
+ + ChooseTeam(jugador: int): void
+ + GetPlayerDesicion(User: int, Enemy: int): int
+ + ExecuteTurn(): bool
+ + PrepareDesicion(desicion: int, User: int): string
+ + ExecuteChange(User: int, nombre: string): void
+ + ExecuteMove(User: int, Enemy: int, nombre: string): void
+ + ShowMoveSet(jugador: int): void
+ + ShowTeam(jugador: int): void
+ + PrintPokemon(jugador: int): void
+ + PrintPokemonStats(jugador: int): void
+ + IsPokemonFainted(jugador: int): void
+}
+
+class Bridge {
+ - pokemons: list<Pokemon>
+ - equipoActual: list<Pokemon>
+ - moveSetActual: list<Move>
+ - stringListAllPokemons: list<string>
+ - stringListTeam: list<string>
+ - stringMoveSet: list<string>
+ - stringFainted: list<string>
+ - juego: Juego
+ - dPlayer1: int
+ - dPlayer2: int
+ - oP1: string
+ - oP2: string
+ - pokemonName: string
+ - fasterPlayer: int
+ - slowerPlayer: int
+ - oPfaster: string
+ - opSlower: string
+
+ + Getjuego(): Juego &
+ + GetAllPokemonNames(): void
+ + GetAllPokemonsNamesString(): list<string>
+ + GetSpecificPokemonNameWithInt(i: int): string
+ + GetSpecificPokemonNameOfTeamWithIndex(i: int): string
+ + IsPokemonReal(nombre: string): bool
+ + GetPokemonImageDirectionWithInt(i: int, player: int): string
+ + GetPokemonImageDirectionWithString(nombre: string, player: int): string
+ + ChangeStringToNumberPokemon(opcion: string): int
+ + AsignTeam(teamChosen: list<int>, jugador: int): void
+ + GetTeamString(jugador: int): list<string>
+ + GetPokemonActual(player: int): string
+ + SetPlayerDecision(jugador: int, eleccion: int, nombre: string): void
+ + ExecuteTurn(): bool
+ + ExecuteChange(user: int, nombre: string): void
+ + ExecuteMove(user: int, enemy: int, nombre: string): void
+ + GetHP(jugador: int): string
+ + GetMoveSet(jugador: int): list<string>
+ + GetFaintedPokemon(jugador: int): list<string>
+ + IsGameOver(jugador: int): bool
+ + GetDecisionPlayer(player: int): int
+ + IsPlayer1Faster(): bool
+ + GetMoveName(player: int): string
+ + GetMoveEffectivenes(user: int, nombre: string): string
 }
 
 ' Relaciones con multiplicidad
-
 JuegoPrueba "1" -- "1" Juego : controla >
 Juego "1" -- "*" Pokemon : tiene >
 Pokemon "1" -- "*" Move : aprende >
@@ -209,5 +253,7 @@ EquipoPokemon "1" -- "1" Pokemon : tiene actual >
 EquipoPokemon "1" -- "0..1" Pokemon : enemigo >
 JuegoConsola "1" -- "1" Juego : maneja >
 JuegoConsola "1" -- "*" Pokemon : usa >
+Bridge "1" -- "1" Juego : administra >
+Bridge "1" -- "*" Pokemon : accede >
 
 @enduml
