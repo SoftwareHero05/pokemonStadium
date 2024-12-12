@@ -1,6 +1,6 @@
 @startuml diagrama
 
-class JuegoPrueba {
+class PokemonFlash {
  - link: GameLink (dependencia con la lógica del juego)
  - buttonsPokemon: List<Button>
  - buttonsText: List<ButtonText>
