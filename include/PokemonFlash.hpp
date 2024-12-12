@@ -761,7 +761,6 @@ public:
             window.clear();
             backGround.Draw(window);
             window.draw(text1);
-            window.draw(text2);
             window.display();
         }
     }
