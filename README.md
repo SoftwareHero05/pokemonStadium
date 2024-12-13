@@ -14,7 +14,7 @@ The project is structured as follows:
 - **Makefile**: Makefile to compile and run the project.
 - **assets**: Cotains all the images, music, sounds etc, that the project uses.
 
-## Diagrama de Clases
+## Class Diagram
 
 El diagrama de clases del proyecto incluye las siguientes clases:
 
