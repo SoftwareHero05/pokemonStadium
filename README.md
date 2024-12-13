@@ -34,7 +34,7 @@ El diagrama de clases del proyecto incluye las siguientes clases:
 ## Members:
 
     Jesus Antonio Baez Ortega 23310372
-    Hector Castañeda
+    Hector Manuel Castañeda Godoy 23310342
    
 
 ## Compiling and Running
